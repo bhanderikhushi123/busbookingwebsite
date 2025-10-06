@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BusBooking - Home</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <div class="logo">
+                <h1>BusBooking</h1>
+            </div>
+            <nav class="nav">
+                <ul>
+                    <li><a href="index.html" class="active">Home</a></li>
+                    <li><a href="search.html">Search Buses</a></li>
+                    <li><a href="my-bookings.html">My Bookings</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                    <li><a href="login.html">Login</a></li>
+                    <li><a href="register.html">Register</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <div class="hero-content">
+                <h2>Book Your Bus Tickets Online</h2>
+                <p>Travel safely and comfortably with our premium bus services</p>
+                
+                <!-- Search Form -->
+                <div class="search-form">
+                    <form action="search.html">
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="from">From</label>
+                                <input type="text" id="from" name="from" placeholder="Enter departure city" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="to">To</label>
+                                <input type="text" id="to" name="to" placeholder="Enter destination city" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="date">Date of Journey</label>
+                                <input type="date" id="date" name="date" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="passengers">Passengers</label>
+                                <select id="passengers" name="passengers">
+                                    <option value="1">1</option>
+                                    <option value="2">2</option>
+                                    <option value="3">3</option>
+                                    <option value="4">4</option>
+                                    <option value="5">5</option>
+                                </select>
+                            </div>
+                        </div>
+                        <button type="submit" class="btn-primary">Search Buses</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Featured Routes -->
+    <section class="featured-routes">
+        <div class="container">
+            <h3>Popular Routes</h3>
+            <div class="routes-grid">
+                <div class="route-card">
+                    <h4>Mumbai to Delhi</h4>
+                    <p>Starting from ₹1200</p>
+                    <span class="duration">24 hours</span>
+                </div>
+                <div class="route-card">
+                    <h4>Bangalore to Chennai</h4>
+                    <p>Starting from ₹800</p>
+                    <span class="duration">8 hours</span>
+                </div>
+                <div class="route-card">
+                    <h4>Kolkata to Hyderabad</h4>
+                    <p>Starting from ₹1500</p>
+                    <span class="duration">20 hours</span>
+                </div>
+                <div class="route-card">
+                    <h4>Pune to Goa</h4>
+                    <p>Starting from ₹600</p>
+                    <span class="duration">12 hours</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features -->
+    <section class="features">
+        <div class="container">
+            <h3>Why Choose Us</h3>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">🚌</div>
+                    <h4>Premium Buses</h4>
+                    <p>Travel in comfort with our modern fleet</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">💰</div>
+                    <h4>Best Prices</h4>
+                    <p>Get the best deals and discounts</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🛡️</div>
+                    <h4>Safe Travel</h4>
+                    <p>Your safety is our top priority</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">📱</div>
+                    <h4>Easy Booking</h4>
+                    <p>Book tickets in just a few clicks</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h4>BusBooking</h4>
+                    <p>Your trusted partner for online bus ticket booking.</p>
+                </div>
+                <div class="footer-section">
+                    <h4>Quick Links</h4>
+                    <ul>
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="search.html">Search Buses</a></li>
+                        <li><a href="my-bookings.html">My Bookings</a></li>
+                        <li><a href="admin-login.html" style="color: #999; font-size: 0.9rem;">Admin Panel</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Contact</h4>
+                    <p>Email: info@busbooking.com</p>
+                    <p>Phone: +91 1234567890</p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 BusBooking. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+</body>
+</html> 

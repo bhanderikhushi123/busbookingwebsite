@@ -1,0 +1,208 @@
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="Admin_buses.aspx.cs" Inherits="busbookingwebsite.Admin_buses" %>
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head runat="server">
+    <title></title>
+</head>
+<body>
+   <%-- <form id="form1" runat="server">
+        <div>
+        </div>
+    </form>--%>
+    <html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BusBooking - Admin Buses</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Admin Header -->
+    <header class="admin-header">
+        <div class="container">
+            <div class="admin-nav">
+                <div class="admin-logo">
+                    <h1>BusBooking Admin</h1>
+                </div>
+                <nav class="admin-menu">
+                    <ul>
+                        <li><a href="Admin_dashboard.aspx">Dashboard</a></li>
+                        <li><a href="Admin_booking.aspx">Bookings</a></li>
+                        <li><a href="Admin_buses.aspx" class="active">Buses</a></li>
+                        <li><a href="Admin_routes.aspx">Routes</a></li>
+                        <li><a href="Admin_users.aspx">Users</a></li>
+                        <li><a href="Admin_report.aspx">Reports</a></li>
+                        <li><a href="Admin_setting.aspx">Settings</a></li>
+                        <li><a href="Admin_login.aspx" class="logout">Logout</a></li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <!-- Admin Buses -->
+    <section class="admin-buses">
+        <div class="container">
+            <div class="page-header">
+                <h2>Manage Buses</h2>
+                <p>Add, edit, and manage your bus fleet and operators.</p>
+                <button class="btn-primary">Add New Bus</button>
+            </div>
+
+            <!-- Filters and Search -->
+            <div class="admin-filters">
+                <div class="filter-row">
+                    <div class="search-box">
+                        <input type="text" placeholder="Search by bus number, operator, or route...">
+                        <button class="btn-secondary">Search</button>
+                    </div>
+                    <div class="filter-options">
+                        <select>
+                            <option>All Operators</option>
+                            <option>Express Travels</option>
+                            <option>Royal Express</option>
+                            <option>Premium Travels</option>
+                        </select>
+                        <select>
+                            <option>All Types</option>
+                            <option>AC Sleeper</option>
+                            <option>Non-AC Sleeper</option>
+                            <option>AC Seater</option>
+                        </select>
+                        <select>
+                            <option>All Status</option>
+                            <option>Active</option>
+                            <option>Maintenance</option>
+                            <option>Inactive</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Buses Table -->
+            <div class="table-container">
+                <table class="admin-table">
+                    <thead>
+                        <tr>
+                            <th>Bus ID</th>
+                            <th>Bus Number</th>
+                            <th>Operator</th>
+                            <th>Type</th>
+                            <th>Capacity</th>
+                            <th>Routes</th>
+                            <th>Status</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>BUS001</td>
+                            <td>MH-01-AB-1234</td>
+                            <td>Express Travels</td>
+                            <td>AC Sleeper</td>
+                            <td>32 seats</td>
+                            <td>Mumbai-Delhi, Mumbai-Bangalore</td>
+                            <td><span class="status-badge confirmed">Active</span></td>
+                            <td>
+                                <div class="action-buttons">
+                                    <a href="#" class="btn-small">Edit</a>
+                                    <a href="#" class="btn-small">View Routes</a>
+                                    <a href="#" class="btn-small danger">Deactivate</a>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>BUS002</td>
+                            <td>KA-02-CD-5678</td>
+                            <td>Royal Express</td>
+                            <td>Non-AC Sleeper</td>
+                            <td>28 seats</td>
+                            <td>Bangalore-Chennai</td>
+                            <td><span class="status-badge confirmed">Active</span></td>
+                            <td>
+                                <div class="action-buttons">
+                                    <a href="#" class="btn-small">Edit</a>
+                                    <a href="#" class="btn-small">View Routes</a>
+                                    <a href="#" class="btn-small danger">Deactivate</a>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>BUS003</td>
+                            <td>MH-03-EF-9012</td>
+                            <td>Premium Travels</td>
+                            <td>AC Sleeper</td>
+                            <td>36 seats</td>
+                            <td>Pune-Goa, Pune-Mumbai</td>
+                            <td><span class="status-badge pending">Maintenance</span></td>
+                            <td>
+                                <div class="action-buttons">
+                                    <a href="#" class="btn-small">Edit</a>
+                                    <a href="#" class="btn-small">View Routes</a>
+                                    <a href="#" class="btn-small">Activate</a>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>BUS004</td>
+                            <td>DL-04-GH-3456</td>
+                            <td>Express Travels</td>
+                            <td>AC Seater</td>
+                            <td>45 seats</td>
+                            <td>Delhi-Jaipur</td>
+                            <td><span class="status-badge cancelled">Inactive</span></td>
+                            <td>
+                                <div class="action-buttons">
+                                    <a href="#" class="btn-small">Edit</a>
+                                    <a href="#" class="btn-small">View Routes</a>
+                                    <a href="#" class="btn-small">Activate</a>
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Pagination -->
+            <div class="pagination">
+                <a href="#" class="page-link">Previous</a>
+                <a href="#" class="page-link active">1</a>
+                <a href="#" class="page-link">2</a>
+                <a href="#" class="page-link">3</a>
+                <a href="#" class="page-link">Next</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h4>BusBooking Admin</h4>
+                    <p>Administrative panel for bus booking system management.</p>
+                </div>
+                <div class="footer-section">
+                    <h4>Quick Links</h4>
+                    <ul>
+                        <li><a href="Home.aspx">Back to Website</a></li>
+                        <li><a href="Contact.aspx">Contact Support</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Contact</h4>
+                    <p>Email: admin@busbooking.com</p>
+                    <p>Phone: +91 1234567890</p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 BusBooking. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+</body>
+</html> 
+</body>
+</html>

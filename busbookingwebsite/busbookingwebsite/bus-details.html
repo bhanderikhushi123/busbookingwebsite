@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BusBooking - Select Seats</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <div class="logo">
+                <h1>BusBooking</h1>
+            </div>
+            <nav class="nav">
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="search.html">Search Buses</a></li>
+                    <li><a href="my-bookings.html">My Bookings</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                    <li><a href="login.html">Login</a></li>
+                    <li><a href="register.html">Register</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Bus Details -->
+    <section class="bus-details">
+        <div class="container">
+            <div class="bus-details-header">
+                <h2>Select Your Seats</h2>
+                <div class="journey-info">
+                    <div class="route">
+                        <span class="from">Mumbai</span>
+                        <span class="arrow">→</span>
+                        <span class="to">Delhi</span>
+                    </div>
+                    <div class="date">15 Dec 2024</div>
+                </div>
+            </div>
+
+            <div class="bus-details-content">
+                <div class="bus-info-card">
+                    <div class="operator-info">
+                        <h3>Express Travels</h3>
+                        <span class="bus-type ac">AC Sleeper</span>
+                    </div>
+                    <div class="timing-info">
+                        <div class="departure">
+                            <span class="time">22:00</span>
+                            <span class="city">Mumbai</span>
+                        </div>
+                        <div class="duration">
+                            <span class="arrow">→</span>
+                            <span class="time-duration">24h 30m</span>
+                        </div>
+                        <div class="arrival">
+                            <span class="time">22:30</span>
+                            <span class="city">Delhi</span>
+                        </div>
+                    </div>
+                    <div class="amenities">
+                        <span class="amenity">WiFi</span>
+                        <span class="amenity">USB Charging</span>
+                        <span class="amenity">Water Bottle</span>
+                    </div>
+                </div>
+
+                <!-- Seat Selection -->
+                <div class="seat-selection">
+                    <div class="seat-legend">
+                        <div class="legend-item">
+                            <div class="seat available"></div>
+                            <span>Available</span>
+                        </div>
+                        <div class="legend-item">
+                            <div class="seat selected"></div>
+                            <span>Selected</span>
+                        </div>
+                        <div class="legend-item">
+                            <div class="seat booked"></div>
+                            <span>Booked</span>
+                        </div>
+                        <div class="legend-item">
+                            <div class="seat ladies"></div>
+                            <span>Ladies Seat</span>
+                        </div>
+                    </div>
+
+                    <div class="bus-layout">
+                        <div class="driver-area">
+                            <div class="driver">🚌</div>
+                        </div>
+                        
+                        <div class="seats-container">
+                            <!-- Row 1 -->
+                            <div class="seat-row">
+                                <div class="seat available" data-seat="A1">A1</div>
+                                <div class="seat available" data-seat="A2">A2</div>
+                                <div class="aisle"></div>
+                                <div class="seat available" data-seat="A3">A3</div>
+                                <div class="seat available" data-seat="A4">A4</div>
+                            </div>
+                            
+                            <!-- Row 2 -->
+                            <div class="seat-row">
+                                <div class="seat booked" data-seat="B1">B1</div>
+                                <div class="seat available" data-seat="B2">B2</div>
+                                <div class="aisle"></div>
+                                <div class="seat ladies available" data-seat="B3">B3</div>
+                                <div class="seat available" data-seat="B4">B4</div>
+                            </div>
+                            
+                            <!-- Row 3 -->
+                            <div class="seat-row">
+                                <div class="seat available" data-seat="C1">C1</div>
+                                <div class="seat booked" data-seat="C2">C2</div>
+                                <div class="aisle"></div>
+                                <div class="seat available" data-seat="C3">C3</div>
+                                <div class="seat available" data-seat="C4">C4</div>
+                            </div>
+                            
+                            <!-- Row 4 -->
+                            <div class="seat-row">
+                                <div class="seat available" data-seat="D1">D1</div>
+                                <div class="seat available" data-seat="D2">D2</div>
+                                <div class="aisle"></div>
+                                <div class="seat available" data-seat="D3">D3</div>
+                                <div class="seat booked" data-seat="D4">D4</div>
+                            </div>
+                            
+                            <!-- Row 5 -->
+                            <div class="seat-row">
+                                <div class="seat available" data-seat="E1">E1</div>
+                                <div class="seat available" data-seat="E2">E2</div>
+                                <div class="aisle"></div>
+                                <div class="seat available" data-seat="E3">E3</div>
+                                <div class="seat available" data-seat="E4">E4</div>
+                            </div>
+                            
+                            <!-- Row 6 -->
+                            <div class="seat-row">
+                                <div class="seat available" data-seat="F1">F1</div>
+                                <div class="seat available" data-seat="F2">F2</div>
+                                <div class="aisle"></div>
+                                <div class="seat available" data-seat="F3">F3</div>
+                                <div class="seat available" data-seat="F4">F4</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Booking Summary -->
+                <div class="booking-summary">
+                    <h3>Booking Summary</h3>
+                    <div class="summary-details">
+                        <div class="summary-item">
+                            <span>Selected Seats:</span>
+                            <span id="selected-seats">None</span>
+                        </div>
+                        <div class="summary-item">
+                            <span>Price per seat:</span>
+                            <span>₹1,200</span>
+                        </div>
+                        <div class="summary-item">
+                            <span>Number of seats:</span>
+                            <span id="seat-count">0</span>
+                        </div>
+                        <div class="summary-item total">
+                            <span>Total Amount:</span>
+                            <span id="total-amount">₹0</span>
+                        </div>
+                    </div>
+                    <a href="booking-summary.html" class="btn-primary">Proceed to Book</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h4>BusBooking</h4>
+                    <p>Your trusted partner for online bus ticket booking.</p>
+                </div>
+                <div class="footer-section">
+                    <h4>Quick Links</h4>
+                    <ul>
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="search.html">Search Buses</a></li>
+                        <li><a href="my-bookings.html">My Bookings</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Contact</h4>
+                    <p>Email: info@busbooking.com</p>
+                    <p>Phone: +91 1234567890</p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 BusBooking. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+</body>
+</html> 

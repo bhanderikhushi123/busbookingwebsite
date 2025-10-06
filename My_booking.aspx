@@ -1,0 +1,225 @@
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/User.Master" AutoEventWireup="true" CodeBehind="My_booking.aspx.cs" Inherits="busbookingwebsite.My_booking" %>
+<asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
+</asp:Content>
+<asp:Content ID="Content5" runat="server" contentplaceholderid="ContentPlaceHolder1">
+                <!DOCTYPE html>
+                <html>
+                <head>
+                    <meta charset="UTF-8">
+                    <meta name="viewport" content="width=device-width, initial-scale=1.0"><title>BusBooking - Home</title>
+                    <link rel="stylesheet" href="styles.css">
+                </head>
+                <body>
+                    <!-- Header -->
+                    <header class="header">
+                        <div class="container">
+                            <div class="logo">
+                                <h1>BusBooking</h1>
+                            </div>
+                            <nav class="nav">
+                                <ul>
+                                    <li><a href="Home.aspx" class="active">Home</a></li>
+                                    <li><a href="Serach_buses.aspx">Search Buses</a></li>
+                                    <li><a href="My_booking.aspx">My Bookings</a></li>
+                                    <li><a href="Contact.aspx">Contact</a></li>
+                                    <li><a href="Login.aspx">Login</a></li>
+                                    <li><a href="Register.aspx">Register</a></li>
+                                </ul>
+                            </nav>
+                        </div>
+                    </header>
+</asp:Content>
+<asp:Content ID="Content6" runat="server" contentplaceholderid="ContentPlaceHolder2">
+      <section class="my-bookings">
+        <div class="container">
+            <div class="bookings-header">
+                <h2>My Bookings</h2>
+                <div class="booking-tabs">
+                    <button class="tab-btn active">Upcoming</button>
+                    <button class="tab-btn">Completed</button>
+                    <button class="tab-btn">Cancelled</button>
+                </div>
+            </div>
+
+            <div class="bookings-content">
+                <!-- Upcoming Bookings -->
+                <div class="booking-card">
+                    <div class="booking-header">
+                        <div class="booking-id">
+                            <strong>Booking ID:</strong> BK123456789
+                        </div>
+                        <div class="booking-status active">
+                            <span class="status-badge">Confirmed</span>
+                        </div>
+                    </div>
+                    
+                    <div class="booking-details">
+                        <div class="journey-info">
+                            <div class="route">
+                                <span class="from">Mumbai</span>
+                                <span class="arrow">→</span>
+                                <span class="to">Delhi</span>
+                            </div>
+                            <div class="date">15 Dec 2024</div>
+                        </div>
+                        
+                        <div class="bus-info">
+                            <div class="operator">Express Travels</div>
+                            <div class="bus-type">AC Sleeper</div>
+                            <div class="seats">Seats: A1, A2</div>
+                        </div>
+                        
+                        <div class="timing">
+                            <div class="departure">
+                                <strong>Departure:</strong> 22:00
+                            </div>
+                            <div class="arrival">
+                                <strong>Arrival:</strong> 22:30 (Next Day)
+                            </div>
+                        </div>
+                        
+                        <div class="amount">
+                            <strong>Amount Paid:</strong> ₹2,450
+                        </div>
+                    </div>
+                    
+                    <div class="booking-actions">
+                        <a href="#" class="btn-secondary">Download Ticket</a>
+                        <a href="#" class="btn-danger">Cancel Booking</a>
+                    </div>
+                </div>
+
+                <!-- Another Upcoming Booking -->
+                <div class="booking-card">
+                    <div class="booking-header">
+                        <div class="booking-id">
+                            <strong>Booking ID:</strong> BK123456790
+                        </div>
+                        <div class="booking-status active">
+                            <span class="status-badge">Confirmed</span>
+                        </div>
+                    </div>
+                    
+                    <div class="booking-details">
+                        <div class="journey-info">
+                            <div class="route">
+                                <span class="from">Bangalore</span>
+                                <span class="arrow">→</span>
+                                <span class="to">Chennai</span>
+                            </div>
+                            <div class="date">20 Dec 2024</div>
+                        </div>
+                        
+                        <div class="bus-info">
+                            <div class="operator">Royal Express</div>
+                            <div class="bus-type">Non-AC Sleeper</div>
+                            <div class="seats">Seats: C3</div>
+                        </div>
+                        
+                        <div class="timing">
+                            <div class="departure">
+                                <strong>Departure:</strong> 20:30
+                            </div>
+                            <div class="arrival">
+                                <strong>Arrival:</strong> 04:30 (Next Day)
+                            </div>
+                        </div>
+                        
+                        <div class="amount">
+                            <strong>Amount Paid:</strong> ₹800
+                        </div>
+                    </div>
+                    
+                    <div class="booking-actions">
+                        <a href="#" class="btn-secondary">Download Ticket</a>
+                        <a href="#" class="btn-danger">Cancel Booking</a>
+                    </div>
+                </div>
+
+                <!-- Completed Booking -->
+                <div class="booking-card completed">
+                    <div class="booking-header">
+                        <div class="booking-id">
+                            <strong>Booking ID:</strong> BK123456788
+                        </div>
+                        <div class="booking-status completed">
+                            <span class="status-badge">Completed</span>
+                        </div>
+                    </div>
+                    
+                    <div class="booking-details">
+                        <div class="journey-info">
+                            <div class="route">
+                                <span class="from">Pune</span>
+                                <span class="arrow">→</span>
+                                <span class="to">Goa</span>
+                            </div>
+                            <div class="date">10 Dec 2024</div>
+                        </div>
+                        
+                        <div class="bus-info">
+                            <div class="operator">Premium Travels</div>
+                            <div class="bus-type">AC Sleeper</div>
+                            <div class="seats">Seats: E1, E2</div>
+                        </div>
+                        
+                        <div class="timing">
+                            <div class="departure">
+                                <strong>Departure:</strong> 18:00
+                            </div>
+                            <div class="arrival">
+                                <strong>Arrival:</strong> 06:00 (Next Day)
+                            </div>
+                        </div>
+                        
+                        <div class="amount">
+                            <strong>Amount Paid:</strong> ₹1,200
+                        </div>
+                    </div>
+                    
+                    <div class="booking-actions">
+                        <a href="#" class="btn-secondary">Download Ticket</a>
+                        <a href="#" class="btn-primary">Book Again</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</asp:Content>
+<asp:Content ID="Content7" runat="server" contentplaceholderid="ContentPlaceHolder3">
+                <!-- Footer -->
+                <footer class="footer">
+                    <div class="container">
+                        <div class="footer-content">
+                            <div class="footer-section">
+                                <h4>BusBooking</h4>
+                                <p>
+                                    Your trusted partner for online bus ticket booking.</p>
+                            </div>
+                            <div class="footer-section">
+                                <h4>Quick Links</h4>
+                                <ul>
+                                    <li><a href="Home.aspx">Home</a></li>
+                                    <li><a href="Serach_buses.aspx">Search Buses</a></li>
+                                    <li><a href="My_booking.aspx">My Bookings</a></li>
+                                    <li><a href="Admin_login.aspx" style="color: #999; font-size: 0.9rem;">Admin Panel</a></li>
+                                </ul>
+                            </div>
+                            <div class="footer-section">
+                                <h4>Contact</h4>
+                                <p>
+                                    Email: info@busbooking.com</p>
+                                <p>
+                                    Phone: +91 1234567890</p>
+                            </div>
+                        </div>
+                        <div class="footer-bottom">
+                            <p>
+                                &copy; 2024 BusBooking. All rights reserved.</p>
+                        </div>
+                    </div>
+    </footer>
+</body>
+</html>
+</asp:Content>
+

@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BusBooking - Booking Summary</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <div class="logo">
+                <h1>BusBooking</h1>
+            </div>
+            <nav class="nav">
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="search.html">Search Buses</a></li>
+                    <li><a href="my-bookings.html">My Bookings</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                    <li><a href="login.html">Login</a></li>
+                    <li><a href="register.html">Register</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Booking Summary -->
+    <section class="booking-summary-page">
+        <div class="container">
+            <div class="summary-header">
+                <h2>Booking Summary</h2>
+                <div class="journey-info">
+                    <span>Mumbai → Delhi | 15 Dec 2024</span>
+                </div>
+            </div>
+
+            <div class="summary-content">
+                <!-- Journey Details -->
+                <div class="summary-card">
+                    <h3>Journey Details</h3>
+                    <div class="journey-details">
+                        <div class="operator">
+                            <strong>Operator:</strong> Express Travels
+                        </div>
+                        <div class="bus-type">
+                            <strong>Bus Type:</strong> AC Sleeper
+                        </div>
+                        <div class="timing">
+                            <div class="departure">
+                                <strong>Departure:</strong> 22:00 (Mumbai)
+                            </div>
+                            <div class="arrival">
+                                <strong>Arrival:</strong> 22:30 (Delhi)
+                            </div>
+                            <div class="duration">
+                                <strong>Duration:</strong> 24h 30m
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Selected Seats -->
+                <div class="summary-card">
+                    <h3>Selected Seats</h3>
+                    <div class="selected-seats">
+                        <div class="seat-item">
+                            <span class="seat-number">A1</span>
+                            <span class="seat-price">₹1,200</span>
+                        </div>
+                        <div class="seat-item">
+                            <span class="seat-number">A2</span>
+                            <span class="seat-price">₹1,200</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Passenger Details -->
+                <div class="summary-card">
+                    <h3>Passenger Details</h3>
+                    <form class="passenger-form">
+                        <div class="passenger-row">
+                            <div class="form-group">
+                                <label>Passenger 1 (Seat A1)</label>
+                                <input type="text" placeholder="Full Name" required>
+                            </div>
+                            <div class="form-group">
+                                <label>Age</label>
+                                <input type="number" placeholder="Age" min="1" max="120" required>
+                            </div>
+                            <div class="form-group">
+                                <label>Gender</label>
+                                <select required>
+                                    <option value="">Select Gender</option>
+                                    <option value="male">Male</option>
+                                    <option value="female">Female</option>
+                                    <option value="other">Other</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="passenger-row">
+                            <div class="form-group">
+                                <label>Passenger 2 (Seat A2)</label>
+                                <input type="text" placeholder="Full Name" required>
+                            </div>
+                            <div class="form-group">
+                                <label>Age</label>
+                                <input type="number" placeholder="Age" min="1" max="120" required>
+                            </div>
+                            <div class="form-group">
+                                <label>Gender</label>
+                                <select required>
+                                    <option value="">Select Gender</option>
+                                    <option value="male">Male</option>
+                                    <option value="female">Female</option>
+                                    <option value="other">Other</option>
+                                </select>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+
+                <!-- Contact Details -->
+                <div class="summary-card">
+                    <h3>Contact Details</h3>
+                    <form class="contact-form">
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label>Email Address</label>
+                                <input type="email" placeholder="Enter email address" required>
+                            </div>
+                            <div class="form-group">
+                                <label>Phone Number</label>
+                                <input type="tel" placeholder="Enter phone number" required>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+
+                <!-- Price Breakdown -->
+                <div class="summary-card">
+                    <h3>Price Breakdown</h3>
+                    <div class="price-breakdown">
+                        <div class="price-item">
+                            <span>Seat A1</span>
+                            <span>₹1,200</span>
+                        </div>
+                        <div class="price-item">
+                            <span>Seat A2</span>
+                            <span>₹1,200</span>
+                        </div>
+                        <div class="price-item">
+                            <span>Convenience Fee</span>
+                            <span>₹50</span>
+                        </div>
+                        <div class="price-item total">
+                            <span>Total Amount</span>
+                            <span>₹2,450</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Action Buttons -->
+            <div class="summary-actions">
+                <a href="bus-details.html" class="btn-secondary">Back to Seat Selection</a>
+                <a href="payment.html" class="btn-primary">Proceed to Payment</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h4>BusBooking</h4>
+                    <p>Your trusted partner for online bus ticket booking.</p>
+                </div>
+                <div class="footer-section">
+                    <h4>Quick Links</h4>
+                    <ul>
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="search.html">Search Buses</a></li>
+                        <li><a href="my-bookings.html">My Bookings</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Contact</h4>
+                    <p>Email: info@busbooking.com</p>
+                    <p>Phone: +91 1234567890</p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 BusBooking. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+</body>
+</html> 

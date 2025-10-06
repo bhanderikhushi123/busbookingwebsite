@@ -1,0 +1,281 @@
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="Admin_booking.aspx.cs" Inherits="busbookingwebsite.Admin_booking" %>
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head runat="server">
+    <title></title>
+</head>
+<body>
+   <%-- <form id="form1" runat="server">
+        <div>
+        </div>
+    </form>--%>
+    <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BusBooking - Admin Bookings</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Admin Header -->
+    <header class="admin-header">
+        <div class="container">
+            <div class="admin-nav">
+                <div class="admin-logo">
+                    <h1>BusBooking Admin</h1>
+                </div>
+                <nav class="admin-menu">
+                    <ul>
+                        <li><a href="Admin_dashboard.aspx">Dashboard</a></li>
+                        <li><a href="Admin_booking.aspx" class="active">Bookings</a></li>
+                        <li><a href="Admin_buses.aspx">Buses</a></li>
+                        <li><a href="Admin_routes.aspx">Routes</a></li>
+                        <li><a href="Admin_users.aspx">Users</a></li>
+                        <li><a href="Admin_setting.aspx">Settings</a></li>
+                        <li><a href="Admin_login.aspx" class="logout">Logout</a></li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <!-- Admin Bookings -->
+    <section class="admin-bookings">
+        <div class="container">
+            <div class="page-header">
+                <h2>Manage Bookings</h2>
+                <p>View and manage all bus bookings in the system.</p>
+            </div>
+
+            <!-- Filters and Search -->
+            <div class="admin-filters">
+                <div class="filter-row">
+                    <div class="search-box">
+                        <input type="text" placeholder="Search by booking ID, customer name, or route...">
+                        <button class="btn-secondary">Search</button>
+                    </div>
+                    <div class="filter-options">
+                        <select>
+                            <option>All Status</option>
+                            <option>Confirmed</option>
+                            <option>Pending</option>
+                            <option>Completed</option>
+                            <option>Cancelled</option>
+                        </select>
+                        <select>
+                            <option>All Dates</option>
+                            <option>Today</option>
+                            <option>This Week</option>
+                            <option>This Month</option>
+                        </select>
+                        <button class="btn-primary">Export</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Bookings Table -->
+            <div class="table-container">
+                <table class="admin-table">
+                    <thead>
+                        <tr>
+                            <th>Booking ID</th>
+                            <th>Customer Details</th>
+                            <th>Journey Details</th>
+                            <th>Seats</th>
+                            <th>Amount</th>
+                            <th>Status</th>
+                            <th>Date</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>BK123456789</td>
+                            <td>
+                                <div class="customer-info">
+                                    <strong>John Doe</strong><br>
+                                    john.doe@email.com<br>
+                                    +91 9876543210
+                                </div>
+                            </td>
+                            <td>
+                                <div class="journey-info">
+                                    <strong>Mumbai → Delhi</strong><br>
+                                    Express Travels<br>
+                                    15 Dec 2024, 22:00
+                                </div>
+                            </td>
+                            <td>A1, A2</td>
+                            <td>₹2,450</td>
+                            <td><span class="status-badge confirmed">Confirmed</span></td>
+                            <td>10 Dec 2024</td>
+                            <td>
+                                <div class="action-buttons">
+                                    <a href="#" class="btn-small">View</a>
+                                    <a href="#" class="btn-small">Edit</a>
+                                    <a href="#" class="btn-small danger">Cancel</a>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>BK123456790</td>
+                            <td>
+                                <div class="customer-info">
+                                    <strong>Jane Smith</strong><br>
+                                    jane.smith@email.com<br>
+                                    +91 8765432109
+                                </div>
+                            </td>
+                            <td>
+                                <div class="journey-info">
+                                    <strong>Bangalore → Chennai</strong><br>
+                                    Royal Express<br>
+                                    20 Dec 2024, 20:30
+                                </div>
+                            </td>
+                            <td>C3</td>
+                            <td>₹800</td>
+                            <td><span class="status-badge pending">Pending</span></td>
+                            <td>12 Dec 2024</td>
+                            <td>
+                                <div class="action-buttons">
+                                    <a href="#" class="btn-small">View</a>
+                                    <a href="#" class="btn-small">Edit</a>
+                                    <a href="#" class="btn-small danger">Cancel</a>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>BK123456791</td>
+                            <td>
+                                <div class="customer-info">
+                                    <strong>Mike Johnson</strong><br>
+                                    mike.johnson@email.com<br>
+                                    +91 7654321098
+                                </div>
+                            </td>
+                            <td>
+                                <div class="journey-info">
+                                    <strong>Pune → Goa</strong><br>
+                                    Premium Travels<br>
+                                    18 Dec 2024, 18:00
+                                </div>
+                            </td>
+                            <td>E1, E2</td>
+                            <td>₹1,200</td>
+                            <td><span class="status-badge completed">Completed</span></td>
+                            <td>08 Dec 2024</td>
+                            <td>
+                                <div class="action-buttons">
+                                    <a href="#" class="btn-small">View</a>
+                                    <a href="#" class="btn-small">Edit</a>
+                                    <a href="#" class="btn-small">Refund</a>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>BK123456792</td>
+                            <td>
+                                <div class="customer-info">
+                                    <strong>Sarah Wilson</strong><br>
+                                    sarah.wilson@email.com<br>
+                                    +91 6543210987
+                                </div>
+                            </td>
+                            <td>
+                                <div class="journey-info">
+                                    <strong>Kolkata → Hyderabad</strong><br>
+                                    Express Travels<br>
+                                    22 Dec 2024, 23:15
+                                </div>
+                            </td>
+                            <td>B4</td>
+                            <td>₹1,500</td>
+                            <td><span class="status-badge cancelled">Cancelled</span></td>
+                            <td>11 Dec 2024</td>
+                            <td>
+                                <div class="action-buttons">
+                                    <a href="#" class="btn-small">View</a>
+                                    <a href="#" class="btn-small">Edit</a>
+                                    <a href="#" class="btn-small">Refund</a>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>BK123456793</td>
+                            <td>
+                                <div class="customer-info">
+                                    <strong>David Brown</strong><br>
+                                    david.brown@email.com<br>
+                                    +91 5432109876
+                                </div>
+                            </td>
+                            <td>
+                                <div class="journey-info">
+                                    <strong>Delhi → Jaipur</strong><br>
+                                    Royal Express<br>
+                                    25 Dec 2024, 14:00
+                                </div>
+                            </td>
+                            <td>D1, D2, D3</td>
+                            <td>₹1,800</td>
+                            <td><span class="status-badge confirmed">Confirmed</span></td>
+                            <td>13 Dec 2024</td>
+                            <td>
+                                <div class="action-buttons">
+                                    <a href="#" class="btn-small">View</a>
+                                    <a href="#" class="btn-small">Edit</a>
+                                    <a href="#" class="btn-small danger">Cancel</a>
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Pagination -->
+            <div class="pagination">
+                <a href="#" class="page-link">Previous</a>
+                <a href="#" class="page-link active">1</a>
+                <a href="#" class="page-link">2</a>
+                <a href="#" class="page-link">3</a>
+                <a href="#" class="page-link">4</a>
+                <a href="#" class="page-link">5</a>
+                <a href="#" class="page-link">Next</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h4>BusBooking Admin</h4>
+                    <p>Administrative panel for bus booking system management.</p>
+                </div>
+                <div class="footer-section">
+                    <h4>Quick Links</h4>
+                    <ul>
+                        <li><a href="Home.aspx">Back to Website</a></li>
+                        <li><a href="Contact.aspx">Contact Support</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Contact</h4>
+                    <p>Email: admin@busbooking.com</p>
+                    <p>Phone: +91 1234567890</p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 BusBooking. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+</body>
+</html> 
+</body>
+</html>

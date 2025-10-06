@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BusBooking - Admin Dashboard</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Admin Header -->
+    <header class="admin-header">
+        <div class="container">
+            <div class="admin-nav">
+                <div class="admin-logo">
+                    <h1>BusBooking Admin</h1>
+                </div>
+                <nav class="admin-menu">
+                    <ul>
+                        <li><a href="admin-dashboard.html" class="active">Dashboard</a></li>
+                        <li><a href="admin-bookings.html">Bookings</a></li>
+                        <li><a href="admin-buses.html">Buses</a></li>
+                        <li><a href="admin-routes.html">Routes</a></li>
+                        <li><a href="admin-users.html">Users</a></li>
+                        <li><a href="admin-reports.html">Reports</a></li>
+                        <li><a href="admin-settings.html">Settings</a></li>
+                        <li><a href="admin-login.html" class="logout">Logout</a></li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <!-- Admin Dashboard -->
+    <section class="admin-dashboard">
+        <div class="container">
+            <div class="dashboard-header">
+                <h2>Admin Dashboard</h2>
+                <p>Welcome back, Administrator! Here's an overview of your bus booking system.</p>
+            </div>
+
+            <!-- Statistics Cards -->
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-icon">📊</div>
+                    <div class="stat-content">
+                        <h3>Total Bookings</h3>
+                        <div class="stat-number">1,247</div>
+                        <div class="stat-change positive">+12% from last month</div>
+                    </div>
+                </div>
+                
+                <div class="stat-card">
+                    <div class="stat-icon">💰</div>
+                    <div class="stat-content">
+                        <h3>Revenue</h3>
+                        <div class="stat-number">₹2,45,000</div>
+                        <div class="stat-change positive">+8% from last month</div>
+                    </div>
+                </div>
+                
+                <div class="stat-card">
+                    <div class="stat-icon">👥</div>
+                    <div class="stat-content">
+                        <h3>Active Users</h3>
+                        <div class="stat-number">856</div>
+                        <div class="stat-change positive">+5% from last month</div>
+                    </div>
+                </div>
+                
+                <div class="stat-card">
+                    <div class="stat-icon">🚌</div>
+                    <div class="stat-content">
+                        <h3>Active Buses</h3>
+                        <div class="stat-number">45</div>
+                        <div class="stat-change neutral">No change</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Dashboard Content -->
+            <div class="dashboard-content">
+                <!-- Recent Bookings -->
+                <div class="dashboard-section">
+                    <div class="section-header">
+                        <h3>Recent Bookings</h3>
+                        <a href="admin-bookings.html" class="btn-secondary">View All</a>
+                    </div>
+                    <div class="table-container">
+                        <table class="admin-table">
+                            <thead>
+                                <tr>
+                                    <th>Booking ID</th>
+                                    <th>Customer</th>
+                                    <th>Route</th>
+                                    <th>Date</th>
+                                    <th>Amount</th>
+                                    <th>Status</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>BK123456789</td>
+                                    <td>John Doe</td>
+                                    <td>Mumbai → Delhi</td>
+                                    <td>15 Dec 2024</td>
+                                    <td>₹2,450</td>
+                                    <td><span class="status-badge confirmed">Confirmed</span></td>
+                                    <td><a href="#" class="btn-small">View</a></td>
+                                </tr>
+                                <tr>
+                                    <td>BK123456790</td>
+                                    <td>Jane Smith</td>
+                                    <td>Bangalore → Chennai</td>
+                                    <td>20 Dec 2024</td>
+                                    <td>₹800</td>
+                                    <td><span class="status-badge pending">Pending</span></td>
+                                    <td><a href="#" class="btn-small">View</a></td>
+                                </tr>
+                                <tr>
+                                    <td>BK123456791</td>
+                                    <td>Mike Johnson</td>
+                                    <td>Pune → Goa</td>
+                                    <td>18 Dec 2024</td>
+                                    <td>₹1,200</td>
+                                    <td><span class="status-badge completed">Completed</span></td>
+                                    <td><a href="#" class="btn-small">View</a></td>
+                                </tr>
+                                <tr>
+                                    <td>BK123456792</td>
+                                    <td>Sarah Wilson</td>
+                                    <td>Kolkata → Hyderabad</td>
+                                    <td>22 Dec 2024</td>
+                                    <td>₹1,500</td>
+                                    <td><span class="status-badge cancelled">Cancelled</span></td>
+                                    <td><a href="#" class="btn-small">View</a></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- Quick Actions -->
+                <div class="dashboard-section">
+                    <h3>Quick Actions</h3>
+                    <div class="quick-actions">
+                        <a href="admin-bookings.html" class="action-card">
+                            <div class="action-icon">📋</div>
+                            <h4>Manage Bookings</h4>
+                            <p>View and manage all bookings</p>
+                        </a>
+                        
+                        <a href="admin-buses.html" class="action-card">
+                            <div class="action-icon">🚌</div>
+                            <h4>Manage Buses</h4>
+                            <p>Add, edit, or remove buses</p>
+                        </a>
+                        
+                        <a href="admin-routes.html" class="action-card">
+                            <div class="action-icon">🗺️</div>
+                            <h4>Manage Routes</h4>
+                            <p>Configure bus routes and schedules</p>
+                        </a>
+                        
+                        <a href="admin-users.html" class="action-card">
+                            <div class="action-icon">👥</div>
+                            <h4>Manage Users</h4>
+                            <p>View and manage user accounts</p>
+                        </a>
+                        
+                        <a href="admin-reports.html" class="action-card">
+                            <div class="action-icon">📊</div>
+                            <h4>Generate Reports</h4>
+                            <p>Create detailed reports and analytics</p>
+                        </a>
+                        
+                        <a href="admin-settings.html" class="action-card">
+                            <div class="action-icon">⚙️</div>
+                            <h4>System Settings</h4>
+                            <p>Configure system preferences</p>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h4>BusBooking Admin</h4>
+                    <p>Administrative panel for bus booking system management.</p>
+                </div>
+                <div class="footer-section">
+                    <h4>Quick Links</h4>
+                    <ul>
+                        <li><a href="index.html">Back to Website</a></li>
+                        <li><a href="contact.html">Contact Support</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Contact</h4>
+                    <p>Email: admin@busbooking.com</p>
+                    <p>Phone: +91 1234567890</p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 BusBooking. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+</body>
+</html> 

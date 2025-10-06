@@ -1,0 +1,427 @@
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="Admin_setting.aspx.cs" Inherits="busbookingwebsite.Admin_setting" %>
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head runat="server">
+    <title></title>
+</head>
+<body>
+<%--    <form id="form1" runat="server">
+        <div>
+        </div>
+    </form>--%>
+    <html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BusBooking - Admin Settings</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Admin Header -->
+    <header class="admin-header">
+        <div class="container">
+            <div class="admin-nav">
+                <div class="admin-logo">
+                    <h1>BusBooking Admin</h1>
+                </div>
+                <nav class="admin-menu">
+                    <ul>
+                        <li><a href="Admin_dashboard.aspx">Dashboard</a></li>
+                        <li><a href="Admin_booking.aspx">Bookings</a></li>
+                        <li><a href="Admin_buses.aspx">Buses</a></li>
+                        <li><a href="Admin_routes.aspx">Routes</a></li>
+                        <li><a href="Admin_users.aspx">Users</a></li>
+                        <li><a href="Admin_report.aspx">Reports</a></li>
+                        <li><a href="Admin_setting.aspx" class="active">Settings</a></li>
+                        <li><a href="Admin_login.aspx" class="logout">Logout</a></li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <!-- Admin Settings -->
+    <section class="admin-settings">
+        <div class="container">
+            <div class="page-header">
+                <h2>System Settings</h2>
+                <p>Configure and manage your bus booking system settings.</p>
+            </div>
+
+            <!-- Settings Navigation -->
+            <div class="settings-nav">
+                <ul>
+                    <li><a href="#general" class="active">General Settings</a></li>
+                    <li><a href="#booking">Booking Settings</a></li>
+                    <li><a href="#payment">Payment Settings</a></li>
+                    <li><a href="#email">Email Settings</a></li>
+                    <li><a href="#security">Security Settings</a></li>
+                    <li><a href="#backup">Backup & Restore</a></li>
+                </ul>
+            </div>
+
+            <!-- Settings Content -->
+            <div class="settings-content">
+                <!-- General Settings -->
+                <div class="settings-section" id="general">
+                    <div class="section-header">
+                        <h3>General Settings</h3>
+                        <p>Basic system configuration and company information.</p>
+                    </div>
+                    
+                    <form class="settings-form">
+                        <div class="form-group">
+                            <label for="company-name">Company Name</label>
+                            <input type="text" id="company-name" value="BusBooking" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="company-email">Company Email</label>
+                            <input type="email" id="company-email" value="info@busbooking.com" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="company-phone">Company Phone</label>
+                            <input type="tel" id="company-phone" value="+91 1234567890" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="company-address">Company Address</label>
+                            <textarea id="company-address" rows="3">123 Bus Station Road, Mumbai, Maharashtra 400001</textarea>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="timezone">Timezone</label>
+                            <select id="timezone">
+                                <option value="IST" selected>India Standard Time (IST)</option>
+                                <option value="GMT">Greenwich Mean Time (GMT)</option>
+                                <option value="EST">Eastern Standard Time (EST)</option>
+                                <option value="PST">Pacific Standard Time (PST)</option>
+                            </select>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="currency">Default Currency</label>
+                            <select id="currency">
+                                <option value="INR" selected>Indian Rupee (₹)</option>
+                                <option value="USD">US Dollar ($)</option>
+                                <option value="EUR">Euro (€)</option>
+                                <option value="GBP">British Pound (£)</option>
+                            </select>
+                        </div>
+                        
+                        <button type="submit" class="btn-primary">Save General Settings</button>
+                    </form>
+                </div>
+
+                <!-- Booking Settings -->
+                <div class="settings-section" id="booking">
+                    <div class="section-header">
+                        <h3>Booking Settings</h3>
+                        <p>Configure booking rules and policies.</p>
+                    </div>
+                    
+                    <form class="settings-form">
+                        <div class="form-group">
+                            <label for="advance-booking">Advance Booking Days</label>
+                            <input type="number" id="advance-booking" value="30" min="1" max="365">
+                            <small>Maximum days in advance customers can book tickets</small>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="cancellation-hours">Cancellation Hours</label>
+                            <input type="number" id="cancellation-hours" value="24" min="1" max="72">
+                            <small>Hours before departure when cancellation is allowed</small>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="max-seats">Maximum Seats per Booking</label>
+                            <input type="number" id="max-seats" value="6" min="1" max="10">
+                            <small>Maximum number of seats a customer can book at once</small>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label class="checkbox-label">
+                                <input type="checkbox" id="allow-ladies-seats" checked>
+                                <span class="checkmark"></span>
+                                Allow ladies seat reservation
+                            </label>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label class="checkbox-label">
+                                <input type="checkbox" id="require-id-proof" checked>
+                                <span class="checkmark"></span>
+                                Require ID proof for booking
+                            </label>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label class="checkbox-label">
+                                <input type="checkbox" id="auto-cancel-unpaid">
+                                <span class="checkmark"></span>
+                                Auto-cancel unpaid bookings after 30 minutes
+                            </label>
+                        </div>
+                        
+                        <button type="submit" class="btn-primary">Save Booking Settings</button>
+                    </form>
+                </div>
+
+                <!-- Payment Settings -->
+                <div class="settings-section" id="payment">
+                    <div class="section-header">
+                        <h3>Payment Settings</h3>
+                        <p>Configure payment gateways and transaction settings.</p>
+                    </div>
+                    
+                    <form class="settings-form">
+                        <div class="form-group">
+                            <label for="payment-methods">Payment Methods</label>
+                            <div class="checkbox-group">
+                                <label class="checkbox-label">
+                                    <input type="checkbox" checked>
+                                    <span class="checkmark"></span>
+                                    Credit/Debit Cards
+                                </label>
+                                <label class="checkbox-label">
+                                    <input type="checkbox" checked>
+                                    <span class="checkmark"></span>
+                                    UPI
+                                </label>
+                                <label class="checkbox-label">
+                                    <input type="checkbox" checked>
+                                    <span class="checkmark"></span>
+                                    Net Banking
+                                </label>
+                                <label class="checkbox-label">
+                                    <input type="checkbox">
+                                    <span class="checkmark"></span>
+                                    Digital Wallets
+                                </label>
+                                <label class="checkbox-label">
+                                    <input type="checkbox">
+                                    <span class="checkmark"></span>
+                                    Cash on Delivery
+                                </label>
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="transaction-fee">Transaction Fee (%)</label>
+                            <input type="number" id="transaction-fee" value="2.5" step="0.1" min="0" max="10">
+                            <small>Percentage fee charged on each transaction</small>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="refund-days">Refund Processing Days</label>
+                            <input type="number" id="refund-days" value="3" min="1" max="14">
+                            <small>Number of days to process refunds</small>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="gateway-key">Payment Gateway API Key</label>
+                            <input type="password" id="gateway-key" value="pk_test_1234567890abcdef">
+                            <small>Your payment gateway API key (masked for security)</small>
+                        </div>
+                        
+                        <button type="submit" class="btn-primary">Save Payment Settings</button>
+                    </form>
+                </div>
+
+                <!-- Email Settings -->
+                <div class="settings-section" id="email">
+                    <div class="section-header">
+                        <h3>Email Settings</h3>
+                        <p>Configure email notifications and SMTP settings.</p>
+                    </div>
+                    
+                    <form class="settings-form">
+                        <div class="form-group">
+                            <label for="smtp-host">SMTP Host</label>
+                            <input type="text" id="smtp-host" value="smtp.gmail.com">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="smtp-port">SMTP Port</label>
+                            <input type="number" id="smtp-port" value="587">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="smtp-username">SMTP Username</label>
+                            <input type="email" id="smtp-username" value="noreply@busbooking.com">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="smtp-password">SMTP Password</label>
+                            <input type="password" id="smtp-password" value="••••••••••••••••">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label>Email Notifications</label>
+                            <div class="checkbox-group">
+                                <label class="checkbox-label">
+                                    <input type="checkbox" checked>
+                                    <span class="checkmark"></span>
+                                    Booking confirmation emails
+                                </label>
+                                <label class="checkbox-label">
+                                    <input type="checkbox" checked>
+                                    <span class="checkmark"></span>
+                                    Cancellation notifications
+                                </label>
+                                <label class="checkbox-label">
+                                    <input type="checkbox" checked>
+                                    <span class="checkmark"></span>
+                                    Reminder emails (24h before journey)
+                                </label>
+                                <label class="checkbox-label">
+                                    <input type="checkbox">
+                                    <span class="checkmark"></span>
+                                    Marketing emails
+                                </label>
+                            </div>
+                        </div>
+                        
+                        <button type="submit" class="btn-primary">Save Email Settings</button>
+                        <button type="button" class="btn-secondary">Test Email Configuration</button>
+                    </form>
+                </div>
+
+                <!-- Security Settings -->
+                <div class="settings-section" id="security">
+                    <div class="section-header">
+                        <h3>Security Settings</h3>
+                        <p>Configure security and authentication settings.</p>
+                    </div>
+                    
+                    <form class="settings-form">
+                        <div class="form-group">
+                            <label for="session-timeout">Session Timeout (minutes)</label>
+                            <input type="number" id="session-timeout" value="30" min="5" max="480">
+                            <small>Inactive session timeout duration</small>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="max-login-attempts">Maximum Login Attempts</label>
+                            <input type="number" id="max-login-attempts" value="5" min="3" max="10">
+                            <small>Number of failed login attempts before account lockout</small>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="lockout-duration">Lockout Duration (minutes)</label>
+                            <input type="number" id="lockout-duration" value="15" min="5" max="60">
+                            <small>Account lockout duration after max failed attempts</small>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label class="checkbox-label">
+                                <input type="checkbox" id="two-factor-auth">
+                                <span class="checkmark"></span>
+                                Enable Two-Factor Authentication for admin accounts
+                            </label>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label class="checkbox-label">
+                                <input type="checkbox" id="password-complexity" checked>
+                                <span class="checkmark"></span>
+                                Enforce strong password requirements
+                            </label>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label class="checkbox-label">
+                                <input type="checkbox" id="ssl-required" checked>
+                                <span class="checkmark"></span>
+                                Require SSL/HTTPS for all connections
+                            </label>
+                        </div>
+                        
+                        <button type="submit" class="btn-primary">Save Security Settings</button>
+                    </form>
+                </div>
+
+                <!-- Backup & Restore -->
+                <div class="settings-section" id="backup">
+                    <div class="section-header">
+                        <h3>Backup & Restore</h3>
+                        <p>Manage system backups and data restoration.</p>
+                    </div>
+                    
+                    <div class="backup-info">
+                        <div class="backup-status">
+                            <h4>Last Backup</h4>
+                            <p>December 15, 2024 at 02:00 AM</p>
+                            <span class="status-badge confirmed">Successful</span>
+                        </div>
+                        
+                        <div class="backup-actions">
+                            <button class="btn-primary">Create Manual Backup</button>
+                            <button class="btn-secondary">Schedule Backup</button>
+                            <button class="btn-secondary">Restore from Backup</button>
+                        </div>
+                    </div>
+                    
+                    <div class="backup-settings">
+                        <h4>Backup Settings</h4>
+                        <form class="settings-form">
+                            <div class="form-group">
+                                <label class="checkbox-label">
+                                    <input type="checkbox" checked>
+                                    <span class="checkmark"></span>
+                                    Enable automatic daily backups
+                                </label>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="backup-time">Backup Time</label>
+                                <input type="time" id="backup-time" value="02:00">
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="retention-days">Retention Period (days)</label>
+                                <input type="number" id="retention-days" value="30" min="7" max="365">
+                                <small>How long to keep backup files</small>
+                            </div>
+                            
+                            <button type="submit" class="btn-primary">Save Backup Settings</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h4>BusBooking Admin</h4>
+                    <p>Administrative panel for bus booking system management.</p>
+                </div>
+                <div class="footer-section">
+                    <h4>Quick Links</h4>
+                    <ul>
+                        <li><a href="Home.aspx">Back to Website</a></li>
+                        <li><a href="Contact.aspx">Contact Support</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Contact</h4>
+                    <p>Email: admin@busbooking.com</p>
+                    <p>Phone: +91 1234567890</p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 BusBooking. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+</body>
+</html> 
+</body>
+</html>

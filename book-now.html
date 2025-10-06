@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Book Now</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        .page-container { max-width: 960px; margin: 30px auto; padding: 0 16px; }
+        .card { background: #ffffff; color: #000000; border-radius: 8px; border: 1px solid #e2e2e2; box-shadow: 0 2px 8px rgba(0,0,0,0.06); }
+        .card-header { padding: 16px 20px; border-bottom: 1px solid #e8e8e8; font-weight: bold; font-size: 18px; background: #f7f9fc; }
+        .card-body { padding: 20px; }
+        .grid { display: grid; grid-template-columns: repeat(12, 1fr); gap: 16px; }
+        .col-12 { grid-column: span 12; }
+        .col-6 { grid-column: span 6; }
+        .col-4 { grid-column: span 4; }
+        .col-3 { grid-column: span 3; }
+        @media (max-width: 768px) { .col-6, .col-4, .col-3 { grid-column: span 12; } }
+        label { display: block; margin-bottom: 6px; font-weight: 600; }
+        input[type="text"], input[type="email"], input[type="number"], input[type="date"], select { width: 100%; padding: 10px 12px; border: 1px solid #cfcfcf; border-radius: 6px; background: #ffffff; color: #000000; }
+        input[readonly] { background: #f7f7f7; }
+        .muted { color: #666666; font-size: 13px; }
+        .section { margin-bottom: 20px; }
+        .btn-row { display: flex; gap: 12px; align-items: center; }
+        .btn { background-color: #ffcc00; color: #000; font-weight: bold; border: none; padding: 10px 18px; cursor: pointer; border-radius: 6px; }
+        .btn:hover { background-color: #e6b800; }
+        .seat-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 8px; max-width: 360px; }
+        .seat { display: flex; align-items: center; gap: 6px; padding: 8px 10px; border: 1px solid #ddd; border-radius: 6px; background: #fafafa; }
+        .row { display: flex; justify-content: space-between; align-items: center; gap: 12px; }
+        .total { font-size: 18px; font-weight: 700; }
+        .note { background: #fff8e1; border: 1px solid #ffe082; padding: 10px 12px; border-radius: 6px; }
+    </style>
+    <script>
+        function param(name) {
+            const url = new URL(window.location.href);
+            return url.searchParams.get(name) || '';
+        }
+        function hydrateFromParams() {
+            const busName = param('bus') || 'SuperExpress 102';
+            const route = param('route') || 'Rajkot → Ahmedabad';
+            const fare = parseFloat(param('fare') || '450');
+            const dep = param('dep') || '08:30 AM';
+            const arr = param('arr') || '12:15 PM';
+            if (document.getElementById('busName')) document.getElementById('busName').value = busName;
+            if (document.getElementById('route')) document.getElementById('route').value = route;
+            if (document.getElementById('farePerTicket')) document.getElementById('farePerTicket').value = isNaN(fare) ? 0 : fare;
+            if (document.getElementById('depTime')) document.getElementById('depTime').value = dep;
+            if (document.getElementById('arrTime')) document.getElementById('arrTime').value = arr;
+        }
+        function updateTotal() {
+            var fare = parseFloat(document.getElementById('farePerTicket').value || '0');
+            var seats = parseInt(document.getElementById('numSeats').value || '0');
+            var total = fare * seats;
+            document.getElementById('totalPrice').innerText = '₹ ' + (isNaN(total) ? '0' : total.toFixed(2));
+        }
+        function toggleSeatLayout(el) {
+            var panel = document.getElementById('seatLayoutPanel');
+            panel.style.display = el.checked ? 'block' : 'none';
+        }
+        function simulatePay(e) {
+            e.preventDefault();
+            alert('Booking simulated! Your seats will be held for 10 minutes.');
+        }
+        document.addEventListener('DOMContentLoaded', function () {
+            hydrateFromParams();
+            var seatsEl = document.getElementById('numSeats');
+            if (seatsEl) { seatsEl.addEventListener('input', updateTotal); }
+            updateTotal();
+        });
+    </script>
+    <link rel="stylesheet" href="styles.css" />
+    <style>
+        /* Optional: page dark bg to match Home.aspx feel */
+        body { background-color: #3b4a78; color: #fff; font-family: Arial, Helvetica, sans-serif; }
+    </style>
+    
+</head>
+<body>
+    <header class="header">
+        <div class="container">
+            <div class="logo"><h1>BusBooking</h1></div>
+            <nav class="nav">
+                <ul>
+                    <li><a href="Home.aspx">Home</a></li>
+                    <li><a href="Serach_buses.aspx">Search Buses</a></li>
+                    <li><a href="My_booking.aspx">My Bookings</a></li>
+                    <li><a href="Contact.aspx">Contact</a></li>
+                    <li><a href="Login.aspx">Login</a></li>
+                    <li><a href="Register.aspx">Register</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <div class="page-container">
+        <div class="card section">
+            <div class="card-header">Book Now</div>
+            <div class="card-body">
+                <div class="grid">
+                    <div class="col-12">
+                        <div class="note">Bus details are auto-filled from selection. Adjust travel date if needed.</div>
+                    </div>
+
+                    <!-- Bus Details (Auto-filled) -->
+                    <div class="col-6">
+                        <label>Bus Name / Number</label>
+                        <input id="busName" type="text" value="SuperExpress 102" readonly />
+                        <div class="muted">Example value. You can pass values via URL query.</div>
+                    </div>
+                    <div class="col-6">
+                        <label>Route (From → To)</label>
+                        <input id="route" type="text" value="Rajkot → Ahmedabad" readonly />
+                    </div>
+                    <div class="col-4">
+                        <label>Date of Travel</label>
+                        <input id="travelDate" type="date" />
+                    </div>
+                    <div class="col-4">
+                        <label>Departure Time</label>
+                        <input id="depTime" type="text" value="08:30 AM" readonly />
+                    </div>
+                    <div class="col-4">
+                        <label>Arrival Time</label>
+                        <input id="arrTime" type="text" value="12:15 PM" readonly />
+                    </div>
+                    <div class="col-4">
+                        <label>Fare per ticket (₹)</label>
+                        <input id="farePerTicket" type="number" value="450" readonly />
+                    </div>
+
+                    <!-- Passenger Details -->
+                    <div class="col-12"><hr /></div>
+                    <div class="col-6">
+                        <label>Passenger Name</label>
+                        <input id="passengerName" type="text" placeholder="Enter full name" />
+                    </div>
+                    <div class="col-3">
+                        <label>Age</label>
+                        <input id="age" type="number" min="1" max="120" placeholder="e.g., 28" />
+                    </div>
+                    <div class="col-3">
+                        <label>Gender</label>
+                        <select id="gender">
+                            <option value="">Select</option>
+                            <option>Male</option>
+                            <option>Female</option>
+                            <option>Other</option>
+                        </select>
+                    </div>
+                    <div class="col-6">
+                        <label>Contact Number</label>
+                        <input id="contact" type="text" placeholder="Enter mobile number" />
+                    </div>
+                    <div class="col-6">
+                        <label>Email</label>
+                        <input id="email" type="email" placeholder="name@example.com" />
+                    </div>
+
+                    <!-- Seats and Optional Seat Selection -->
+                    <div class="col-4">
+                        <label>Number of Seats</label>
+                        <input id="numSeats" type="number" min="1" max="6" value="1" />
+                    </div>
+                    <div class="col-8" style="align-self: end;">
+                        <div class="row">
+                            <label style="margin: 0;">
+                                <input id="useSeatLayout" type="checkbox" onchange="toggleSeatLayout(this)" /> Enable Seat Selection
+                            </label>
+                            <span class="muted">If off, seats will be auto-assigned.</span>
+                        </div>
+                    </div>
+
+                    <div class="col-12" id="seatLayoutPanel" style="display:none;">
+                        <label>Select Seats</label>
+                        <div class="seat-grid">
+                            <label class="seat"><input type="checkbox" /> S1</label>
+                            <label class="seat"><input type="checkbox" /> S2</label>
+                            <label class="seat"><input type="checkbox" /> S3</label>
+                            <label class="seat"><input type="checkbox" /> S4</label>
+                            <label class="seat"><input type="checkbox" /> S5</label>
+                            <label class="seat"><input type="checkbox" /> S6</label>
+                            <label class="seat"><input type="checkbox" /> S7</label>
+                            <label class="seat"><input type="checkbox" /> S8</label>
+                            <label class="seat"><input type="checkbox" /> S9</label>
+                            <label class="seat"><input type="checkbox" /> S10</label>
+                            <label class="seat"><input type="checkbox" /> S11</label>
+                            <label class="seat"><input type="checkbox" /> S12</label>
+                            <label class="seat"><input type="checkbox" /> S13</label>
+                            <label class="seat"><input type="checkbox" /> S14</label>
+                            <label class="seat"><input type="checkbox" /> S15</label>
+                            <label class="seat"><input type="checkbox" /> S16</label>
+                            <label class="seat"><input type="checkbox" /> S17</label>
+                            <label class="seat"><input type="checkbox" /> S18</label>
+                            <label class="seat"><input type="checkbox" /> S19</label>
+                            <label class="seat"><input type="checkbox" /> S20</label>
+                        </div>
+                        <div class="muted" style="margin-top:8px;">Layout is illustrative. Integrate real-time availability later.</div>
+                    </div>
+
+                    <!-- Payment Summary -->
+                    <div class="col-12"><hr /></div>
+                    <div class="col-6">
+                        <label>Total Price</label>
+                        <div class="total" id="totalPrice">₹ 0.00</div>
+                        <div class="muted">Calculated as Fare × Number of Seats</div>
+                    </div>
+                    <div class="col-6" style="align-self: end; text-align: right;">
+                        <div class="btn-row">
+                            <button class="btn" onclick="simulatePay(event)">Confirm &amp; Pay</button>
+                            <a class="btn" href="Home.aspx" style="text-decoration:none; display:inline-block;">Cancel</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h4>BusBooking</h4>
+                    <p>Your trusted partner for online bus ticket booking.</p>
+                </div>
+                <div class="footer-section">
+                    <h4>Quick Links</h4>
+                    <ul>
+                        <li><a href="Home.aspx">Home</a></li>
+                        <li><a href="Serach_buses.aspx">Search Buses</a></li>
+                        <li><a href="My_booking.aspx">My Bookings</a></li>
+                        <li><a href="Admin_login.aspx" style="color: #999; font-size: 0.9rem;">Admin Panel</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Contact</h4>
+                    <p>Email: info@busbooking.com</p>
+                    <p>Phone: +91 1234567890</p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 BusBooking. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+</body>
+<script>
+    // Put any last-second script hooks here if needed.
+    // Already included logic for params, total calc, and simulate pay.
+    // Keep scripts at the bottom for better page performance.
+</script>
+</html>
+
+

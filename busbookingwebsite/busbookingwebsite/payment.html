@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BusBooking - Payment</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <div class="logo">
+                <h1>BusBooking</h1>
+            </div>
+            <nav class="nav">
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="search.html">Search Buses</a></li>
+                    <li><a href="my-bookings.html">My Bookings</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                    <li><a href="login.html">Login</a></li>
+                    <li><a href="register.html">Register</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Payment Section -->
+    <section class="payment-section">
+        <div class="container">
+            <div class="payment-header">
+                <h2>Payment</h2>
+                <div class="amount-display">
+                    <span>Total Amount: ₹2,450</span>
+                </div>
+            </div>
+
+            <div class="payment-content">
+                <!-- Payment Methods -->
+                <div class="payment-methods">
+                    <h3>Select Payment Method</h3>
+                    <div class="method-options">
+                        <label class="method-option">
+                            <input type="radio" name="payment-method" value="card" checked>
+                            <div class="method-card">
+                                <div class="method-icon">💳</div>
+                                <div class="method-info">
+                                    <span class="method-name">Credit/Debit Card</span>
+                                    <span class="method-desc">Visa, MasterCard, RuPay</span>
+                                </div>
+                            </div>
+                        </label>
+                        
+                        <label class="method-option">
+                            <input type="radio" name="payment-method" value="upi">
+                            <div class="method-card">
+                                <div class="method-icon">📱</div>
+                                <div class="method-info">
+                                    <span class="method-name">UPI</span>
+                                    <span class="method-desc">Google Pay, PhonePe, Paytm</span>
+                                </div>
+                            </div>
+                        </label>
+                        
+                        <label class="method-option">
+                            <input type="radio" name="payment-method" value="netbanking">
+                            <div class="method-card">
+                                <div class="method-icon">🏦</div>
+                                <div class="method-info">
+                                    <span class="method-name">Net Banking</span>
+                                    <span class="method-desc">All major banks</span>
+                                </div>
+                            </div>
+                        </label>
+                        
+                        <label class="method-option">
+                            <input type="radio" name="payment-method" value="wallet">
+                            <div class="method-card">
+                                <div class="method-icon">👛</div>
+                                <div class="method-info">
+                                    <span class="method-name">Digital Wallet</span>
+                                    <span class="method-desc">Paytm, Amazon Pay</span>
+                                </div>
+                            </div>
+                        </label>
+                    </div>
+                </div>
+
+                <!-- Card Payment Form -->
+                <div class="payment-form">
+                    <h3>Card Details</h3>
+                    <form class="card-form">
+                        <div class="form-group">
+                            <label for="cardNumber">Card Number</label>
+                            <input type="text" id="cardNumber" placeholder="1234 5678 9012 3456" maxlength="19" required>
+                        </div>
+                        
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="expiryDate">Expiry Date</label>
+                                <input type="text" id="expiryDate" placeholder="MM/YY" maxlength="5" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="cvv">CVV</label>
+                                <input type="text" id="cvv" placeholder="123" maxlength="4" required>
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="cardHolderName">Card Holder Name</label>
+                            <input type="text" id="cardHolderName" placeholder="Name on card" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="email">Email for Receipt</label>
+                            <input type="email" id="email" placeholder="Enter email address" required>
+                        </div>
+                        
+                        <div class="form-options">
+                            <label class="checkbox-label">
+                                <input type="checkbox" name="save-card">
+                                <span class="checkmark"></span>
+                                Save card for future payments
+                            </label>
+                        </div>
+                        
+                        <button type="submit" class="btn-primary">Pay ₹2,450</button>
+                    </form>
+                </div>
+
+                <!-- Order Summary -->
+                <div class="order-summary">
+                    <h3>Order Summary</h3>
+                    <div class="summary-details">
+                        <div class="summary-item">
+                            <span>Mumbai → Delhi</span>
+                            <span>15 Dec 2024</span>
+                        </div>
+                        <div class="summary-item">
+                            <span>Express Travels</span>
+                            <span>AC Sleeper</span>
+                        </div>
+                        <div class="summary-item">
+                            <span>Seats A1, A2</span>
+                            <span>₹2,400</span>
+                        </div>
+                        <div class="summary-item">
+                            <span>Convenience Fee</span>
+                            <span>₹50</span>
+                        </div>
+                        <div class="summary-item total">
+                            <span>Total Amount</span>
+                            <span>₹2,450</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h4>BusBooking</h4>
+                    <p>Your trusted partner for online bus ticket booking.</p>
+                </div>
+                <div class="footer-section">
+                    <h4>Quick Links</h4>
+                    <ul>
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="search.html">Search Buses</a></li>
+                        <li><a href="my-bookings.html">My Bookings</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Contact</h4>
+                    <p>Email: info@busbooking.com</p>
+                    <p>Phone: +91 1234567890</p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 BusBooking. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+</body>
+</html> 
