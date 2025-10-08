@@ -24,7 +24,6 @@ namespace busbookingwebsite
             {
                 ViewState["Page"] = 0;
                 fillList();
-                fillGrid();
             }
 
         }
@@ -153,63 +152,8 @@ namespace busbookingwebsite
             cmd.ExecuteNonQuery();
 
             Response.Write("<script>alert('Booking Successful!');</script>");
-            fillGrid();
         }
 
-        // ================= GRIDVIEW SECTION =====================
-        void fillGrid()
-        {
-            GetConnection();
-            da = new SqlDataAdapter("SELECT * FROM BusBookings", con);
-            ds = new DataSet();
-            da.Fill(ds);
-
-            GridView1.DataSource = ds;
-            GridView1.DataBind();
-        }
-
-        protected void GridView1_RowCommand(object sender, GridViewCommandEventArgs e)
-        {
-            if (e.CommandName == "cmd_dlt")
-            {
-                int id = Convert.ToInt32(e.CommandArgument);
-                GetConnection();
-
-                string deleteQuery = "DELETE FROM BusBookings WHERE Id='" + id + "'";
-                cmd = new SqlCommand(deleteQuery, con);
-                cmd.ExecuteNonQuery();
-
-                fillGrid();
-                Response.Write("<script>alert('Booking Deleted!');</script>");
-            }
-            else if (e.CommandName == "cmd_edt")
-            {
-                int id = Convert.ToInt32(e.CommandArgument);
-                GetConnection();
-
-                da = new SqlDataAdapter("SELECT * FROM BusBookings WHERE Id='" + id + "'", con);
-                ds = new DataSet();
-                da.Fill(ds);
-
-                if (ds.Tables[0].Rows.Count > 0)
-                {
-                    txtName.Text = ds.Tables[0].Rows[0]["PassengerName"].ToString();
-                    rblGender.SelectedValue = ds.Tables[0].Rows[0]["Gender"].ToString();
-                    txtEmail.Text = ds.Tables[0].Rows[0]["Email"].ToString();
-                    ddlFromCity.SelectedValue = ds.Tables[0].Rows[0]["FromCity"].ToString();
-                    ddlToCity.SelectedValue = ds.Tables[0].Rows[0]["ToCity"].ToString();
-                    txtTravelDate.Text = Convert.ToDateTime(ds.Tables[0].Rows[0]["TravelDate"]).ToString("yyyy-MM-dd");
-                    txtSeats.Text = ds.Tables[0].Rows[0]["Seats"].ToString();
-
-                    ViewState["id"] = id;
-                    btnBook.Text = "Update";
-                }
-            }
-        }
-
-        protected void GridView1_SelectedIndexChanged(object sender, EventArgs e)
-        {
-
-        }
+        // GridView removed: associated methods deleted
     }
 }

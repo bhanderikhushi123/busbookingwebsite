@@ -1699,3 +1699,46 @@ body {
         padding: 1.5rem;
     }
 } 
+
+/* Shared Buttons for Book Now, View Detail, Previous/Next */
+.btn {
+    display: inline-block;
+    padding: 0.6rem 1rem;
+    border-radius: 6px;
+    font-weight: 600;
+    text-decoration: none;
+    cursor: pointer;
+    border: 1px solid transparent;
+    transition: all 0.2s ease;
+    line-height: 1.2;
+}
+
+.btn:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+.btn-yellow { background: #ffcc00; color: #000; border-color: #e6b800; }
+.btn-yellow:hover { background: #e6b800; }
+
+.btn-blue { background: #0969da; color: #fff; border-color: #0757b3; }
+.btn-blue:hover { background: #0757b3; }
+
+.btn-outline { background: transparent; color: #0969da; border-color: #0969da; }
+.btn-outline:hover { background: #e7f0fe; }
+
+/* Book Now specific alias */
+.book-now-button { background: #ffcc00; color: #000; border-radius: 6px; padding: 8px 16px; font-weight: 700; text-decoration: none; border: 1px solid #e6b800; box-shadow: 0 2px 4px rgba(0,0,0,0.1); }
+.book-now-button:hover { background: #e6b800; box-shadow: 0 4px 8px rgba(0,0,0,0.2); }
+
+/* Previous / Next navigation strip */
+.nav-steps { display: flex; justify-content: space-between; align-items: center; gap: 12px; margin-top: 16px; }
+.prev-btn { background: transparent; color: #0969da; border: 1px solid #0969da; border-radius: 6px; padding: 8px 14px; text-decoration: none; font-weight: 600; }
+.prev-btn:hover { background: #e7f0fe; }
+.next-btn { background: #ffcc00; color: #000; border: 1px solid #e6b800; border-radius: 6px; padding: 8px 14px; text-decoration: none; font-weight: 700; }
+.next-btn:hover { background: #e6b800; }
+
+/* Pager (Prev/Next links) */
+.pager { display: flex; justify-content: space-between; margin-top: 1rem; }
+.pager a { padding: 0.5rem 1rem; border: 1px solid #e1e5e9; border-radius: 6px; text-decoration: none; color: #0969da; transition: all 0.2s ease; }
+.pager a:hover { background: #e7f0fe; }

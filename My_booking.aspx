@@ -1,5 +1,235 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/User.Master" AutoEventWireup="true" CodeBehind="My_booking.aspx.cs" Inherits="busbookingwebsite.My_booking" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
+    <style>
+        /* GridView table styling for bookings */
+        .bookings-container {
+            overflow-x: auto;
+            margin-top: 10px;
+        }
+        .bookings-table {
+            min-width: 800px;
+            width: 100%;
+            border-collapse: collapse;
+            background: #fff;
+            color: #222;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+        }
+        .bookings-table .tbl-header th {
+            background: #f7f9fc;
+            color: #111;
+            text-align: left;
+            font-weight: 600;
+            padding: 12px 16px;
+            border-bottom: 1px solid #e5e7eb;
+            white-space: nowrap;
+        }
+        .bookings-table .tbl-row td {
+            padding: 12px 16px;
+            border-bottom: 1px solid #f0f0f0;
+            white-space: nowrap;
+        }
+        .bookings-table .tbl-row.alt td { background: #fafafa; }
+        .bookings-table a { color: #0969da; font-weight: 600; text-decoration: none; }
+        .bookings-table a:hover { text-decoration: underline; }
+        @media (max-width: 768px) {
+            .bookings-container {
+                margin: 0 -10px;
+            }
+        }
+        /* Booking Summary Styles */
+        .summary-card {
+            background: #ffffff;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+            overflow: hidden;
+            margin-bottom: 20px;
+        }
+        
+        .summary-header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 25px;
+            text-align: center;
+        }
+        
+        .summary-header h1 {
+            margin: 0;
+            font-size: 28px;
+            font-weight: 700;
+        }
+        
+        .summary-header p {
+            margin: 10px 0 0 0;
+            opacity: 0.9;
+            font-size: 16px;
+        }
+        
+        .booking-reference {
+            background: #ffcc00;
+            color: #000;
+            padding: 10px 20px;
+            border-radius: 25px;
+            font-weight: bold;
+            margin-top: 15px;
+            display: inline-block;
+        }
+        
+        .summary-content {
+            padding: 30px;
+        }
+        
+        .summary-section {
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid #e9ecef;
+        }
+        
+        .summary-section:last-child {
+            border-bottom: none;
+        }
+        
+        .section-title {
+            font-size: 20px;
+            font-weight: 600;
+            color: #2c3e50;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .section-title::before {
+            content: '●';
+            color: #667eea;
+            font-size: 16px;
+        }
+        
+        .journey-info {
+            display: grid;
+            grid-template-columns: 1fr auto 1fr;
+            gap: 20px;
+            align-items: center;
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 15px;
+        }
+        
+        .departure, .arrival {
+            text-align: center;
+        }
+        
+        .time {
+            font-size: 24px;
+            font-weight: bold;
+            color: #2c3e50;
+            margin-bottom: 5px;
+        }
+        
+        .city {
+            font-size: 14px;
+            color: #6c757d;
+            font-weight: 500;
+        }
+        
+        .arrow {
+            font-size: 20px;
+            color: #667eea;
+        }
+        
+        .bus-details {
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 15px;
+        }
+        
+        .passenger-list {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+        
+        .passenger-item {
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 8px;
+            border-left: 4px solid #667eea;
+        }
+        
+        .passenger-info {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 15px;
+            margin-bottom: 10px;
+        }
+        
+        .price-breakdown {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 8px;
+            border: 2px solid #e9ecef;
+        }
+        
+        .price-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 8px 0;
+            border-bottom: 1px solid #dee2e6;
+        }
+        
+        .price-item:last-child {
+            border-bottom: none;
+            font-weight: bold;
+            font-size: 18px;
+            color: #2c3e50;
+            margin-top: 10px;
+            padding-top: 15px;
+            border-top: 2px solid #667eea;
+        }
+        
+        .action-buttons {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            margin-top: 30px;
+            flex-wrap: wrap;
+        }
+        
+        .no-bookings {
+            text-align: center;
+            padding: 40px;
+            color: #6c757d;
+        }
+        
+        .no-bookings h3 {
+            color: #2c3e50;
+            margin-bottom: 10px;
+        }
+        
+        @media (max-width: 768px) {
+            .journey-info {
+                grid-template-columns: 1fr;
+                gap: 10px;
+            }
+            
+            .arrow {
+                transform: rotate(90deg);
+            }
+            
+            .passenger-info {
+                grid-template-columns: 1fr;
+                gap: 10px;
+            }
+            
+            .action-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+        }
+    </style>
 </asp:Content>
 <asp:Content ID="Content5" runat="server" contentplaceholderid="ContentPlaceHolder1">
                 <!DOCTYPE html>
@@ -42,146 +272,142 @@
             </div>
 
             <div class="bookings-content">
-                <!-- Upcoming Bookings -->
-                <div class="booking-card">
-                    <div class="booking-header">
-                        <div class="booking-id">
-                            <strong>Booking ID:</strong> BK123456789
-                        </div>
-                        <div class="booking-status active">
-                            <span class="status-badge">Confirmed</span>
-                        </div>
-                    </div>
-                    
-                    <div class="booking-details">
-                        <div class="journey-info">
-                            <div class="route">
-                                <span class="from">Mumbai</span>
-                                <span class="arrow">→</span>
-                                <span class="to">Delhi</span>
-                            </div>
-                            <div class="date">15 Dec 2024</div>
-                        </div>
-                        
-                        <div class="bus-info">
-                            <div class="operator">Express Travels</div>
-                            <div class="bus-type">AC Sleeper</div>
-                            <div class="seats">Seats: A1, A2</div>
-                        </div>
-                        
-                        <div class="timing">
-                            <div class="departure">
-                                <strong>Departure:</strong> 22:00
-                            </div>
-                            <div class="arrival">
-                                <strong>Arrival:</strong> 22:30 (Next Day)
+                <!-- Display booking summary if redirected from Book_Now -->
+                <asp:Panel ID="pnlBookingSummary" runat="server" Visible="false">
+                    <div class="summary-card">
+                        <div class="summary-header">
+                            <h1>🎉 Booking Confirmed!</h1>
+                            <p>Your bus ticket has been successfully booked</p>
+                            <div class="booking-reference">
+                                Booking Reference: <asp:Label ID="lblBookingRef" runat="server"></asp:Label>
                             </div>
                         </div>
                         
-                        <div class="amount">
-                            <strong>Amount Paid:</strong> ₹2,450
+                        <div class="summary-content">
+                            <!-- Journey Details -->
+                            <div class="summary-section">
+                                <h3 class="section-title">Journey Details</h3>
+                                <div class="journey-info">
+                                    <div class="departure">
+                                        <div class="time"><asp:Label ID="lblDepartureTime" runat="server"></asp:Label></div>
+                                        <div class="city"><asp:Label ID="lblDepartureCity" runat="server"></asp:Label></div>
+                                    </div>
+                                    <div class="arrow">→</div>
+                                    <div class="arrival">
+                                        <div class="time"><asp:Label ID="lblArrivalTime" runat="server"></asp:Label></div>
+                                        <div class="city"><asp:Label ID="lblArrivalCity" runat="server"></asp:Label></div>
+                                    </div>
+                                </div>
+                                
+                                <div class="bus-details">
+                                    <strong>Bus:</strong> <asp:Label ID="lblBusName" runat="server"></asp:Label><br>
+                                    <strong>Route:</strong> <asp:Label ID="lblRoute" runat="server"></asp:Label><br>
+                                    <strong>Travel Date:</strong> <asp:Label ID="lblTravelDate" runat="server"></asp:Label>
+                                </div>
+                            </div>
+                            
+                            <!-- Passenger Details -->
+                            <div class="summary-section">
+                                <h3 class="section-title">Passenger Details</h3>
+                                <asp:Repeater ID="rptPassengers" runat="server">
+                                    <ItemTemplate>
+                                        <div class="passenger-item">
+                                            <div class="passenger-info">
+                                                <div><strong>Name:</strong> <%# Eval("PassengerName") %></div>
+                                                <div><strong>Age:</strong> <%# Eval("Age") %></div>
+                                                <div><strong>Gender:</strong> <%# Eval("Gender") %></div>
+                                            </div>
+                                            <div><strong>Contact:</strong> <%# Eval("Contact") %></div>
+                                            <div><strong>Email:</strong> <%# Eval("Email") %></div>
+                                        </div>
+                                    </ItemTemplate>
+                                </asp:Repeater>
+                            </div>
+                            
+                            <!-- Price Breakdown -->
+                            <div class="summary-section">
+                                <h3 class="section-title">Price Breakdown</h3>
+                                <div class="price-breakdown">
+                                    <div class="price-item">
+                                        <span>Base Fare (per seat):</span>
+                                        <span>₹ <asp:Label ID="lblBaseFare" runat="server"></asp:Label></span>
+                                    </div>
+                                    <div class="price-item">
+                                        <span>Number of Seats:</span>
+                                        <span><asp:Label ID="lblNumSeats" runat="server"></asp:Label></span>
+                                    </div>
+                                    <div class="price-item">
+                                        <span>Service Tax:</span>
+                                        <span>₹ 0.00</span>
+                                    </div>
+                                    <div class="price-item">
+                                        <span><strong>Total Amount:</strong></span>
+                                        <span><strong>₹ <asp:Label ID="lblTotalAmount" runat="server"></asp:Label></strong></span>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="action-buttons">
+                                <asp:Button ID="btnPrintTicket" runat="server" Text="🖨️ Print Ticket" CssClass="btn btn-primary" OnClick="btnPrintTicket_Click" />
+                                <asp:Button ID="btnViewAllBookings" runat="server" Text="📋 View All Bookings" CssClass="btn btn-secondary" OnClick="btnViewAllBookings_Click" />
+                            </div>
                         </div>
                     </div>
-                    
-                    <div class="booking-actions">
-                        <a href="#" class="btn-secondary">Download Ticket</a>
-                        <a href="#" class="btn-danger">Cancel Booking</a>
-                    </div>
-                </div>
+                </asp:Panel>
 
-                <!-- Another Upcoming Booking -->
-                <div class="booking-card">
-                    <div class="booking-header">
-                        <div class="booking-id">
-                            <strong>Booking ID:</strong> BK123456790
-                        </div>
-                        <div class="booking-status active">
-                            <span class="status-badge">Confirmed</span>
-                        </div>
-                    </div>
-                    
-                    <div class="booking-details">
-                        <div class="journey-info">
-                            <div class="route">
-                                <span class="from">Bangalore</span>
-                                <span class="arrow">→</span>
-                                <span class="to">Chennai</span>
-                            </div>
-                            <div class="date">20 Dec 2024</div>
-                        </div>
+                <!-- All Bookings List -->
+                <asp:Panel ID="pnlAllBookings" runat="server">
+                    <div class="bookings-container">
                         
-                        <div class="bus-info">
-                            <div class="operator">Royal Express</div>
-                            <div class="bus-type">Non-AC Sleeper</div>
-                            <div class="seats">Seats: C3</div>
-                        </div>
+                        <asp:GridView ID="gvBookings" runat="server" AutoGenerateColumns="False" CssClass="table bookings-table"
+                            GridLines="None" CellPadding="0" CellSpacing="0" OnRowCommand="gvBookings_RowCommand"
+                            HeaderStyle-CssClass="tbl-header" RowStyle-CssClass="tbl-row" AlternatingRowStyle-CssClass="tbl-row alt" OnSelectedIndexChanged="gvBookings_SelectedIndexChanged">
+                        <Columns>
+                            <asp:BoundField DataField="BookingReference" HeaderText="Booking Ref" />
+                            <asp:BoundField DataField="PassengerName" HeaderText="Passenger" />
+                            <%--<asp:BoundField DataField="Age" HeaderText="Age" />--%>
+                            <asp:BoundField DataField="Gender" HeaderText="Gender" />
+                           <%-- <asp:BoundField DataField="Contact" HeaderText="Contact" />--%>
+                            <asp:BoundField DataField="Email" HeaderText="Email" />
+                           <%-- <asp:BoundField DataField="Route" HeaderText="Route" />--%>
+                            <asp:BoundField DataField="TravelDate" HeaderText="Date" />
+                            <asp:BoundField DataField="DepartureTime" HeaderText="Departure" />
+                            <asp:BoundField DataField="ArrivalTime" HeaderText="Arrival" />
+                            <asp:BoundField DataField="SelectedSeats" HeaderText="Seat" />
+                            <asp:BoundField DataField="NumberOfSeats" HeaderText="Seats" />
+                            <asp:BoundField DataField="BusName" HeaderText="Route" />
+                            <asp:BoundField DataField="Fare" HeaderText="Fare">
+                                <ItemStyle HorizontalAlign="Right" />
+                            </asp:BoundField>
+                            <asp:BoundField DataField="TotalPrice" HeaderText="Amount">
+                                <ItemStyle HorizontalAlign="Right" />
+                            </asp:BoundField>
+                            <asp:BoundField DataField="Status" HeaderText="Status" />
+                            <asp:BoundField DataField="PaymentStatus" HeaderText="Payment" />
+                            <asp:TemplateField HeaderText="Action">
+                                <ItemTemplate>
+                                    <asp:LinkButton ID="lnkRemove" runat="server" CommandName="CancelBooking" CommandArgument='<%# Eval("BookingReference") %>'>Remove</asp:LinkButton>
+                                </ItemTemplate>
+                            </asp:TemplateField>
+                        </Columns>
+                        </asp:GridView>
                         
-                        <div class="timing">
-                            <div class="departure">
-                                <strong>Departure:</strong> 20:30
-                            </div>
-                            <div class="arrival">
-                                <strong>Arrival:</strong> 04:30 (Next Day)
-                            </div>
-                        </div>
-                        
-                        <div class="amount">
-                            <strong>Amount Paid:</strong> ₹800
-                        </div>
-                    </div>
-                    
-                    <div class="booking-actions">
-                        <a href="#" class="btn-secondary">Download Ticket</a>
-                        <a href="#" class="btn-danger">Cancel Booking</a>
-                    </div>
-                </div>
 
-                <!-- Completed Booking -->
-                <div class="booking-card completed">
-                    <div class="booking-header">
-                        <div class="booking-id">
-                            <strong>Booking ID:</strong> BK123456788
-                        </div>
-                        <div class="booking-status completed">
-                            <span class="status-badge">Completed</span>
-                        </div>
                     </div>
                     
-                    <div class="booking-details">
-                        <div class="journey-info">
-                            <div class="route">
-                                <span class="from">Pune</span>
-                                <span class="arrow">→</span>
-                                <span class="to">Goa</span>
-                            </div>
-                            <div class="date">10 Dec 2024</div>
-                        </div>
-                        
-                        <div class="bus-info">
-                            <div class="operator">Premium Travels</div>
-                            <div class="bus-type">AC Sleeper</div>
-                            <div class="seats">Seats: E1, E2</div>
-                        </div>
-                        
-                        <div class="timing">
-                            <div class="departure">
-                                <strong>Departure:</strong> 18:00
-                            </div>
-                            <div class="arrival">
-                                <strong>Arrival:</strong> 06:00 (Next Day)
-                            </div>
-                        </div>
-                        
-                        <div class="amount">
-                            <strong>Amount Paid:</strong> ₹1,200
-                        </div>
-                    </div>
+                    <br />
+                    <asp:Button ID="Button1" runat="server" Text="UPDATE" />
                     
-                    <div class="booking-actions">
-                        <a href="#" class="btn-secondary">Download Ticket</a>
-                        <a href="#" class="btn-primary">Book Again</a>
-                    </div>
-                </div>
+                    <asp:Button ID="Button2" runat="server" Text="PAYMENT" />
+                    <!-- No bookings message -->
+                    <asp:Panel ID="pnlNoBookings" runat="server" Visible="false">
+                        <div class="no-bookings">
+                            <h3>No bookings found</h3>
+                            <p>You haven't made any bookings yet.</p>
+                            <a href="Home.aspx" class="btn btn-primary">Book a Ticket</a>
+                        </div>
+                    </asp:Panel>
+                </asp:Panel>
             </div>
         </div>
     </section>

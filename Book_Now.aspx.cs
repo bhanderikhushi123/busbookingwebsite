@@ -11,6 +11,7 @@ namespace busbookingwebsite
 {
     public partial class Book_now : System.Web.UI.Page
     {
+		string s = ConfigurationManager.ConnectionStrings["constr"].ConnectionString;
         SqlConnection con;
         SqlCommand cmd;
 
@@ -20,14 +21,30 @@ namespace busbookingwebsite
             {
                 txtTravelDate.Text = DateTime.Now.AddDays(1).ToString("yyyy-MM-dd");
                 LoadBusDataFromQuery();
+                //TestDatabaseConnection();
             }
         }
 
-        void GetConnection()
+        //private void TestDatabaseConnection()
+        //{
+        //    try
+        //    {
+        //        getcon();
+        //        cmd = new SqlCommand("SELECT COUNT(*) FROM Passengers", con);
+        //        int count = Convert.ToInt32(cmd.ExecuteScalar());
+        //        con.Close();
+        //        Response.Write("<script>alert('Database Connected! Records in Passengers: " + count + "');</script>");
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        Response.Write("<script>alert('Database connection failed: " + ex.Message + "');</script>");
+        //    }
+        //}
+
+		void getcon()
         {
-            con = new SqlConnection(ConfigurationManager.ConnectionStrings["constr"].ConnectionString);
-            if (con.State == System.Data.ConnectionState.Closed)
-                con.Open();
+            con = new SqlConnection(s);
+            con.Open();
         }
 
         // Load values from query string
@@ -47,142 +64,84 @@ namespace busbookingwebsite
 
         protected void btnConfirmPay_Click(object sender, EventArgs e)
         {
-            if (Page.IsValid)
-            {
-                try
-                {
-                    int numberOfSeats = int.Parse(txtNumSeats.Text.Trim());
-                    string bookingReference = GenerateBookingReference();
-                    List<Passenger> passengers = new List<Passenger>();
-                    
-                    // Create passenger objects for each seat
-                    for (int i = 1; i <= numberOfSeats; i++)
-                    {
-                        Passenger passenger = GetPassengerData(i);
-                        if (passenger != null)
-                        {
-                            passenger.BookingReference = bookingReference;
-                            passenger.Status = "Confirmed";
-                            passenger.PaymentStatus = "Pending";
-                            passengers.Add(passenger);
-                        }
-                    }
-
-                    if (passengers.Count == numberOfSeats)
-                    {
-                        // Insert all passengers into database
-                        PassengerDataAccess dataAccess = new PassengerDataAccess();
-                        bool success = true;
-                        List<int> insertedIds = new List<int>();
-
-                        foreach (var passenger in passengers)
-                        {
-                            int passengerId = dataAccess.InsertPassenger(passenger);
-                            if (passengerId > 0)
-                            {
-                                insertedIds.Add(passengerId);
-                            }
-                            else
-                            {
-                                success = false;
-                                break;
-                            }
-                        }
-
-                        if (success)
-                        {
-                            Response.Write("<script>alert('Booking Successful! Your Booking Reference: " + bookingReference + "');</script>");
-                            Response.Redirect("booking-summary.html?bookingId=" + string.Join(",", insertedIds) + "&ref=" + bookingReference);
-                        }
-                        else
-                        {
-                            Response.Write("<script>alert('Error: Failed to create booking. Please try again.');</script>");
-                        }
-                    }
-                    else
-                    {
-                        Response.Write("<script>alert('Error: Please fill in all passenger details.');</script>");
-                    }
-                }
-                catch (Exception ex)
-                {
-                    Response.Write("<script>alert('Error: " + ex.Message + "');</script>");
-                }
-            }
-        }
-
-        private Passenger GetPassengerData(int passengerNumber)
-        {
             try
             {
-                // Get the appropriate controls based on passenger number
-                TextBox txtName = (TextBox)FindControl("txtPassengerName" + passengerNumber);
-                TextBox txtAge = (TextBox)FindControl("txtAge" + passengerNumber);
-                DropDownList ddlGender = (DropDownList)FindControl("ddlGender" + passengerNumber);
-                TextBox txtContact = (TextBox)FindControl("txtContact" + passengerNumber);
-                TextBox txtEmail = (TextBox)FindControl("txtEmail" + passengerNumber);
+                string bookingReference = "BK" + DateTime.Now.ToString("yyyyMMddHHmmss");
 
-                if (txtName != null && txtAge != null && ddlGender != null && txtContact != null && txtEmail != null)
+                int numberOfSeats = 1;
+                int.TryParse(txtNumSeats.Text, out numberOfSeats);
+                if (numberOfSeats <= 0) numberOfSeats = 1;
+
+                decimal farePerTicket = 0m;
+                decimal.TryParse(txtFarePerTicket.Text, out farePerTicket);
+                decimal totalPrice = farePerTicket * numberOfSeats;
+
+                var esc = new Func<string, string>(val => (val ?? string.Empty).Replace("'", "''"));
+
+                string travelDate = esc(txtTravelDate.Text);
+                string busName = esc(txtBusName.Text);
+                string route = esc(txtRoute.Text);
+                string dep = esc(txtDepTime.Text);
+                string arr = esc(txtArrTime.Text);
+                string status = esc("Confirmed");
+                string paymentStatus = esc("Paid");
+
+                //enter 3 passenger details
+                string[] names = new string[] { txtPassengerName1.Text, txtPassengerName2?.Text ?? string.Empty, txtPassengerName3?.Text ?? string.Empty };
+                string[] ages = new string[] { txtAge1.Text, txtAge2?.Text ?? string.Empty, txtAge3?.Text ?? string.Empty };
+                string[] genders = new string[] { ddlGender1.SelectedValue, ddlGender2?.SelectedValue ?? string.Empty, ddlGender3?.SelectedValue ?? string.Empty };
+                string[] contacts = new string[] { txtContact1.Text, txtContact2?.Text ?? string.Empty, txtContact3?.Text ?? string.Empty };
+                string[] emails = new string[] { txtEmail1.Text, txtEmail2?.Text ?? string.Empty, txtEmail3?.Text ?? string.Empty };
+
+                // Simple seat assignment
+                List<string> seatCodes = new List<string>();
+                for (int i = 1; i <= numberOfSeats; i++)
+                    seatCodes.Add("Seat " + i);
+
+                getcon();
+                int totalInserted = 0;
+
+                for (int i = 0; i < numberOfSeats && i < 3; i++)
                 {
-                    return new Passenger
-                    {
-                        PassengerName = txtName.Text.Trim(),
-                        Age = int.Parse(txtAge.Text.Trim()),
-                        Gender = ddlGender.SelectedValue,
-                        Contact = txtContact.Text.Trim(),
-                        Email = txtEmail.Text.Trim(),
-                        TravelDate = DateTime.Parse(txtTravelDate.Text),
-                        NumberOfSeats = 1, // Each passenger represents 1 seat
-                        BusName = txtBusName.Text,
-                        Route = txtRoute.Text,
-                        Fare = decimal.Parse(txtFarePerTicket.Text),
-                        DepartureTime = txtDepTime.Text,
-                        ArrivalTime = txtArrTime.Text,
-                        TotalPrice = decimal.Parse(txtFarePerTicket.Text),
-                        SelectedSeats = GetSelectedSeatsForPassenger(passengerNumber)
-                    };
+                    string nameRaw = string.IsNullOrWhiteSpace(names[i]) ? names[0] : names[i];
+                    string ageRaw = string.IsNullOrWhiteSpace(ages[i]) ? ages[0] : ages[i];
+                    string genderRaw = string.IsNullOrWhiteSpace(genders[i]) ? genders[0] : genders[i];
+                    string contactRaw = string.IsNullOrWhiteSpace(contacts[i]) ? contacts[0] : contacts[i];
+                    string emailRaw = string.IsNullOrWhiteSpace(emails[i]) ? emails[0] : emails[i];
+
+                    string passengerName = esc(nameRaw);
+                    string ageValue = string.IsNullOrWhiteSpace(ageRaw) ? "NULL" : int.Parse(ageRaw).ToString();
+                    string gender = esc(genderRaw);
+                    string contact = esc(contactRaw);
+                    string email = esc(emailRaw);
+                    string selectedSeat = esc(seatCodes[i]);
+
+                    string sql = "INSERT INTO Passengers (PassengerName, Age, Gender, Contact, Email, TravelDate, NumberOfSeats, BusName, Route, Fare, TotalPrice, DepartureTime, ArrivalTime, SelectedSeats, BookingReference, Status, PaymentStatus) " +
+                                 "VALUES ('" + passengerName + "', " + ageValue + ", '" + gender + "', '" + contact + "', '" + email + "', '" + travelDate + "', " + numberOfSeats + ", '" + busName + "', '" + route + "', " +
+                                 farePerTicket.ToString(System.Globalization.CultureInfo.InvariantCulture) + ", " + totalPrice.ToString(System.Globalization.CultureInfo.InvariantCulture) + ", '" + dep + "', '" + arr + "', '" + selectedSeat + "', '" + bookingReference + "', '" + status + "', '" + paymentStatus + "')";
+
+                    cmd = new SqlCommand(sql, con);
+                    totalInserted += cmd.ExecuteNonQuery();
+                }
+                con.Close();
+
+                if (totalInserted > 0)
+                {
+                    // Only show success message
+                    Response.Write("<script>alert('Record successfully inserted!'); window.location='My_booking.aspx';</script>");
+                }
+                else
+                {
+                    Response.Write("<script>alert('Record insertion failed.');</script>");
                 }
             }
-            catch (Exception ex)
+            catch
             {
-                // Log error or handle as needed
-                Response.Write("<script>console.log('Error getting passenger " + passengerNumber + " data: " + ex.Message + "');</script>");
+                // Suppress detailed error messages
+                Response.Write("<script>alert('An error occurred. Please try again.');</script>");
             }
-            return null;
         }
-
-        private string GetSelectedSeatsForPassenger(int passengerNumber)
-        {
-            if (chkUseSeatLayout.Checked)
-            {
-                // For now, return the seat number based on passenger number
-                // In a real implementation, you might want to let users select specific seats
-                return "S" + passengerNumber;
-            }
-            return null;
-        }
-
-        private string GetSelectedSeats()
-        {
-            if (chkUseSeatLayout.Checked)
-            {
-                List<string> selectedSeats = new List<string>();
-                foreach (ListItem item in chkSeats.Items)
-                {
-                    if (item.Selected)
-                    {
-                        selectedSeats.Add(item.Value);
-                    }
-                }
-                return string.Join(",", selectedSeats);
-            }
-            return null;
-        }
-
-        private string GenerateBookingReference()
-        {
-            return "BK" + DateTime.Now.ToString("yyyyMMddHHmmss");
-        }
+        
 
         protected void btnCancel_Click(object sender, EventArgs e)
         {

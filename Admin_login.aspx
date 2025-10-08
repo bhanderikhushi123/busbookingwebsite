@@ -19,7 +19,7 @@
                             <nav class="nav">
                                 <ul>
                                     <li><a href="Home.aspx" class="active">Home</a></li>
-                                    <li><a href="Saerch_buses.aspx">Search Buses</a></li>
+                                    <li><a href="Serach_buses.aspx">Search Buses</a></li>
                                     <li><a href="My_booking.aspx">My Bookings</a></li>
                                     <li><a href="Contact.aspx">Contact</a></li>
                                     <li><a href="Login.aspx">Login</a></li>

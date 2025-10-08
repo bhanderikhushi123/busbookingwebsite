@@ -9,8 +9,11 @@
 
 namespace busbookingwebsite
 {
-    public partial class Book_now : System.Web.UI.Page
+
+
+    public partial class Book_now
     {
+
         /// <summary>
         /// form1 control.
         /// </summary>
@@ -84,121 +87,355 @@ namespace busbookingwebsite
         protected global::System.Web.UI.WebControls.TextBox txtFarePerTicket;
 
         /// <summary>
-        /// txtPassengerName control.
+        /// txtPassengerName1 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtPassengerName;
+        protected global::System.Web.UI.WebControls.TextBox txtPassengerName1;
 
         /// <summary>
-        /// rfvPassengerName control.
+        /// rfvPassengerName1 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.RequiredFieldValidator rfvPassengerName;
+        protected global::System.Web.UI.WebControls.RequiredFieldValidator rfvPassengerName1;
 
         /// <summary>
-        /// txtAge control.
+        /// txtAge1 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtAge;
+        protected global::System.Web.UI.WebControls.TextBox txtAge1;
 
         /// <summary>
-        /// rfvAge control.
+        /// rfvAge1 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.RequiredFieldValidator rfvAge;
+        protected global::System.Web.UI.WebControls.RequiredFieldValidator rfvAge1;
 
         /// <summary>
-        /// rvAge control.
+        /// rvAge1 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.RangeValidator rvAge;
+        protected global::System.Web.UI.WebControls.RangeValidator rvAge1;
 
         /// <summary>
-        /// ddlGender control.
+        /// ddlGender1 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList ddlGender;
+        protected global::System.Web.UI.WebControls.DropDownList ddlGender1;
 
         /// <summary>
-        /// rfvGender control.
+        /// rfvGender1 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.RequiredFieldValidator rfvGender;
+        protected global::System.Web.UI.WebControls.RequiredFieldValidator rfvGender1;
 
         /// <summary>
-        /// txtContact control.
+        /// txtContact1 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtContact;
+        protected global::System.Web.UI.WebControls.TextBox txtContact1;
 
         /// <summary>
-        /// rfvContact control.
+        /// rfvContact1 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.RequiredFieldValidator rfvContact;
+        protected global::System.Web.UI.WebControls.RequiredFieldValidator rfvContact1;
 
         /// <summary>
-        /// revContact control.
+        /// revContact1 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.RegularExpressionValidator revContact;
+        protected global::System.Web.UI.WebControls.RegularExpressionValidator revContact1;
 
         /// <summary>
-        /// txtEmail control.
+        /// txtEmail1 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtEmail;
+        protected global::System.Web.UI.WebControls.TextBox txtEmail1;
 
         /// <summary>
-        /// rfvEmail control.
+        /// rfvEmail1 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.RequiredFieldValidator rfvEmail;
+        protected global::System.Web.UI.WebControls.RequiredFieldValidator rfvEmail1;
 
         /// <summary>
-        /// revEmail control.
+        /// revEmail1 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.RegularExpressionValidator revEmail;
+        protected global::System.Web.UI.WebControls.RegularExpressionValidator revEmail1;
+
+        /// <summary>
+        /// txtPassengerName2 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtPassengerName2;
+
+        /// <summary>
+        /// rfvPassengerName2 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.RequiredFieldValidator rfvPassengerName2;
+
+        /// <summary>
+        /// txtAge2 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtAge2;
+
+        /// <summary>
+        /// rfvAge2 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.RequiredFieldValidator rfvAge2;
+
+        /// <summary>
+        /// rvAge2 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.RangeValidator rvAge2;
+
+        /// <summary>
+        /// ddlGender2 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList ddlGender2;
+
+        /// <summary>
+        /// rfvGender2 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.RequiredFieldValidator rfvGender2;
+
+        /// <summary>
+        /// txtContact2 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtContact2;
+
+        /// <summary>
+        /// rfvContact2 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.RequiredFieldValidator rfvContact2;
+
+        /// <summary>
+        /// revContact2 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.RegularExpressionValidator revContact2;
+
+        /// <summary>
+        /// txtEmail2 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtEmail2;
+
+        /// <summary>
+        /// rfvEmail2 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.RequiredFieldValidator rfvEmail2;
+
+        /// <summary>
+        /// revEmail2 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.RegularExpressionValidator revEmail2;
+
+        /// <summary>
+        /// txtPassengerName3 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtPassengerName3;
+
+        /// <summary>
+        /// rfvPassengerName3 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.RequiredFieldValidator rfvPassengerName3;
+
+        /// <summary>
+        /// txtAge3 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtAge3;
+
+        /// <summary>
+        /// rfvAge3 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.RequiredFieldValidator rfvAge3;
+
+        /// <summary>
+        /// rvAge3 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.RangeValidator rvAge3;
+
+        /// <summary>
+        /// ddlGender3 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList ddlGender3;
+
+        /// <summary>
+        /// rfvGender3 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.RequiredFieldValidator rfvGender3;
+
+        /// <summary>
+        /// txtContact3 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtContact3;
+
+        /// <summary>
+        /// rfvContact3 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.RequiredFieldValidator rfvContact3;
+
+        /// <summary>
+        /// revContact3 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.RegularExpressionValidator revContact3;
+
+        /// <summary>
+        /// txtEmail3 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtEmail3;
+
+        /// <summary>
+        /// rfvEmail3 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.RequiredFieldValidator rfvEmail3;
+
+        /// <summary>
+        /// revEmail3 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.RegularExpressionValidator revEmail3;
 
         /// <summary>
         /// txtNumSeats control.
@@ -262,50 +499,5 @@ namespace busbookingwebsite
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button btnCancel;
-
-        // Passenger 1 Controls
-        protected global::System.Web.UI.WebControls.TextBox txtPassengerName1;
-        protected global::System.Web.UI.WebControls.RequiredFieldValidator rfvPassengerName1;
-        protected global::System.Web.UI.WebControls.TextBox txtAge1;
-        protected global::System.Web.UI.WebControls.RequiredFieldValidator rfvAge1;
-        protected global::System.Web.UI.WebControls.RangeValidator rvAge1;
-        protected global::System.Web.UI.WebControls.DropDownList ddlGender1;
-        protected global::System.Web.UI.WebControls.RequiredFieldValidator rfvGender1;
-        protected global::System.Web.UI.WebControls.TextBox txtContact1;
-        protected global::System.Web.UI.WebControls.RequiredFieldValidator rfvContact1;
-        protected global::System.Web.UI.WebControls.RegularExpressionValidator revContact1;
-        protected global::System.Web.UI.WebControls.TextBox txtEmail1;
-        protected global::System.Web.UI.WebControls.RequiredFieldValidator rfvEmail1;
-        protected global::System.Web.UI.WebControls.RegularExpressionValidator revEmail1;
-
-        // Passenger 2 Controls
-        protected global::System.Web.UI.WebControls.TextBox txtPassengerName2;
-        protected global::System.Web.UI.WebControls.RequiredFieldValidator rfvPassengerName2;
-        protected global::System.Web.UI.WebControls.TextBox txtAge2;
-        protected global::System.Web.UI.WebControls.RequiredFieldValidator rfvAge2;
-        protected global::System.Web.UI.WebControls.RangeValidator rvAge2;
-        protected global::System.Web.UI.WebControls.DropDownList ddlGender2;
-        protected global::System.Web.UI.WebControls.RequiredFieldValidator rfvGender2;
-        protected global::System.Web.UI.WebControls.TextBox txtContact2;
-        protected global::System.Web.UI.WebControls.RequiredFieldValidator rfvContact2;
-        protected global::System.Web.UI.WebControls.RegularExpressionValidator revContact2;
-        protected global::System.Web.UI.WebControls.TextBox txtEmail2;
-        protected global::System.Web.UI.WebControls.RequiredFieldValidator rfvEmail2;
-        protected global::System.Web.UI.WebControls.RegularExpressionValidator revEmail2;
-
-        // Passenger 3 Controls
-        protected global::System.Web.UI.WebControls.TextBox txtPassengerName3;
-        protected global::System.Web.UI.WebControls.RequiredFieldValidator rfvPassengerName3;
-        protected global::System.Web.UI.WebControls.TextBox txtAge3;
-        protected global::System.Web.UI.WebControls.RequiredFieldValidator rfvAge3;
-        protected global::System.Web.UI.WebControls.RangeValidator rvAge3;
-        protected global::System.Web.UI.WebControls.DropDownList ddlGender3;
-        protected global::System.Web.UI.WebControls.RequiredFieldValidator rfvGender3;
-        protected global::System.Web.UI.WebControls.TextBox txtContact3;
-        protected global::System.Web.UI.WebControls.RequiredFieldValidator rfvContact3;
-        protected global::System.Web.UI.WebControls.RegularExpressionValidator revContact3;
-        protected global::System.Web.UI.WebControls.TextBox txtEmail3;
-        protected global::System.Web.UI.WebControls.RequiredFieldValidator rfvEmail3;
-        protected global::System.Web.UI.WebControls.RegularExpressionValidator revEmail3;
     }
 }

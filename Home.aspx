@@ -129,6 +129,28 @@ td input[type="radio"] {
     margin-right: 5px;
 }
 
+/* Button classes used in route cards and pager */
+.btn {
+    display: inline-block;
+    padding: 8px 14px;
+    border-radius: 6px;
+    font-weight: 600;
+    text-decoration: none;
+    cursor: pointer;
+    border: 1px solid transparent;
+    transition: all 0.2s ease;
+    line-height: 1.2;
+}
+.btn-yellow { background: #ffcc00; color: #000; border-color: #e6b800; }
+.btn-yellow:hover { background: #e6b800; }
+.btn-outline { background: transparent; color: #0969da; border-color: #0969da; }
+.btn-outline:hover { background: #e7f0fe; }
+.prev-btn { background: transparent; color: #0969da; border: 1px solid #0969da; border-radius: 6px; padding: 8px 14px; text-decoration: none; font-weight: 600; }
+.prev-btn:hover { background: #e7f0fe; }
+.next-btn { background: #ffcc00; color: #000; border: 1px solid #e6b800; border-radius: 6px; padding: 8px 14px; text-decoration: none; font-weight: 700; }
+.next-btn:hover { background: #e6b800; }
+.pager { display: flex; justify-content: center; gap: 16px; align-items: center; margin-top: 12px; }
+
     </style>
 
 
@@ -255,17 +277,19 @@ td input[type="radio"] {
                  <strong>Fare:</strong> ₹ <%# Eval("Fare") %><br />
                  <strong>Status:</strong> <%# Eval("Status") %><br /><br />
 
-                 <asp:LinkButton ID="LinkButton3" runat="server" CommandName="Book" CommandArgument='<%# Eval("Id") %>'>Book Now</asp:LinkButton>
-                 &nbsp;|&nbsp;
-                 <asp:LinkButton ID="LinkButton4" runat="server" CommandArgument='<%# Eval("Id") %>' CommandName="cmd_View">View Detail</asp:LinkButton>
+                <asp:LinkButton ID="LinkButton3" runat="server" CssClass="btn btn-yellow" CommandName="Book" CommandArgument='<%# Eval("Id") %>'>Book Now</asp:LinkButton>
+<%--                &nbsp;&nbsp;--%>
+                 
+                <asp:LinkButton ID="LinkButton4" runat="server" CssClass="btn btn-outline" CommandArgument='<%# Eval("Id") %>' CommandName="cmd_View">View Detail</asp:LinkButton>
              </div>
          </ItemTemplate>
      </asp:DataList>
 
      <br />
-     <asp:LinkButton ID="LinkButton1" runat="server" OnClick="LinkButton1_Click">Previous</asp:LinkButton>
-     &nbsp;&nbsp;&nbsp;
-     <asp:LinkButton ID="LinkButton2" runat="server" OnClick="LinkButton2_Click">Next</asp:LinkButton>
+     <div class="pager">
+         <asp:LinkButton ID="LinkButton1" runat="server" CssClass="prev-btn" OnClick="LinkButton1_Click">Previous</asp:LinkButton>
+         <asp:LinkButton ID="LinkButton2" runat="server" CssClass="next-btn" OnClick="LinkButton2_Click">Next</asp:LinkButton>
+     </div>
 
 
 </center>
@@ -392,75 +416,7 @@ td input[type="radio"] {
             </div>
         </div>
         </div>
-        <br />
-        <br />
-            <center>
-        <table border="3">
-            <tr>
-                <td class="auto-style1">
-                    <asp:GridView ID="GridView1" runat="server" AutoGenerateColumns="False"  csOnRowCommand="GridView1_RowCommand" OnSelectedIndexChanged="GridView1_SelectedIndexChanged">
-                        <Columns>
-                            <asp:TemplateField HeaderText="Id">
-                                <ItemTemplate>
-                                    <asp:Label ID="Label1" runat="server" Text='<%# Eval("Id") %>'></asp:Label>
-                                </ItemTemplate>
-                            </asp:TemplateField>
-                            <asp:TemplateField HeaderText="PassengerName">
-                                <ItemTemplate>
-                                    <asp:Label ID="Label2" runat="server" Text='<%# Eval("PassengerName") %>'></asp:Label>
-                                </ItemTemplate>
-                            </asp:TemplateField>
-                            <asp:TemplateField HeaderText="Gender">
-                                <ItemTemplate>
-                                    <asp:Label ID="Label3" runat="server" Text='<%# Eval("Gender") %>'></asp:Label>
-                                </ItemTemplate>
-                            </asp:TemplateField>
-                            <asp:TemplateField HeaderText="Email">
-                                <ItemTemplate>
-                                    <asp:Label ID="Label4" runat="server" Text='<%# Eval("Email") %>'></asp:Label>
-                                </ItemTemplate>
-                            </asp:TemplateField>
-                            <asp:TemplateField HeaderText="FromCity">
-                                <ItemTemplate>
-                                    <asp:Label ID="Label5" runat="server" Text='<%# Eval("FromCity") %>'></asp:Label>
-                                </ItemTemplate>
-                            </asp:TemplateField>
-                            <asp:TemplateField HeaderText="ToCity">
-                                <ItemTemplate>
-                                    <asp:Label ID="Label6" runat="server" Text='<%# Eval("ToCity") %>'></asp:Label>
-                                </ItemTemplate>
-                            </asp:TemplateField>
-                            <asp:TemplateField HeaderText="TravelDate">
-                                <ItemTemplate>
-                                    <asp:Label ID="Label7" runat="server" Text='<%# Eval("TravelDate") %>'></asp:Label>
-                                </ItemTemplate>
-                            </asp:TemplateField>
-                            <asp:TemplateField HeaderText="Seats">
-                                <ItemTemplate>
-                                    <asp:Label ID="Label8" runat="server" Text='<%# Eval("Seats") %>'></asp:Label>
-                                </ItemTemplate>
-                            </asp:TemplateField>
-                            <asp:TemplateField HeaderText="IDProofPath">
-                                <ItemTemplate>
-                                    <asp:Image ID="Image1" runat="server" Width="100px" Height="100px" ImageUrl='<%# Eval("IDProofPath") %>' />
-                                </ItemTemplate>
-                            </asp:TemplateField>
-                            <asp:TemplateField HeaderText="Edit">
-                                <ItemTemplate>
-                                    <asp:LinkButton ID="LinkButton1" runat="server" CommandArgument='<%# Eval("Id") %>' CommandName="cmd_edt">Edit</asp:LinkButton>
-                                </ItemTemplate>
-                            </asp:TemplateField>
-                            <asp:TemplateField HeaderText="Delete">
-                                <ItemTemplate>
-                                    <asp:LinkButton ID="LinkButton2" runat="server" CommandArgument='<%# Eval("Id") %>' CommandName="cmd_dlt">Delete</asp:LinkButton>
-                                </ItemTemplate>
-                            </asp:TemplateField>
-                        </Columns>
-                    </asp:GridView>
-                </td>
-            </tr>
-        </table>
-    </center>
+        
     </section>
 </asp:Content>
 

@@ -5,67 +5,173 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
     <title>BOOK NOW</title>
-        <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="styles.css">
     <style>
-        .page-container { max-width: 960px; margin: 30px auto; padding: 0 16px; }
-        .card { background: #ffffff; color: #000000; border-radius: 8px; border: 1px solid #e2e2e2; box-shadow: 0 2px 8px rgba(0,0,0,0.06); }
-        .card-header { padding: 16px 20px; border-bottom: 1px solid #e8e8e8; font-weight: bold; font-size: 18px; background: #f7f9fc; }
-        .card-body { padding: 20px; }
-        .grid { display: grid; grid-template-columns: repeat(12, 1fr); gap: 16px; }
-        .col-12 { grid-column: span 12; }
-        .col-6 { grid-column: span 6; }
-        .col-4 { grid-column: span 4; }
-        .col-3 { grid-column: span 3; }
-        @media (max-width: 768px) { .col-6, .col-4, .col-3 { grid-column: span 12; } }
-        label { display: block; margin-bottom: 6px; font-weight: 600; }
-        input[type="text"], input[type="email"], input[type="number"], input[type="date"], select, .form-control { 
-            width: 100%; 
-            padding: 8px 12px; 
-            border: 1px solid #d0d7de; 
-            border-radius: 6px; 
-            background: #ffffff; 
-            color: #24292f; 
+        .page-container {
+            max-width: 960px;
+            margin: 30px auto;
+            padding: 0 16px;
+        }
+
+        .card {
+            background: #ffffff;
+            color: #000000;
+            border-radius: 8px;
+            border: 1px solid #e2e2e2;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+        }
+
+        .card-header {
+            padding: 16px 20px;
+            border-bottom: 1px solid #e8e8e8;
+            font-weight: bold;
+            font-size: 18px;
+            background: #f7f9fc;
+        }
+
+        .card-body {
+            padding: 20px;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(12, 1fr);
+            gap: 16px;
+        }
+
+        .col-12 {
+            grid-column: span 12;
+        }
+
+        .col-6 {
+            grid-column: span 6;
+        }
+
+        .col-4 {
+            grid-column: span 4;
+        }
+
+        .col-3 {
+            grid-column: span 3;
+        }
+
+        @media (max-width: 768px) {
+            .col-6, .col-4, .col-3 {
+                grid-column: span 12;
+            }
+        }
+
+        label {
+            display: block;
+            margin-bottom: 6px;
+            font-weight: 600;
+        }
+
+        input[type="text"], input[type="email"], input[type="number"], input[type="date"], select, .form-control {
+            width: 100%;
+            padding: 8px 12px;
+            border: 1px solid #d0d7de;
+            border-radius: 6px;
+            background: #ffffff;
+            color: #24292f;
             font-size: 14px;
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
             box-sizing: border-box;
             min-height: 32px;
             transition: all 0.2s ease;
         }
-        
-        input[type="text"]:focus, input[type="email"]:focus, input[type="number"]:focus, input[type="date"]:focus, select:focus, .form-control:focus {
-            border-color: #0969da;
-            outline: none;
-            box-shadow: 0 0 0 3px rgba(9,105,218,0.1);
-        }
-        
-        input[type="text"]:hover, input[type="email"]:hover, input[type="number"]:hover, input[type="date"]:hover, select:hover, .form-control:hover {
-            border-color: #ffcc00;
-        }
-        .error-message { 
-            color: #d1242f; 
-            font-size: 12px; 
-            margin-top: 4px; 
+
+            input[type="text"]:focus, input[type="email"]:focus, input[type="number"]:focus, input[type="date"]:focus, select:focus, .form-control:focus {
+                border-color: #0969da;
+                outline: none;
+                box-shadow: 0 0 0 3px rgba(9,105,218,0.1);
+            }
+
+            input[type="text"]:hover, input[type="email"]:hover, input[type="number"]:hover, input[type="date"]:hover, select:hover, .form-control:hover {
+                border-color: #ffcc00;
+            }
+
+        .error-message {
+            color: #d1242f;
+            font-size: 12px;
+            margin-top: 4px;
             font-weight: 400;
             display: block;
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
         }
-        input[readonly] { background: #f7f7f7; }
-        .muted { color: #666666; font-size: 13px; }
-        .section { margin-bottom: 20px; }
-        .btn-row { display: flex; gap: 12px; align-items: center; }
-        .btn { background-color: #ffcc00; color: #000; font-weight: bold; border: none; padding: 10px 18px; cursor: pointer; border-radius: 6px; }
-        .btn:hover { background-color: #e6b800; }
-        .seat-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 8px; max-width: 360px; }
-        .seat { display: flex; align-items: center; gap: 6px; padding: 8px 10px; border: 1px solid #ddd; border-radius: 6px; background: #fafafa; }
-        #seatLayoutPanel { margin-top: 10px; padding: 15px; border: 1px solid #ddd; border-radius: 6px; background: #f9f9f9; }
-        #seatLayoutPanel input[type="checkbox"] { margin-right: 5px; }
-        #seatLayoutPanel label { margin-bottom: 5px; font-weight: normal; }
+
+        input[readonly] {
+            background: #f7f7f7;
+        }
+
+        .muted {
+            color: #666666;
+            font-size: 13px;
+        }
+
+        .section {
+            margin-bottom: 20px;
+        }
+
+        .btn-row {
+            display: flex;
+            gap: 12px;
+            align-items: center;
+        }
+
+        .btn {
+            background-color: #ffcc00;
+            color: #000;
+            font-weight: bold;
+            border: none;
+            padding: 10px 18px;
+            cursor: pointer;
+            border-radius: 6px;
+        }
+
+            .btn:hover {
+                background-color: #e6b800;
+            }
+
+        .seat-grid {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 8px;
+            max-width: 360px;
+        }
+
+        .seat {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            padding: 8px 10px;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            background: #fafafa;
+        }
+
+        #seatLayoutPanel {
+            margin-top: 10px;
+            padding: 15px;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            background: #f9f9f9;
+        }
+
+            #seatLayoutPanel input[type="checkbox"] {
+                margin-right: 5px;
+            }
+
+            #seatLayoutPanel label {
+                margin-bottom: 5px;
+                font-weight: normal;
+            }
         /* Enhanced Passenger Details Styling - Clean Rectangular Design */
-        .passenger-form { 
-            margin-bottom: 30px; 
-            padding: 30px; 
-            border: 1px solid #d0d7de; 
-            border-radius: 8px; 
+        .passenger-form {
+            margin-bottom: 30px;
+            padding: 30px;
+            border: 1px solid #d0d7de;
+            border-radius: 8px;
             background: #ffffff;
             box-shadow: 0 1px 3px rgba(0,0,0,0.1);
             transition: all 0.2s ease;
@@ -73,46 +179,46 @@
             width: 100%;
             box-sizing: border-box;
         }
-        
-        .passenger-form:hover {
-            border-color: #ffcc00;
-            box-shadow: 0 2px 8px rgba(255,204,0,0.2);
-        }
-        
-        .passenger-form:focus-within {
-            border-color: #007bff;
-            box-shadow: 0 0 0 2px rgba(0,123,255,0.1);
-        }
-        
-        .passenger-header { 
-            margin-bottom: 25px; 
-            padding-bottom: 15px; 
-            border-bottom: 2px solid #ffcc00; 
+
+            .passenger-form:hover {
+                border-color: #ffcc00;
+                box-shadow: 0 2px 8px rgba(255,204,0,0.2);
+            }
+
+            .passenger-form:focus-within {
+                border-color: #007bff;
+                box-shadow: 0 0 0 2px rgba(0,123,255,0.1);
+            }
+
+        .passenger-header {
+            margin-bottom: 25px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid #ffcc00;
             position: relative;
         }
-        
-        .passenger-header h5 { 
-            margin: 0; 
-            color: #24292f; 
-            font-size: 18px; 
-            font-weight: 600;
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-        }
-        
-        .passenger-form .grid { 
-            margin-top: 0; 
+
+            .passenger-header h5 {
+                margin: 0;
+                color: #24292f;
+                font-size: 18px;
+                font-weight: 600;
+                font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            }
+
+        .passenger-form .grid {
+            margin-top: 0;
             gap: 20px;
         }
-        
-        .passenger-form label { 
-            font-weight: 600; 
-            color: #24292f; 
+
+        .passenger-form label {
+            font-weight: 600;
+            color: #24292f;
             font-size: 14px;
             margin-bottom: 8px;
             display: block;
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
         }
-        
+
         .passenger-form .form-control {
             width: 100%;
             border: 1px solid #d0d7de;
@@ -126,17 +232,17 @@
             box-sizing: border-box;
             min-height: 32px;
         }
-        
-        .passenger-form .form-control:focus {
-            border-color: #0969da;
-            outline: none;
-            box-shadow: 0 0 0 3px rgba(9,105,218,0.1);
-        }
-        
-        .passenger-form .form-control:hover:not(:focus) {
-            border-color: #ffcc00;
-        }
-        
+
+            .passenger-form .form-control:focus {
+                border-color: #0969da;
+                outline: none;
+                box-shadow: 0 0 0 3px rgba(9,105,218,0.1);
+            }
+
+            .passenger-form .form-control:hover:not(:focus) {
+                border-color: #ffcc00;
+            }
+
         .passenger-form select.form-control {
             background-image: url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath fill='none' stroke='%23656d76' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='m2 5 6 6 6-6'/%3E%3C/svg%3E");
             background-repeat: no-repeat;
@@ -145,7 +251,7 @@
             padding-right: 32px;
             appearance: none;
         }
-        
+
         .error-message {
             color: #d1242f;
             font-size: 12px;
@@ -154,97 +260,114 @@
             display: block;
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
         }
-        
+
         /* Input validation states */
         .passenger-form .form-control.is-invalid {
             border-color: #d1242f;
         }
-        
+
         .passenger-form .form-control.is-valid {
             border-color: #1a7f37;
         }
-        
+
         /* Placeholder styling */
         .passenger-form .form-control::placeholder {
             color: #656d76;
             opacity: 1;
         }
-        
+
         /* Number input styling */
         .passenger-form input[type="number"] {
             appearance: textfield;
         }
-        
-        .passenger-form input[type="number"]::-webkit-outer-spin-button,
-        .passenger-form input[type="number"]::-webkit-inner-spin-button {
-            appearance: none;
-            margin: 0;
-        }
-        
+
+            .passenger-form input[type="number"]::-webkit-outer-spin-button,
+            .passenger-form input[type="number"]::-webkit-inner-spin-button {
+                appearance: none;
+                margin: 0;
+            }
+
         /* Email input styling */
         .passenger-form input[type="email"] {
             background-image: none;
         }
-        
+
         /* Text input styling */
         .passenger-form input[type="text"] {
             background-image: none;
         }
-        
+
         /* Responsive improvements */
         @media (max-width: 768px) {
             .passenger-form {
                 padding: 20px;
                 margin-bottom: 20px;
             }
-            
+
             .passenger-header h5 {
                 font-size: 16px;
             }
-            
+
             .passenger-form .form-control {
                 padding: 10px 12px;
                 font-size: 16px; /* Prevents zoom on iOS */
             }
-            
+
             .passenger-form .grid {
                 gap: 15px;
             }
         }
-        
+
         /* Animation for form appearance */
         .passenger-form {
             animation: fadeInUp 0.4s ease-out;
         }
-        
+
         @keyframes fadeInUp {
             from {
                 opacity: 0;
                 transform: translateY(15px);
             }
+
             to {
                 opacity: 1;
                 transform: translateY(0);
             }
         }
-        
+
         /* Ensure proper rectangular shapes */
         .passenger-form .form-control,
         .passenger-form,
         .passenger-header {
             border-radius: 6px;
         }
-        
-        /* Consistent spacing */
-        .passenger-form .col-6,
-        .passenger-form .col-3,
-        .passenger-form .col-4,
-        .passenger-form .col-12 {
-            margin-bottom: 0;
+
+            /* Consistent spacing */
+            .passenger-form .col-6,
+            .passenger-form .col-3,
+            .passenger-form .col-4,
+            .passenger-form .col-12 {
+                margin-bottom: 0;
+            }
+
+        .row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 12px;
         }
-        .row { display: flex; justify-content: space-between; align-items: center; gap: 12px; }
-        .total { font-size: 18px; font-weight: 700; }
-        .note { background: #fff8e1; border: 1px solid #ffe082; padding: 10px 12px; border-radius: 6px; }
+
+        .total {
+            font-size: 18px;
+            font-weight: 700;
+        }
+
+        .note {
+            background: #fff8e1;
+            border: 1px solid #ffe082;
+            padding: 10px 12px;
+            border-radius: 6px;
+        }
     </style>
     <script>
         function param(name) {
@@ -268,11 +391,98 @@
             var seats = parseInt(document.getElementById('<%= txtNumSeats.ClientID %>').value || '0');
             var total = fare * seats;
             document.getElementById('totalPrice').innerText = '₹ ' + (isNaN(total) ? '0' : total.toFixed(2));
+
+            // Update passenger forms visibility
+            updatePassengerForms();
         }
-        
+
+        function updateSeatQuantity(seatElement, change) {
+            var currentValue = parseInt(seatElement.value) || 0;
+            var newValue = currentValue + change;
+
+            if (newValue < 1) newValue = 1;
+            if (newValue > 10) newValue = 10; // Max 10 seats
+
+            seatElement.value = newValue;
+            updateTotal();
+        }
+
+        function validateForm() {
+            var numSeats = parseInt(document.getElementById('<%= txtNumSeats.ClientID %>').value || '0');
+            var isValid = true;
+            var errorMessage = '';
+
+            // Check if at least one seat is selected
+            if (numSeats < 1) {
+                errorMessage += 'Please select at least 1 seat.\n';
+                isValid = false;
+            }
+
+            // Check passenger details for each seat
+            for (var i = 1; i <= numSeats; i++) {
+                var nameField = document.getElementById('<%= txtPassengerName1.ClientID %>');
+                if (i > 1) {
+                    var nameField2 = document.getElementById('<%= txtPassengerName2.ClientID %>');
+                    var nameField3 = document.getElementById('<%= txtPassengerName3.ClientID %>');
+                    if (i === 2) nameField = nameField2;
+                    if (i === 3) nameField = nameField3;
+                }
+
+                if (!nameField || nameField.value.trim() === '') {
+                    errorMessage += 'Please enter passenger name for seat ' + i + '.\n';
+                    isValid = false;
+                }
+            }
+
+            if (!isValid) {
+                alert(errorMessage);
+            }
+
+            return isValid;
+        }
+
+        function processPayment() {
+           <%-- if (!validateForm()) {
+                return false;
+            }
+            
+            // Show payment processing message
+            var paymentBtn = document.getElementById('<%= btnConfirmPay.ClientID %>');
+            if (paymentBtn) {
+                paymentBtn.value = 'Processing Payment...';
+                paymentBtn.disabled = true;
+            }
+            
+            // Simulate payment processing delay
+            setTimeout(function() {
+                // Submit the form
+                document.getElementById('<%= form1.ClientID %>').submit();
+            }, 2000);
+            
+            return true;--%>
+            // Simply validate the form and allow submission
+            var numSeats = parseInt(document.getElementById('<%= txtNumSeats.ClientID %>').value || '0');
+            if (numSeats < 1) {
+                alert('Please select at least 1 seat.');
+                return false;
+            }
+
+            // Check passenger 1 name (required)
+            var passengerName = document.getElementById('<%= txtPassengerName1.ClientID %>').value.trim();
+            if (passengerName === '') {
+                alert('Please enter passenger name.');
+                return false;
+            }
+
+            // Add more validation if needed
+
+            // Return true to submit the form immediately
+            return true;
+        }
+
         function updatePassengerForms() {
             var numSeats = parseInt(document.getElementById('<%= txtNumSeats.ClientID %>').value || '1');
-            
+
             // Show/hide passenger forms based on number of seats
             for (var i = 1; i <= 3; i++) {
                 var form = document.getElementById('passengerForm' + i);
@@ -286,16 +496,16 @@
                     }
                 }
             }
-            
+
             // Update total price
             updateTotal();
         }
-        
+
         function clearPassengerForm(passengerNumber) {
             var form = document.getElementById('passengerForm' + passengerNumber);
             if (form) {
                 var inputs = form.querySelectorAll('input[type="text"], input[type="email"], input[type="number"], select');
-                inputs.forEach(function(input) {
+                inputs.forEach(function (input) {
                     input.value = '';
                 });
             }
@@ -314,29 +524,35 @@
             hydrateFromParams();
             var seatsEl = document.getElementById('<%= txtNumSeats.ClientID %>');
             if (seatsEl) { seatsEl.addEventListener('input', updateTotal); }
-            
+
             // Add event listener for seat layout checkbox
             var seatLayoutCheckbox = document.getElementById('<%= chkUseSeatLayout.ClientID %>');
             if (seatLayoutCheckbox) {
-                seatLayoutCheckbox.addEventListener('change', function() {
+                seatLayoutCheckbox.addEventListener('change', function () {
                     toggleSeatLayout(this);
                 });
             }
-            
+
             updateTotal();
         });
     </script>
     <link rel="stylesheet" href="styles.css" />
     <style>
         /* Optional: page dark bg to match Home.aspx feel */
-        body { background-color: #3b4a78; color: #fff; font-family: Arial, Helvetica, sans-serif; }
+        body {
+            background-color: #3b4a78;
+            color: #fff;
+            font-family: Arial, Helvetica, sans-serif;
+        }
     </style>
-    
+
 </head>
 <body>
     <header class="header">
         <div class="container">
-            <div class="logo"><h1>BusBooking</h1></div>
+            <div class="logo">
+                <h1>BusBooking</h1>
+            </div>
             <nav class="nav">
                 <ul>
                     <li><a href="Home.aspx">Home</a></li>
@@ -373,7 +589,7 @@
                         <div class="col-4">
                             <label>Date of Travel</label>
                             <asp:TextBox ID="txtTravelDate" runat="server" CssClass="form-control" TextMode="Date"></asp:TextBox>
-                            <asp:RequiredFieldValidator ID="rfvTravelDate" runat="server" ControlToValidate="txtTravelDate" 
+                            <asp:RequiredFieldValidator ID="rfvTravelDate" runat="server" ControlToValidate="txtTravelDate"
                                 ErrorMessage="Travel date is required" CssClass="error-message" Display="Dynamic"></asp:RequiredFieldValidator>
                         </div>
                         <div class="col-4">
@@ -390,7 +606,9 @@
                         </div>
 
                         <!-- Passenger Details Section -->
-                        <div class="col-12"><hr /></div>
+                        <div class="col-12">
+                            <hr />
+                        </div>
                         <div class="col-12">
                             <h4 style="color: #333; margin-bottom: 20px;">Passenger Details</h4>
                             <div class="note">Please fill in details for each passenger. All fields are required.</div>
@@ -407,16 +625,16 @@
                                     <div class="col-6">
                                         <label>Passenger Name</label>
                                         <asp:TextBox ID="txtPassengerName1" runat="server" CssClass="form-control" placeholder="Enter full name"></asp:TextBox>
-                                        <asp:RequiredFieldValidator ID="rfvPassengerName1" runat="server" ControlToValidate="txtPassengerName1" 
+                                        <asp:RequiredFieldValidator ID="rfvPassengerName1" runat="server" ControlToValidate="txtPassengerName1"
                                             ErrorMessage="Passenger name is required" CssClass="error-message" Display="Dynamic"></asp:RequiredFieldValidator>
                                     </div>
                                     <div class="col-3">
                                         <label>Age</label>
                                         <asp:TextBox ID="txtAge1" runat="server" CssClass="form-control" TextMode="Number" placeholder="e.g., 28"></asp:TextBox>
-                                        <asp:RequiredFieldValidator ID="rfvAge1" runat="server" ControlToValidate="txtAge1" 
+                                        <asp:RequiredFieldValidator ID="rfvAge1" runat="server" ControlToValidate="txtAge1"
                                             ErrorMessage="Age is required" CssClass="error-message" Display="Dynamic"></asp:RequiredFieldValidator>
-                                        <asp:RangeValidator ID="rvAge1" runat="server" ControlToValidate="txtAge1" 
-                                            ErrorMessage="Age must be between 1 and 120" CssClass="error-message" Display="Dynamic" 
+                                        <asp:RangeValidator ID="rvAge1" runat="server" ControlToValidate="txtAge1"
+                                            ErrorMessage="Age must be between 1 and 120" CssClass="error-message" Display="Dynamic"
                                             MinimumValue="1" MaximumValue="120" Type="Integer"></asp:RangeValidator>
                                     </div>
                                     <div class="col-3">
@@ -427,32 +645,32 @@
                                             <asp:ListItem Value="Female" Text="Female"></asp:ListItem>
                                             <asp:ListItem Value="Other" Text="Other"></asp:ListItem>
                                         </asp:DropDownList>
-                                        <asp:RequiredFieldValidator ID="rfvGender1" runat="server" ControlToValidate="ddlGender1" 
+                                        <asp:RequiredFieldValidator ID="rfvGender1" runat="server" ControlToValidate="ddlGender1"
                                             ErrorMessage="Gender is required" CssClass="error-message" Display="Dynamic" InitialValue=""></asp:RequiredFieldValidator>
                                     </div>
                                     <div class="col-6">
                                         <label>Contact Number</label>
                                         <asp:TextBox ID="txtContact1" runat="server" CssClass="form-control" placeholder="Enter mobile number"></asp:TextBox>
-                                        <asp:RequiredFieldValidator ID="rfvContact1" runat="server" ControlToValidate="txtContact1" 
+                                        <asp:RequiredFieldValidator ID="rfvContact1" runat="server" ControlToValidate="txtContact1"
                                             ErrorMessage="Contact number is required" CssClass="error-message" Display="Dynamic"></asp:RequiredFieldValidator>
-                                        <asp:RegularExpressionValidator ID="revContact1" runat="server" ControlToValidate="txtContact1" 
-                                            ErrorMessage="Please enter a valid mobile number" CssClass="error-message" Display="Dynamic" 
+                                        <asp:RegularExpressionValidator ID="revContact1" runat="server" ControlToValidate="txtContact1"
+                                            ErrorMessage="Please enter a valid mobile number" CssClass="error-message" Display="Dynamic"
                                             ValidationExpression="^[0-9]{10}$"></asp:RegularExpressionValidator>
                                     </div>
                                     <div class="col-6">
                                         <label>Email</label>
                                         <asp:TextBox ID="txtEmail1" runat="server" CssClass="form-control" TextMode="Email" placeholder="name@example.com"></asp:TextBox>
-                                        <asp:RequiredFieldValidator ID="rfvEmail1" runat="server" ControlToValidate="txtEmail1" 
+                                        <asp:RequiredFieldValidator ID="rfvEmail1" runat="server" ControlToValidate="txtEmail1"
                                             ErrorMessage="Email is required" CssClass="error-message" Display="Dynamic"></asp:RequiredFieldValidator>
-                                        <asp:RegularExpressionValidator ID="revEmail1" runat="server" ControlToValidate="txtEmail1" 
-                                            ErrorMessage="Please enter a valid email address" CssClass="error-message" Display="Dynamic" 
+                                        <asp:RegularExpressionValidator ID="revEmail1" runat="server" ControlToValidate="txtEmail1"
+                                            ErrorMessage="Please enter a valid email address" CssClass="error-message" Display="Dynamic"
                                             ValidationExpression="^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$"></asp:RegularExpressionValidator>
                                     </div>
                                 </div>
                             </div>
 
                             <!-- Passenger 2 (Hidden by default) -->
-                            <div class="passenger-form" id="passengerForm2" style="display:none;">
+                            <div class="passenger-form" id="passengerForm2" style="display: none;">
                                 <div class="passenger-header">
                                     <h5>Passenger 2 Details</h5>
                                 </div>
@@ -460,16 +678,16 @@
                                     <div class="col-6">
                                         <label>Passenger Name</label>
                                         <asp:TextBox ID="txtPassengerName2" runat="server" CssClass="form-control" placeholder="Enter full name"></asp:TextBox>
-                                        <asp:RequiredFieldValidator ID="rfvPassengerName2" runat="server" ControlToValidate="txtPassengerName2" 
+                                        <asp:RequiredFieldValidator ID="rfvPassengerName2" runat="server" ControlToValidate="txtPassengerName2"
                                             ErrorMessage="Passenger name is required" CssClass="error-message" Display="Dynamic"></asp:RequiredFieldValidator>
                                     </div>
                                     <div class="col-3">
                                         <label>Age</label>
                                         <asp:TextBox ID="txtAge2" runat="server" CssClass="form-control" TextMode="Number" placeholder="e.g., 28"></asp:TextBox>
-                                        <asp:RequiredFieldValidator ID="rfvAge2" runat="server" ControlToValidate="txtAge2" 
+                                        <asp:RequiredFieldValidator ID="rfvAge2" runat="server" ControlToValidate="txtAge2"
                                             ErrorMessage="Age is required" CssClass="error-message" Display="Dynamic"></asp:RequiredFieldValidator>
-                                        <asp:RangeValidator ID="rvAge2" runat="server" ControlToValidate="txtAge2" 
-                                            ErrorMessage="Age must be between 1 and 120" CssClass="error-message" Display="Dynamic" 
+                                        <asp:RangeValidator ID="rvAge2" runat="server" ControlToValidate="txtAge2"
+                                            ErrorMessage="Age must be between 1 and 120" CssClass="error-message" Display="Dynamic"
                                             MinimumValue="1" MaximumValue="120" Type="Integer"></asp:RangeValidator>
                                     </div>
                                     <div class="col-3">
@@ -480,32 +698,32 @@
                                             <asp:ListItem Value="Female" Text="Female"></asp:ListItem>
                                             <asp:ListItem Value="Other" Text="Other"></asp:ListItem>
                                         </asp:DropDownList>
-                                        <asp:RequiredFieldValidator ID="rfvGender2" runat="server" ControlToValidate="ddlGender2" 
+                                        <asp:RequiredFieldValidator ID="rfvGender2" runat="server" ControlToValidate="ddlGender2"
                                             ErrorMessage="Gender is required" CssClass="error-message" Display="Dynamic" InitialValue=""></asp:RequiredFieldValidator>
                                     </div>
                                     <div class="col-6">
                                         <label>Contact Number</label>
                                         <asp:TextBox ID="txtContact2" runat="server" CssClass="form-control" placeholder="Enter mobile number"></asp:TextBox>
-                                        <asp:RequiredFieldValidator ID="rfvContact2" runat="server" ControlToValidate="txtContact2" 
+                                        <asp:RequiredFieldValidator ID="rfvContact2" runat="server" ControlToValidate="txtContact2"
                                             ErrorMessage="Contact number is required" CssClass="error-message" Display="Dynamic"></asp:RequiredFieldValidator>
-                                        <asp:RegularExpressionValidator ID="revContact2" runat="server" ControlToValidate="txtContact2" 
-                                            ErrorMessage="Please enter a valid mobile number" CssClass="error-message" Display="Dynamic" 
+                                        <asp:RegularExpressionValidator ID="revContact2" runat="server" ControlToValidate="txtContact2"
+                                            ErrorMessage="Please enter a valid mobile number" CssClass="error-message" Display="Dynamic"
                                             ValidationExpression="^[0-9]{10}$"></asp:RegularExpressionValidator>
                                     </div>
                                     <div class="col-6">
                                         <label>Email</label>
                                         <asp:TextBox ID="txtEmail2" runat="server" CssClass="form-control" TextMode="Email" placeholder="name@example.com"></asp:TextBox>
-                                        <asp:RequiredFieldValidator ID="rfvEmail2" runat="server" ControlToValidate="txtEmail2" 
+                                        <asp:RequiredFieldValidator ID="rfvEmail2" runat="server" ControlToValidate="txtEmail2"
                                             ErrorMessage="Email is required" CssClass="error-message" Display="Dynamic"></asp:RequiredFieldValidator>
-                                        <asp:RegularExpressionValidator ID="revEmail2" runat="server" ControlToValidate="txtEmail2" 
-                                            ErrorMessage="Please enter a valid email address" CssClass="error-message" Display="Dynamic" 
+                                        <asp:RegularExpressionValidator ID="revEmail2" runat="server" ControlToValidate="txtEmail2"
+                                            ErrorMessage="Please enter a valid email address" CssClass="error-message" Display="Dynamic"
                                             ValidationExpression="^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$"></asp:RegularExpressionValidator>
                                     </div>
                                 </div>
                             </div>
 
                             <!-- Passenger 3 (Hidden by default) -->
-                            <div class="passenger-form" id="passengerForm3" style="display:none;">
+                            <div class="passenger-form" id="passengerForm3" style="display: none;">
                                 <div class="passenger-header">
                                     <h5>Passenger 3 Details</h5>
                                 </div>
@@ -513,16 +731,16 @@
                                     <div class="col-6">
                                         <label>Passenger Name</label>
                                         <asp:TextBox ID="txtPassengerName3" runat="server" CssClass="form-control" placeholder="Enter full name"></asp:TextBox>
-                                        <asp:RequiredFieldValidator ID="rfvPassengerName3" runat="server" ControlToValidate="txtPassengerName3" 
+                                        <asp:RequiredFieldValidator ID="rfvPassengerName3" runat="server" ControlToValidate="txtPassengerName3"
                                             ErrorMessage="Passenger name is required" CssClass="error-message" Display="Dynamic"></asp:RequiredFieldValidator>
                                     </div>
                                     <div class="col-3">
                                         <label>Age</label>
                                         <asp:TextBox ID="txtAge3" runat="server" CssClass="form-control" TextMode="Number" placeholder="e.g., 28"></asp:TextBox>
-                                        <asp:RequiredFieldValidator ID="rfvAge3" runat="server" ControlToValidate="txtAge3" 
+                                        <asp:RequiredFieldValidator ID="rfvAge3" runat="server" ControlToValidate="txtAge3"
                                             ErrorMessage="Age is required" CssClass="error-message" Display="Dynamic"></asp:RequiredFieldValidator>
-                                        <asp:RangeValidator ID="rvAge3" runat="server" ControlToValidate="txtAge3" 
-                                            ErrorMessage="Age must be between 1 and 120" CssClass="error-message" Display="Dynamic" 
+                                        <asp:RangeValidator ID="rvAge3" runat="server" ControlToValidate="txtAge3"
+                                            ErrorMessage="Age must be between 1 and 120" CssClass="error-message" Display="Dynamic"
                                             MinimumValue="1" MaximumValue="120" Type="Integer"></asp:RangeValidator>
                                     </div>
                                     <div class="col-3">
@@ -533,25 +751,25 @@
                                             <asp:ListItem Value="Female" Text="Female"></asp:ListItem>
                                             <asp:ListItem Value="Other" Text="Other"></asp:ListItem>
                                         </asp:DropDownList>
-                                        <asp:RequiredFieldValidator ID="rfvGender3" runat="server" ControlToValidate="ddlGender3" 
+                                        <asp:RequiredFieldValidator ID="rfvGender3" runat="server" ControlToValidate="ddlGender3"
                                             ErrorMessage="Gender is required" CssClass="error-message" Display="Dynamic" InitialValue=""></asp:RequiredFieldValidator>
                                     </div>
                                     <div class="col-6">
                                         <label>Contact Number</label>
                                         <asp:TextBox ID="txtContact3" runat="server" CssClass="form-control" placeholder="Enter mobile number"></asp:TextBox>
-                                        <asp:RequiredFieldValidator ID="rfvContact3" runat="server" ControlToValidate="txtContact3" 
+                                        <asp:RequiredFieldValidator ID="rfvContact3" runat="server" ControlToValidate="txtContact3"
                                             ErrorMessage="Contact number is required" CssClass="error-message" Display="Dynamic"></asp:RequiredFieldValidator>
-                                        <asp:RegularExpressionValidator ID="revContact3" runat="server" ControlToValidate="txtContact3" 
-                                            ErrorMessage="Please enter a valid mobile number" CssClass="error-message" Display="Dynamic" 
+                                        <asp:RegularExpressionValidator ID="revContact3" runat="server" ControlToValidate="txtContact3"
+                                            ErrorMessage="Please enter a valid mobile number" CssClass="error-message" Display="Dynamic"
                                             ValidationExpression="^[0-9]{10}$"></asp:RegularExpressionValidator>
                                     </div>
                                     <div class="col-6">
                                         <label>Email</label>
                                         <asp:TextBox ID="txtEmail3" runat="server" CssClass="form-control" TextMode="Email" placeholder="name@example.com"></asp:TextBox>
-                                        <asp:RequiredFieldValidator ID="rfvEmail3" runat="server" ControlToValidate="txtEmail3" 
+                                        <asp:RequiredFieldValidator ID="rfvEmail3" runat="server" ControlToValidate="txtEmail3"
                                             ErrorMessage="Email is required" CssClass="error-message" Display="Dynamic"></asp:RequiredFieldValidator>
-                                        <asp:RegularExpressionValidator ID="revEmail3" runat="server" ControlToValidate="txtEmail3" 
-                                            ErrorMessage="Please enter a valid email address" CssClass="error-message" Display="Dynamic" 
+                                        <asp:RegularExpressionValidator ID="revEmail3" runat="server" ControlToValidate="txtEmail3"
+                                            ErrorMessage="Please enter a valid email address" CssClass="error-message" Display="Dynamic"
                                             ValidationExpression="^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$"></asp:RegularExpressionValidator>
                                     </div>
                                 </div>
@@ -561,12 +779,16 @@
                         <!-- Seats and Optional Seat Selection -->
                         <div class="col-4">
                             <label>Number of Seats</label>
-                            <asp:TextBox ID="txtNumSeats" runat="server" CssClass="form-control" TextMode="Number" Text="1" min="1" max="3" onchange="updatePassengerForms()"></asp:TextBox>
-                            <asp:RequiredFieldValidator ID="rfvNumSeats" runat="server" ControlToValidate="txtNumSeats" 
+                            <div style="display: flex; align-items: center; gap: 10px;">
+                                <button type="button" onclick="updateSeatQuantity(document.getElementById('<%= txtNumSeats.ClientID %>'), -1)" style="background: #ffcc00; border: none; padding: 8px 12px; border-radius: 4px; cursor: pointer;">-</button>
+                                <asp:TextBox ID="txtNumSeats" runat="server" CssClass="form-control" TextMode="Number" Text="1" min="1" max="10" onchange="updateTotal()" Style="width: 80px; text-align: center;"></asp:TextBox>
+                                <button type="button" onclick="updateSeatQuantity(document.getElementById('<%= txtNumSeats.ClientID %>'), 1)" style="background: #ffcc00; border: none; padding: 8px 12px; border-radius: 4px; cursor: pointer;">+</button>
+                            </div>
+                            <asp:RequiredFieldValidator ID="rfvNumSeats" runat="server" ControlToValidate="txtNumSeats"
                                 ErrorMessage="Number of seats is required" CssClass="error-message" Display="Dynamic"></asp:RequiredFieldValidator>
-                            <asp:RangeValidator ID="rvNumSeats" runat="server" ControlToValidate="txtNumSeats" 
-                                ErrorMessage="Number of seats must be between 1 and 3" CssClass="error-message" Display="Dynamic" 
-                                MinimumValue="1" MaximumValue="3" Type="Integer"></asp:RangeValidator>
+                            <asp:RangeValidator ID="rvNumSeats" runat="server" ControlToValidate="txtNumSeats"
+                                ErrorMessage="Number of seats must be between 1 and 10" CssClass="error-message" Display="Dynamic"
+                                MinimumValue="1" MaximumValue="10" Type="Integer"></asp:RangeValidator>
                         </div>
                         <div class="col-8" style="align-self: end;">
                             <div class="row">
@@ -577,7 +799,7 @@
                             </div>
                         </div>
 
-                        <div class="col-12" id="seatLayoutPanel" style="display:none;">
+                        <div class="col-12" id="seatLayoutPanel" style="display: none;">
                             <label>Select Seats</label>
                             <div class="seat-grid">
                                 <asp:CheckBoxList ID="chkSeats" runat="server" RepeatDirection="Horizontal" RepeatColumns="5" CssClass="seat-grid">
@@ -603,11 +825,13 @@
                                     <asp:ListItem Value="S20" Text="S20"></asp:ListItem>
                                 </asp:CheckBoxList>
                             </div>
-                            <div class="muted" style="margin-top:8px;">Layout is illustrative. Integrate real-time availability later.</div>
+                            <div class="muted" style="margin-top: 8px;">Layout is illustrative. Integrate real-time availability later.</div>
                         </div>
 
                         <!-- Payment Summary -->
-                        <div class="col-12"><hr /></div>
+                        <div class="col-12">
+                            <hr />
+                        </div>
                         <div class="col-6">
                             <label>Total Price</label>
                             <div class="total" id="totalPrice">₹ 0.00</div>
@@ -615,8 +839,11 @@
                         </div>
                         <div class="col-6" style="align-self: end; text-align: right;">
                             <div class="btn-row">
-                                <asp:Button ID="btnConfirmPay" runat="server" Text="Confirm & Pay" CssClass="btn" OnClick="btnConfirmPay_Click" />
-                                <asp:Button ID="btnCancel" runat="server" Text="Cancel" CssClass="btn" OnClick="btnCancel_Click" CausesValidation="false" />
+                                <%--<asp:Button ID="btnConfirmPay" runat="server" Text="💳 Confirm & Pay" CssClass="btn" OnClick="btnConfirmPay_Click" OnClientClick="return processPayment();" CausesValidation="true" />
+                                --%>
+                                <asp:Button ID="btnConfirmPay" runat="server" Text="💳 Confirm & Pay" CssClass="btn"
+                                    OnClick="btnConfirmPay_Click" OnClientClick="return processPayment();" CausesValidation="true" />
+                                <asp:Button ID="btnCancel" runat="server" Text="❌ Cancel" CssClass="btn" OnClick="btnCancel_Click" CausesValidation="false" />
                             </div>
                         </div>
                     </div>
