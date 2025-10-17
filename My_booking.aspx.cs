@@ -45,38 +45,52 @@ namespace busbookingwebsite
 
         void fill_bookings_grid()
         {
-            try
             {
-                SqlConnection con = new SqlConnection(ConfigurationManager.ConnectionStrings["constr"].ConnectionString);
-                con.Open();
-                
-                // Simple query - just get all passenger details from Passengers table
-                string query = "SELECT BookingReference, PassengerName, Age, Gender, Contact, Email, TravelDate, BusName, Route, DepartureTime, ArrivalTime, SelectedSeats, NumberOfSeats, Fare, TotalPrice, Status, PaymentStatus FROM Passengers ORDER BY Id DESC";
-                
-                SqlDataAdapter da = new SqlDataAdapter(query, con);
-                DataTable dt = new DataTable();
-                da.Fill(dt);
-                con.Close();
-                
-                if (dt.Rows.Count > 0)
+                try
                 {
-                    gvBookings.DataSource = dt;
-                    gvBookings.DataBind();
-                    pnlNoBookings.Visible = false;
+                    using (SqlConnection con = new SqlConnection(s))
+                    {
+                        con.Open();
+
+                        string query = "SELECT BookingReference, PassengerName, Age, Gender, Contact, Email, TravelDate, BusName, Route, DepartureTime, ArrivalTime, SelectedSeats, NumberOfSeats, Fare, TotalPrice, Status, PaymentStatus FROM Passengers ORDER BY Id DESC";
+                        SqlDataAdapter da = new SqlDataAdapter(query, con);
+                        DataTable dt = new DataTable();
+                        da.Fill(dt);
+
+                        if (dt.Rows.Count > 0)
+                        {
+                            gvBookings.DataSource = dt;
+                            gvBookings.DataBind();
+                            pnlNoBookings.Visible = false;
+
+                            // Optional: Calculate grand total
+                            decimal grandTotal = 0;
+                            foreach (DataRow dr in dt.Rows)
+                            {
+                                if (Decimal.TryParse(dr["TotalPrice"].ToString(), out decimal total))
+                                {
+                                    grandTotal += total;
+                                }
+                            }
+                            lblTotalPrice.Text = "Grand Total: ₹" + grandTotal.ToString("0.00");
+                            lblTotalPrice.Visible = true;
+                        }
+                        else
+                        {
+                            gvBookings.DataSource = null;
+                            gvBookings.DataBind();
+                            pnlNoBookings.Visible = true;
+                            lblTotalPrice.Visible = false;
+                        }
+                    }
                 }
-                else
+                catch (Exception ex)
                 {
-                    gvBookings.DataSource = null;
-                    gvBookings.DataBind();
-                    pnlNoBookings.Visible = true;
+                    Response.Write("<script>alert('Error loading bookings: " + ex.Message + "');</script>");
                 }
-            }
-            catch (Exception ex)
-            {
-                Response.Write("<script>alert('Error loading bookings: " + ex.Message + "');</script>");
-                pnlNoBookings.Visible = true;
             }
         }
+
 
         private void ShowBookingSummary(string bookingIds, string bookingRef)
         {
@@ -177,13 +191,54 @@ namespace busbookingwebsite
             if (e.CommandName == "CancelBooking")
             {
                 string bookingRef = e.CommandArgument.ToString();
-                CancelBooking(bookingRef);
+               CancelBooking(bookingRef);
             }
+            
+                
+            
         }
 
         protected void gvBookings_SelectedIndexChanged(object sender, EventArgs e)
         {
+            // Example: Get selected row data
+            GridViewRow row = gvBookings.SelectedRow;
+            string bookingRef = row.Cells[0].Text; // Adjust index based on your column layout
 
+            Response.Write("<script>alert('Selected Booking Reference: " + bookingRef + "');</script>");
+        }
+
+        protected void Btnupdate_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                using (SqlConnection con = new SqlConnection(s))
+                {
+                    con.Open();
+
+                    foreach (GridViewRow row in gvBookings.Rows)
+                    {
+                        TextBox txtUpdateSeat = (TextBox)row.FindControl("txtUpdateSeat");
+                        if (txtUpdateSeat != null && int.TryParse(txtUpdateSeat.Text, out int newSeatCount))
+                        {
+                            string bookingRef = gvBookings.DataKeys[row.RowIndex].Values["BookingReference"].ToString();
+                            decimal fare = Convert.ToDecimal(gvBookings.DataKeys[row.RowIndex].Values["Fare"]);
+                            decimal newTotal = newSeatCount * fare;
+
+                            string sql = "UPDATE Passengers SET NumberOfSeats = " + newSeatCount +
+                                         ", TotalPrice = " + newTotal +
+                                         " WHERE BookingReference = '" + bookingRef + "'";
+                            SqlCommand cmd = new SqlCommand(sql, con);
+                            cmd.ExecuteNonQuery();
+                        }
+                    }
+
+                    fill_bookings_grid(); // Refresh the GridView and grand total
+                }
+            }
+            catch (Exception ex)
+            {
+                Response.Write("<script>alert('Error updating seats: " + ex.Message + "');</script>");
+            }
         }
     }
 }
