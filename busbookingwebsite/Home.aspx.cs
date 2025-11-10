@@ -138,8 +138,7 @@ namespace busbookingwebsite
                 int id = Convert.ToInt32(e.CommandArgument);
                 GetConnection();
 
-                cmd = new SqlCommand("DELETE FROM BusBookings WHERE Id=@Id", con);
-                cmd.Parameters.AddWithValue("@Id", id);
+                cmd = new SqlCommand("DELETE FROM BusBookings WHERE Id=" + id, con);
                 cmd.ExecuteNonQuery();
 
                 fillgrid();

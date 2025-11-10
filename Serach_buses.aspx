@@ -33,10 +33,37 @@
 <asp:Content ID="Content6" runat="server" ContentPlaceHolderID="ContentPlaceHolder2">
     <section class="search-results">
         <div class="container">
+            <!-- Search Form -->
+            <div class="search-form-container" style="background: #fff; padding: 20px; border-radius: 8px; margin-bottom: 30px;">
+                <h2 style="color: #333; margin-bottom: 20px;">Search Buses</h2>
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px; margin-bottom: 15px;">
+                    <div>
+                        <label style="display: block; margin-bottom: 5px; color: #333; font-weight: bold;">From (Source)</label>
+                        <asp:TextBox ID="txtSource" runat="server" CssClass="form-control" placeholder="Enter source city"></asp:TextBox>
+                    </div>
+                    <div>
+                        <label style="display: block; margin-bottom: 5px; color: #333; font-weight: bold;">To (Destination)</label>
+                        <asp:TextBox ID="txtDestination" runat="server" CssClass="form-control" placeholder="Enter destination city"></asp:TextBox>
+                    </div>
+                    <div>
+                        <label style="display: block; margin-bottom: 5px; color: #333; font-weight: bold;">Travel Date</label>
+                        <asp:TextBox ID="txtTravelDate" runat="server" CssClass="form-control" TextMode="Date"></asp:TextBox>
+                    </div>
+                    <div>
+                        <label style="display: block; margin-bottom: 5px; color: #333; font-weight: bold;">Operator</label>
+                        <asp:TextBox ID="txtOperator" runat="server" CssClass="form-control" placeholder="Bus operator"></asp:TextBox>
+                    </div>
+                </div>
+                <div style="text-align: center;">
+                    <asp:Button ID="btnSearch" runat="server" Text="Search Buses" CssClass="btn-primary" OnClick="btnSearch_Click" />
+                    <asp:Button ID="btnShowAll" runat="server" Text="Show All Buses" CssClass="btn-secondary" OnClick="btnShowAll_Click" style="margin-left: 10px;" />
+                </div>
+            </div>
+
             <div class="search-header">
-                <h2>Search Results</h2>
+                <h2>Available Buses</h2>
                 <div class="search-info">
-                    <p>Mumbai → Delhi | 15 Dec 2024 | 2 Passengers</p>
+                    <asp:Label ID="lblSearchInfo" runat="server" Text="All available buses"></asp:Label>
                 </div>
             </div>
             <!-- Filters -->
@@ -65,60 +92,52 @@
             </div>
             <!-- Bus Listings -->
             <div class="bus-listings">
-                <!-- Bus 1 -->
-                <div class="bus-card">
-                    <div class="bus-info">
-                        <div class="bus-operator">
-                            <h3>Express Travels</h3>
-                            <span class="bus-type ac">AC Sleeper</span> </div>
-                        <div class="bus-timing">
-                            <div class="departure"><span class="time">22:00</span> <span class="city">Mumbai</span> </div>
-                            <div class="duration"><span class="arrow">→</span> <span class="time-duration">24h 30m</span> </div>
-                            <div class="arrival"><span class="time">22:30</span> <span class="city">Delhi</span> </div>
+                <asp:Panel ID="pnlNoBuses" runat="server" Visible="false" style="text-align: center; padding: 40px; background: #fff; border-radius: 8px;">
+                    <h3 style="color: #666;">No buses found</h3>
+                    <p style="color: #999;">Please try different search criteria or click "Show All Buses" to see all available buses.</p>
+                </asp:Panel>
+                <asp:Repeater ID="rptBuses" runat="server" OnItemCommand="rptBuses_ItemCommand">
+                    <ItemTemplate>
+                        <div class="bus-card">
+                            <div class="bus-info">
+                                <div class="bus-operator">
+                                    <h3><%# Eval("Operator") %></h3>
+                                    <span class="bus-type ac"><%# Eval("RouteName") %></span>
+                                </div>
+                                <div class="bus-timing">
+                                    <div class="departure">
+                                        <span class="city"><%# Eval("Source") %></span>
+                                    </div>
+                                    <div class="duration">
+                                        <span class="arrow">→</span>
+                                        <span class="time-duration"><%# Eval("Duration") %></span>
+                                    </div>
+                                    <div class="arrival">
+                                        <span class="city"><%# Eval("Destination") %></span>
+                                    </div>
+                                </div>
+                                <div class="bus-amenities">
+                                    <span class="amenity">Distance: <%# Eval("Distance") %></span>
+                                    <span class="amenity">Status: <%# Eval("Status") %></span>
+                                </div>
+                            </div>
+                            <div class="bus-pricing">
+                                <div class="price">
+                                    <span class="amount">₹<%# Eval("Fare") %></span>
+                                    <span class="per-seat">per seat</span>
+                                </div>
+                                <div class="seats-available">
+                                    <span class="available">Available</span>
+                                </div>
+                                <asp:LinkButton ID="lnkBookNow" runat="server" CssClass="btn-primary" 
+                                    CommandName="BookNow" 
+                                    CommandArgument='<%# Eval("Id") + "|" + Eval("RouteName") + "|" + Eval("Source") + "|" + Eval("Destination") + "|" + Eval("Fare") + "|" + Eval("Operator") %>'>
+                                    Book Now
+                                </asp:LinkButton>
+                            </div>
                         </div>
-                        <div class="bus-amenities"><span class="amenity">WiFi</span> <span class="amenity">USB Charging</span> <span class="amenity">Water Bottle</span> </div>
-                    </div>
-                    <div class="bus-pricing">
-                        <div class="price"><span class="amount">₹1,200</span> <span class="per-seat">per seat</span> </div>
-                        <div class="seats-available"><span class="available">32 seats available</span> </div>
-                        <a href="bus-details.html" class="btn-primary">Select Seats</a> </div>
-                </div>
-                <!-- Bus 2 -->
-                <div class="bus-card">
-                    <div class="bus-info">
-                        <div class="bus-operator">
-                            <h3>Royal Express</h3>
-                            <span class="bus-type non-ac">Non-AC Sleeper</span> </div>
-                        <div class="bus-timing">
-                            <div class="departure"><span class="time">20:30</span> <span class="city">Mumbai</span> </div>
-                            <div class="duration"><span class="arrow">→</span> <span class="time-duration">25h 15m</span> </div>
-                            <div class="arrival"><span class="time">21:45</span> <span class="city">Delhi</span> </div>
-                        </div>
-                        <div class="bus-amenities"><span class="amenity">Water Bottle</span> </div>
-                    </div>
-                    <div class="bus-pricing">
-                        <div class="price"><span class="amount">₹800</span> <span class="per-seat">per seat</span> </div>
-                        <div class="seats-available"><span class="available">18 seats available</span> </div>
-                        <a href="bus-details.html" class="btn-primary">Select Seats</a> </div>
-                </div>
-                <!-- Bus 3 -->
-                <div class="bus-card">
-                    <div class="bus-info">
-                        <div class="bus-operator">
-                            <h3>Premium Travels</h3>
-                            <span class="bus-type ac">AC Sleeper</span> </div>
-                        <div class="bus-timing">
-                            <div class="departure"><span class="time">23:15</span> <span class="city">Mumbai</span> </div>
-                            <div class="duration"><span class="arrow">→</span> <span class="time-duration">23h 45m</span> </div>
-                            <div class="arrival"><span class="time">23:00</span> <span class="city">Delhi</span> </div>
-                        </div>
-                        <div class="bus-amenities"><span class="amenity">WiFi</span> <span class="amenity">USB Charging</span> <span class="amenity">Water Bottle</span> <span class="amenity">Snacks</span> </div>
-                    </div>
-                    <div class="bus-pricing">
-                        <div class="price"><span class="amount">₹1,500</span> <span class="per-seat">per seat</span> </div>
-                        <div class="seats-available"><span class="available">8 seats available</span> </div>
-                        <a href="bus-details.html" class="btn-primary">Select Seats</a> </div>
-                </div>
+                    </ItemTemplate>
+                </asp:Repeater>
             </div>
         </div>
     </section>

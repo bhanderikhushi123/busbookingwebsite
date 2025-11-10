@@ -1,26 +1,15 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="Admin_dashboard.aspx.cs" Inherits="busbookingwebsite.Admin_dashboard" %>
 
 <!DOCTYPE html>
-
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
-    <title></title>
-</head>
-<body>
-<%--    <form id="form1" runat="server">
-        <div>
-        </div>
-    </form>--%>
-    
-<!DOCTYPE html>
-<html lang="en">
-<head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>BusBooking - Admin Dashboard</title>
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
+    <form id="form1" runat="server">
     <!-- Admin Header -->
     <header class="admin-header">
         <div class="container">
@@ -97,60 +86,35 @@
                 <div class="dashboard-section">
                     <div class="section-header">
                         <h3>Recent Bookings</h3>
-                        <a href="admin-bookings.html" class="btn-secondary">View All</a>
+                        <a href="Admin_booking.aspx" class="btn-secondary">View All</a>
                     </div>
                     <div class="table-container">
-                        <table class="admin-table">
-                            <thead>
-                                <tr>
-                                    <th>Booking ID</th>
-                                    <th>Customer</th>
-                                    <th>Route</th>
-                                    <th>Date</th>
-                                    <th>Amount</th>
-                                    <th>Status</th>
-                                    <th>Action</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td>BK123456789</td>
-                                    <td>John Doe</td>
-                                    <td>Mumbai → Delhi</td>
-                                    <td>15 Dec 2024</td>
-                                    <td>₹2,450</td>
-                                    <td><span class="status-badge confirmed">Confirmed</span></td>
-                                    <td><a href="#" class="btn-small">View</a></td>
-                                </tr>
-                                <tr>
-                                    <td>BK123456790</td>
-                                    <td>Jane Smith</td>
-                                    <td>Bangalore → Chennai</td>
-                                    <td>20 Dec 2024</td>
-                                    <td>₹800</td>
-                                    <td><span class="status-badge pending">Pending</span></td>
-                                    <td><a href="#" class="btn-small">View</a></td>
-                                </tr>
-                                <tr>
-                                    <td>BK123456791</td>
-                                    <td>Mike Johnson</td>
-                                    <td>Pune → Goa</td>
-                                    <td>18 Dec 2024</td>
-                                    <td>₹1,200</td>
-                                    <td><span class="status-badge completed">Completed</span></td>
-                                    <td><a href="#" class="btn-small">View</a></td>
-                                </tr>
-                                <tr>
-                                    <td>BK123456792</td>
-                                    <td>Sarah Wilson</td>
-                                    <td>Kolkata → Hyderabad</td>
-                                    <td>22 Dec 2024</td>
-                                    <td>₹1,500</td>
-                                    <td><span class="status-badge cancelled">Cancelled</span></td>
-                                    <td><a href="#" class="btn-small">View</a></td>
-                                </tr>
-                            </tbody>
-                        </table>
+                        <asp:GridView ID="gvRecentBookings" runat="server" CssClass="admin-table" AutoGenerateColumns="false" 
+                            GridLines="Both" ShowHeader="true" AllowPaging="false" BorderWidth="1px" CellPadding="5" 
+                            HeaderStyle-CssClass="table-header" RowStyle-CssClass="table-row" 
+                            EmptyDataText="No recent bookings found.">
+                            <Columns>
+                                <asp:BoundField DataField="BookingReference" HeaderText="Booking ID" ItemStyle-Width="150px" />
+                                <asp:BoundField DataField="PassengerName" HeaderText="Customer" ItemStyle-Width="150px" />
+                                <asp:BoundField DataField="Route" HeaderText="Route" ItemStyle-Width="200px" />
+                                <asp:BoundField DataField="TravelDate" HeaderText="Date" DataFormatString="{0:dd MMM yyyy}" ItemStyle-Width="120px" />
+                                <asp:BoundField DataField="TotalPrice" HeaderText="Amount" DataFormatString="₹{0:N2}" ItemStyle-Width="100px" ItemStyle-HorizontalAlign="Right" />
+                                <asp:BoundField DataField="Status" HeaderText="Status" ItemStyle-Width="100px" />
+                                <asp:BoundField DataField="PaymentStatus" HeaderText="Payment" ItemStyle-Width="100px" />
+                                <asp:TemplateField HeaderText="Action" ItemStyle-Width="80px">
+                                    <ItemTemplate>
+                                        <a href="#" class="btn-small">View</a>
+                                    </ItemTemplate>
+                                </asp:TemplateField>
+                            </Columns>
+                            <EmptyDataTemplate>
+                                <table class="admin-table">
+                                    <tr>
+                                        <td colspan="8" style="text-align: center; padding: 20px;">No recent bookings found.</td>
+                                    </tr>
+                                </table>
+                            </EmptyDataTemplate>
+                        </asp:GridView>
                     </div>
                 </div>
 
@@ -158,37 +122,37 @@
                 <div class="dashboard-section">
                     <h3>Quick Actions</h3>
                     <div class="quick-actions">
-                        <a href="admin-bookings.html" class="action-card">
+                        <a href="Admin_booking.aspx" class="action-card">
                             <div class="action-icon">📋</div>
                             <h4>Manage Bookings</h4>
                             <p>View and manage all bookings</p>
                         </a>
                         
-                        <a href="admin-buses.html" class="action-card">
+                        <a href="Admin_buses.aspx" class="action-card">
                             <div class="action-icon">🚌</div>
                             <h4>Manage Buses</h4>
                             <p>Add, edit, or remove buses</p>
                         </a>
                         
-                        <a href="admin-routes.html" class="action-card">
+                        <a href="Admin_routes.aspx" class="action-card">
                             <div class="action-icon">🗺️</div>
                             <h4>Manage Routes</h4>
                             <p>Configure bus routes and schedules</p>
                         </a>
                         
-                        <a href="admin-users.html" class="action-card">
+                        <a href="Admin_users.aspx" class="action-card">
                             <div class="action-icon">👥</div>
                             <h4>Manage Users</h4>
                             <p>View and manage user accounts</p>
                         </a>
                         
-                        <a href="admin-reports.html" class="action-card">
+                        <a href="Admin_report.aspx" class="action-card">
                             <div class="action-icon">📊</div>
                             <h4>Generate Reports</h4>
                             <p>Create detailed reports and analytics</p>
                         </a>
                         
-                        <a href="admin-settings.html" class="action-card">
+                        <a href="Admin-setting.aspx" class="action-card">
                             <div class="action-icon">⚙️</div>
                             <h4>System Settings</h4>
                             <p>Configure system preferences</p>
@@ -225,7 +189,6 @@
             </div>
         </div>
     </footer>
-</body>
-</html> 
+    </form>
 </body>
 </html>

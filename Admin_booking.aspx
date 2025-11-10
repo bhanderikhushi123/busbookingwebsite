@@ -1,25 +1,15 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="Admin_booking.aspx.cs" Inherits="busbookingwebsite.Admin_booking" %>
 
 <!DOCTYPE html>
-
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
-    <title></title>
-</head>
-<body>
-   <%-- <form id="form1" runat="server">
-        <div>
-        </div>
-    </form>--%>
-    <!DOCTYPE html>
-<html lang="en">
-<head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>BusBooking - Admin Bookings</title>
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
+    <form id="form1" runat="server">
     <!-- Admin Header -->
     <header class="admin-header">
         <div class="container">
@@ -78,174 +68,57 @@
 
             <!-- Bookings Table -->
             <div class="table-container">
-                <table class="admin-table">
-                    <thead>
-                        <tr>
-                            <th>Booking ID</th>
-                            <th>Customer Details</th>
-                            <th>Journey Details</th>
-                            <th>Seats</th>
-                            <th>Amount</th>
-                            <th>Status</th>
-                            <th>Date</th>
-                            <th>Actions</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>BK123456789</td>
-                            <td>
+                <asp:GridView ID="gvAllBookings" runat="server" CssClass="admin-table" AutoGenerateColumns="false" 
+                    GridLines="Both" ShowHeader="true" AllowPaging="true" PageSize="10" 
+                    BorderWidth="1px" CellPadding="5" HeaderStyle-CssClass="table-header" 
+                    RowStyle-CssClass="table-row" PagerStyle-CssClass="pager-style"
+                    EmptyDataText="No bookings found." OnPageIndexChanging="gvAllBookings_PageIndexChanging">
+                    <Columns>
+                        <asp:BoundField DataField="BookingReference" HeaderText="Booking ID" ItemStyle-Width="120px" />
+                        <asp:TemplateField HeaderText="Customer Details" ItemStyle-Width="200px">
+                            <ItemTemplate>
                                 <div class="customer-info">
-                                    <strong>John Doe</strong><br>
-                                    john.doe@email.com<br>
-                                    +91 9876543210
+                                    <strong><%# Eval("PassengerName") %></strong><br>
+                                    <%# Eval("Email") %><br>
+                                    <%# Eval("Contact") %>
                                 </div>
-                            </td>
-                            <td>
+                            </ItemTemplate>
+                        </asp:TemplateField>
+                        <asp:TemplateField HeaderText="Journey Details" ItemStyle-Width="250px">
+                            <ItemTemplate>
                                 <div class="journey-info">
-                                    <strong>Mumbai → Delhi</strong><br>
-                                    Express Travels<br>
-                                    15 Dec 2024, 22:00
+                                    <strong><%# Eval("Route") %></strong><br>
+                                    <%# Eval("BusName") %><br>
+                                    <%# Eval("TravelDate", "{0:dd MMM yyyy}") %>, <%# Eval("DepartureTime") %>
                                 </div>
-                            </td>
-                            <td>A1, A2</td>
-                            <td>₹2,450</td>
-                            <td><span class="status-badge confirmed">Confirmed</span></td>
-                            <td>10 Dec 2024</td>
-                            <td>
+                            </ItemTemplate>
+                        </asp:TemplateField>
+                        <asp:BoundField DataField="SelectedSeats" HeaderText="Seats" ItemStyle-Width="100px" />
+                        <asp:BoundField DataField="TotalPrice" HeaderText="Amount" DataFormatString="₹{0:N2}" ItemStyle-Width="100px" ItemStyle-HorizontalAlign="Right" />
+                        <asp:BoundField DataField="Status" HeaderText="Status" ItemStyle-Width="100px" />
+                        <asp:BoundField DataField="PaymentStatus" HeaderText="Payment" ItemStyle-Width="100px" />
+                        <asp:TemplateField HeaderText="Actions" ItemStyle-Width="150px">
+                            <ItemTemplate>
                                 <div class="action-buttons">
                                     <a href="#" class="btn-small">View</a>
                                     <a href="#" class="btn-small">Edit</a>
-                                    <a href="#" class="btn-small danger">Cancel</a>
+                                    <asp:LinkButton ID="lnkCancel" runat="server" CssClass="btn-small danger" 
+                                        CommandArgument='<%# Eval("BookingReference") %>' 
+                                        OnClick="lnkCancel_Click" OnClientClick="return confirm('Are you sure you want to cancel this booking?');">Cancel</asp:LinkButton>
                                 </div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>BK123456790</td>
-                            <td>
-                                <div class="customer-info">
-                                    <strong>Jane Smith</strong><br>
-                                    jane.smith@email.com<br>
-                                    +91 8765432109
-                                </div>
-                            </td>
-                            <td>
-                                <div class="journey-info">
-                                    <strong>Bangalore → Chennai</strong><br>
-                                    Royal Express<br>
-                                    20 Dec 2024, 20:30
-                                </div>
-                            </td>
-                            <td>C3</td>
-                            <td>₹800</td>
-                            <td><span class="status-badge pending">Pending</span></td>
-                            <td>12 Dec 2024</td>
-                            <td>
-                                <div class="action-buttons">
-                                    <a href="#" class="btn-small">View</a>
-                                    <a href="#" class="btn-small">Edit</a>
-                                    <a href="#" class="btn-small danger">Cancel</a>
-                                </div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>BK123456791</td>
-                            <td>
-                                <div class="customer-info">
-                                    <strong>Mike Johnson</strong><br>
-                                    mike.johnson@email.com<br>
-                                    +91 7654321098
-                                </div>
-                            </td>
-                            <td>
-                                <div class="journey-info">
-                                    <strong>Pune → Goa</strong><br>
-                                    Premium Travels<br>
-                                    18 Dec 2024, 18:00
-                                </div>
-                            </td>
-                            <td>E1, E2</td>
-                            <td>₹1,200</td>
-                            <td><span class="status-badge completed">Completed</span></td>
-                            <td>08 Dec 2024</td>
-                            <td>
-                                <div class="action-buttons">
-                                    <a href="#" class="btn-small">View</a>
-                                    <a href="#" class="btn-small">Edit</a>
-                                    <a href="#" class="btn-small">Refund</a>
-                                </div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>BK123456792</td>
-                            <td>
-                                <div class="customer-info">
-                                    <strong>Sarah Wilson</strong><br>
-                                    sarah.wilson@email.com<br>
-                                    +91 6543210987
-                                </div>
-                            </td>
-                            <td>
-                                <div class="journey-info">
-                                    <strong>Kolkata → Hyderabad</strong><br>
-                                    Express Travels<br>
-                                    22 Dec 2024, 23:15
-                                </div>
-                            </td>
-                            <td>B4</td>
-                            <td>₹1,500</td>
-                            <td><span class="status-badge cancelled">Cancelled</span></td>
-                            <td>11 Dec 2024</td>
-                            <td>
-                                <div class="action-buttons">
-                                    <a href="#" class="btn-small">View</a>
-                                    <a href="#" class="btn-small">Edit</a>
-                                    <a href="#" class="btn-small">Refund</a>
-                                </div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>BK123456793</td>
-                            <td>
-                                <div class="customer-info">
-                                    <strong>David Brown</strong><br>
-                                    david.brown@email.com<br>
-                                    +91 5432109876
-                                </div>
-                            </td>
-                            <td>
-                                <div class="journey-info">
-                                    <strong>Delhi → Jaipur</strong><br>
-                                    Royal Express<br>
-                                    25 Dec 2024, 14:00
-                                </div>
-                            </td>
-                            <td>D1, D2, D3</td>
-                            <td>₹1,800</td>
-                            <td><span class="status-badge confirmed">Confirmed</span></td>
-                            <td>13 Dec 2024</td>
-                            <td>
-                                <div class="action-buttons">
-                                    <a href="#" class="btn-small">View</a>
-                                    <a href="#" class="btn-small">Edit</a>
-                                    <a href="#" class="btn-small danger">Cancel</a>
-                                </div>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
+                            </ItemTemplate>
+                        </asp:TemplateField>
+                    </Columns>
+                    <EmptyDataTemplate>
+                        <table class="admin-table">
+                            <tr>
+                                <td colspan="8" style="text-align: center; padding: 20px;">No bookings found.</td>
+                            </tr>
+                        </table>
+                    </EmptyDataTemplate>
+                </asp:GridView>
             </div>
 
-            <!-- Pagination -->
-            <div class="pagination">
-                <a href="#" class="page-link">Previous</a>
-                <a href="#" class="page-link active">1</a>
-                <a href="#" class="page-link">2</a>
-                <a href="#" class="page-link">3</a>
-                <a href="#" class="page-link">4</a>
-                <a href="#" class="page-link">5</a>
-                <a href="#" class="page-link">Next</a>
-            </div>
         </div>
     </section>
 
@@ -275,7 +148,6 @@
             </div>
         </div>
     </footer>
-</body>
-</html> 
+    </form>
 </body>
 </html>

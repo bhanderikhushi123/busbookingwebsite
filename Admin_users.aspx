@@ -1,24 +1,15 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="Admin_users.aspx.cs" Inherits="busbookingwebsite.Admin_users" %>
 
 <!DOCTYPE html>
-
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
-    <title></title>
-</head>
-<body>
-<%-- <form id="form1" runat="server">
-        <div>
-        </div>
-    </form>--%>
-    <html lang="en">
-<head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>BusBooking - Admin Users</title>
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
+    <form id="form1" runat="server">
     <!-- Admin Header -->
     <header class="admin-header">
         <div class="container">
@@ -79,165 +70,66 @@
 
             <!-- Users Table -->
             <div class="table-container">
-                <table class="admin-table">
-                    <thead>
-                        <tr>
-                            <th>User ID</th>
-                            <th>User Details</th>
-                            <th>Contact Info</th>
-                            <th>Registration Date</th>
-                            <th>Total Bookings</th>
-                            <th>Status</th>
-                            <th>Verification</th>
-                            <th>Actions</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>USR001</td>
-                            <td>
+                <asp:GridView ID="gvAllUsers" runat="server" CssClass="admin-table" AutoGenerateColumns="false" 
+                    GridLines="Both" ShowHeader="true" AllowPaging="true" PageSize="10" 
+                    BorderWidth="1px" CellPadding="5" HeaderStyle-CssClass="table-header" 
+                    RowStyle-CssClass="table-row" PagerStyle-CssClass="pager-style"
+                    EmptyDataText="No users found." OnPageIndexChanging="gvAllUsers_PageIndexChanging"
+                    OnRowCommand="gvAllUsers_RowCommand">
+                    <Columns>
+                        <asp:BoundField DataField="Id" HeaderText="User ID" ItemStyle-Width="80px" />
+                        <asp:TemplateField HeaderText="User Details" ItemStyle-Width="200px">
+                            <ItemTemplate>
                                 <div class="user-info">
-                                    <strong>John Doe</strong><br>
+                                    <strong><%# Eval("FirstName") %> <%# Eval("LastName") %></strong><br>
                                     <span class="user-role">Regular User</span>
                                 </div>
-                            </td>
-                            <td>
+                            </ItemTemplate>
+                        </asp:TemplateField>
+                        <asp:TemplateField HeaderText="Contact Info" ItemStyle-Width="200px">
+                            <ItemTemplate>
                                 <div class="contact-info">
-                                    john.doe@email.com<br>
-                                    +91 9876543210
+                                    <%# Eval("Email") %><br>
+                                    <%# Eval("Phone") %>
                                 </div>
-                            </td>
-                            <td>15 Jan 2024</td>
-                            <td>12 bookings</td>
-                            <td><span class="status-badge confirmed">Active</span></td>
-                            <td><span class="status-badge confirmed">Verified</span></td>
-                            <td>
+                            </ItemTemplate>
+                        </asp:TemplateField>
+                        <asp:TemplateField HeaderText="Total Bookings" ItemStyle-Width="120px" ItemStyle-HorizontalAlign="Center">
+                            <ItemTemplate>
+                                <%# GetBookingCount(Eval("Email").ToString()) %> bookings
+                            </ItemTemplate>
+                        </asp:TemplateField>
+                        <asp:TemplateField HeaderText="Status" ItemStyle-Width="100px">
+                            <ItemTemplate>
+                                <span class="status-badge confirmed">Active</span>
+                            </ItemTemplate>
+                        </asp:TemplateField>
+                        <asp:TemplateField HeaderText="Verification" ItemStyle-Width="100px">
+                            <ItemTemplate>
+                                <span class="status-badge confirmed">Verified</span>
+                            </ItemTemplate>
+                        </asp:TemplateField>
+                        <asp:TemplateField HeaderText="Actions" ItemStyle-Width="200px">
+                            <ItemTemplate>
                                 <div class="action-buttons">
                                     <a href="#" class="btn-small">View Profile</a>
-                                    <a href="#" class="btn-small">Edit</a>
-                                    <a href="#" class="btn-small danger">Suspend</a>
+                                    <asp:LinkButton ID="lnkEdit" runat="server" CssClass="btn-small" 
+                                        CommandArgument='<%# Eval("Id") %>' CommandName="EditUser">Edit</asp:LinkButton>
+                                    <asp:LinkButton ID="lnkDelete" runat="server" CssClass="btn-small danger" 
+                                        CommandArgument='<%# Eval("Id") %>' CommandName="DeleteUser" 
+                                        OnClientClick="return confirm('Are you sure you want to delete this user?');">Delete</asp:LinkButton>
                                 </div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>USR002</td>
-                            <td>
-                                <div class="user-info">
-                                    <strong>Jane Smith</strong><br>
-                                    <span class="user-role">Premium User</span>
-                                </div>
-                            </td>
-                            <td>
-                                <div class="contact-info">
-                                    jane.smith@email.com<br>
-                                    +91 8765432109
-                                </div>
-                            </td>
-                            <td>22 Feb 2024</td>
-                            <td>8 bookings</td>
-                            <td><span class="status-badge confirmed">Active</span></td>
-                            <td><span class="status-badge confirmed">Verified</span></td>
-                            <td>
-                                <div class="action-buttons">
-                                    <a href="#" class="btn-small">View Profile</a>
-                                    <a href="#" class="btn-small">Edit</a>
-                                    <a href="#" class="btn-small danger">Suspend</a>
-                                </div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>USR003</td>
-                            <td>
-                                <div class="user-info">
-                                    <strong>Mike Johnson</strong><br>
-                                    <span class="user-role">Regular User</span>
-                                </div>
-                            </td>
-                            <td>
-                                <div class="contact-info">
-                                    mike.johnson@email.com<br>
-                                    +91 7654321098
-                                </div>
-                            </td>
-                            <td>05 Mar 2024</td>
-                            <td>3 bookings</td>
-                            <td><span class="status-badge pending">Inactive</span></td>
-                            <td><span class="status-badge pending">Unverified</span></td>
-                            <td>
-                                <div class="action-buttons">
-                                    <a href="#" class="btn-small">View Profile</a>
-                                    <a href="#" class="btn-small">Edit</a>
-                                    <a href="#" class="btn-small success">Activate</a>
-                                </div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>USR004</td>
-                            <td>
-                                <div class="user-info">
-                                    <strong>Sarah Wilson</strong><br>
-                                    <span class="user-role">Regular User</span>
-                                </div>
-                            </td>
-                            <td>
-                                <div class="contact-info">
-                                    sarah.wilson@email.com<br>
-                                    +91 6543210987
-                                </div>
-                            </td>
-                            <td>18 Mar 2024</td>
-                            <td>0 bookings</td>
-                            <td><span class="status-badge confirmed">Active</span></td>
-                            <td><span class="status-badge confirmed">Verified</span></td>
-                            <td>
-                                <div class="action-buttons">
-                                    <a href="#" class="btn-small">View Profile</a>
-                                    <a href="#" class="btn-small">Edit</a>
-                                    <a href="#" class="btn-small danger">Suspend</a>
-                                </div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>USR005</td>
-                            <td>
-                                <div class="user-info">
-                                    <strong>David Brown</strong><br>
-                                    <span class="user-role">Premium User</span>
-                                </div>
-                            </td>
-                            <td>
-                                <div class="contact-info">
-                                    david.brown@email.com<br>
-                                    +91 5432109876
-                                </div>
-                            </td>
-                            <td>30 Mar 2024</td>
-                            <td>25 bookings</td>
-                            <td><span class="status-badge cancelled">Suspended</span></td>
-                            <td><span class="status-badge confirmed">Verified</span></td>
-                            <td>
-                                <div class="action-buttons">
-                                    <a href="#" class="btn-small">View Profile</a>
-                                    <a href="#" class="btn-small">Edit</a>
-                                    <a href="#" class="btn-small success">Activate</a>
-                                </div>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-
-            <!-- Pagination -->
-            <div class="pagination">
-                <button class="btn-secondary">Previous</button>
-                <div class="page-numbers">
-                    <a href="#" class="active">1</a>
-                    <a href="#">2</a>
-                    <a href="#">3</a>
-                    <span>...</span>
-                    <a href="#">15</a>
-                </div>
-                <button class="btn-secondary">Next</button>
+                            </ItemTemplate>
+                        </asp:TemplateField>
+                    </Columns>
+                    <EmptyDataTemplate>
+                        <table class="admin-table">
+                            <tr>
+                                <td colspan="7" style="text-align: center; padding: 20px;">No users found.</td>
+                            </tr>
+                        </table>
+                    </EmptyDataTemplate>
+                </asp:GridView>
             </div>
         </div>
     </section>
@@ -268,7 +160,6 @@
             </div>
         </div>
     </footer>
-</body>
-</html> 
+    </form>
 </body>
 </html>

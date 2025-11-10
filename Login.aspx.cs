@@ -45,6 +45,10 @@ namespace busbookingwebsite
                     Session["user"] = txtEmail.Text;
                     Response.Redirect("Home.aspx");
                 }
+                else
+                {
+                    Response.Write("<script>alert('Invalid email or password. Please try again.');</script>");
+                }
 
 
                 //}

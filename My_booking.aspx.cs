@@ -20,8 +20,22 @@ namespace busbookingwebsite
 
         protected void Page_Load(object sender, EventArgs e)
         {
+            // Check if user is logged in
+            if (Session["user"] == null || string.IsNullOrEmpty(Session["user"].ToString()))
+            {
+                Response.Write("<script>alert('Please login first to view your bookings.'); window.location='Login.aspx';</script>");
+                return;
+            }
+
             if (!IsPostBack)
             {
+                // Check if payment was successful
+                string paymentStatus = Request.QueryString["payment"];
+                if (paymentStatus == "success")
+                {
+                    Response.Write("<script>alert('Payment successful! Your bookings have been confirmed.');</script>");
+                }
+
                 // Check if this is a booking summary redirect
                 string bookingIds = Request.QueryString["bookingId"];
                 string bookingRef = Request.QueryString["ref"];
@@ -52,7 +66,11 @@ namespace busbookingwebsite
                     {
                         con.Open();
 
-                        string query = "SELECT BookingReference, PassengerName, Age, Gender, Contact, Email, TravelDate, BusName, Route, DepartureTime, ArrivalTime, SelectedSeats, NumberOfSeats, Fare, TotalPrice, Status, PaymentStatus FROM Passengers ORDER BY Id DESC";
+                        // Get logged-in user's email from session
+                        string userEmail = Session["user"] != null ? Session["user"].ToString() : "";
+                        
+                        // Filter bookings by logged-in user's email
+                        string query = "SELECT BookingReference, PassengerName, Age, Gender, Contact, Email, TravelDate, BusName, Route, DepartureTime, ArrivalTime, SelectedSeats, NumberOfSeats, Fare, TotalPrice, Status, PaymentStatus FROM Passengers WHERE Email = '" + userEmail + "' ORDER BY Id DESC";
                         SqlDataAdapter da = new SqlDataAdapter(query, con);
                         DataTable dt = new DataTable();
                         da.Fill(dt);
@@ -200,7 +218,7 @@ namespace busbookingwebsite
 
         protected void gvBookings_SelectedIndexChanged(object sender, EventArgs e)
         {
-            // Example: Get selected row data
+            // Get selected row data
             GridViewRow row = gvBookings.SelectedRow;
             string bookingRef = row.Cells[0].Text; // Adjust index based on your column layout
 
@@ -233,12 +251,150 @@ namespace busbookingwebsite
                     }
 
                     fill_bookings_grid(); // Refresh the GridView and grand total
+                    
+                    // Show success message
+                    Response.Write("<script>alert('Seats updated successfully!');</script>");
                 }
             }
             catch (Exception ex)
             {
                 Response.Write("<script>alert('Error updating seats: " + ex.Message + "');</script>");
             }
+        }
+
+        protected void Btnpayment_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                // Collect all unpaid bookings and calculate total
+                List<string> bookingReferences = new List<string>();
+                decimal grandTotal = 0;
+
+                using (SqlConnection con = new SqlConnection(s))
+                {
+                    con.Open();
+
+                    foreach (GridViewRow row in gvBookings.Rows)
+                    {
+                        // Get booking reference
+                        string bookingRef = gvBookings.DataKeys[row.RowIndex].Values["BookingReference"].ToString();
+                        
+                        // Get amount from database (TotalPrice column)
+                        decimal amount = 0;
+                        string sql = "SELECT TotalPrice FROM Passengers WHERE BookingReference = '" + bookingRef + "'";
+                        SqlCommand cmd = new SqlCommand(sql, con);
+                        object result = cmd.ExecuteScalar();
+                        if (result != null)
+                        {
+                            decimal.TryParse(result.ToString(), out amount);
+                        }
+
+                        // Check if payment is pending
+                        // PaymentStatus is typically the second-to-last column (before Action)
+                        string paymentStatus = "";
+                        if (row.Cells.Count >= 2)
+                        {
+                            // Find PaymentStatus column (it's before the Action column)
+                            int paymentStatusIndex = -1;
+                            for (int i = 0; i < row.Cells.Count; i++)
+                            {
+                                if (row.Cells[i].Text.Contains("Pending") || row.Cells[i].Text.Contains("Paid") || 
+                                    row.Cells[i].Text.Contains("Unpaid"))
+                                {
+                                    paymentStatus = row.Cells[i].Text;
+                                    paymentStatusIndex = i;
+                                    break;
+                                }
+                            }
+                            
+                            // If not found by text, try to get from database
+                            if (string.IsNullOrEmpty(paymentStatus))
+                            {
+                                sql = "SELECT PaymentStatus FROM Passengers WHERE BookingReference = '" + bookingRef + "'";
+                                cmd = new SqlCommand(sql, con);
+                                result = cmd.ExecuteScalar();
+                                if (result != null)
+                                {
+                                    paymentStatus = result.ToString();
+                                }
+                            }
+                        }
+
+                        if (paymentStatus.ToLower() == "pending" || paymentStatus.ToLower() == "unpaid")
+                        {
+                            bookingReferences.Add(bookingRef);
+                            grandTotal += amount;
+                        }
+                    }
+                }
+
+                if (bookingReferences.Count == 0)
+                {
+                    Response.Write("<script>alert('No pending payments found. All bookings are already paid.');</script>");
+                    return;
+                }
+
+                // Redirect to payment page with booking references and total amount
+                string bookingRefs = string.Join(",", bookingReferences);
+                Response.Redirect("Payment.aspx?bookingRefs=" + Server.UrlEncode(bookingRefs) + "&total=" + grandTotal.ToString("0.00"));
+            }
+            catch (Exception ex)
+            {
+                Response.Write("<script>alert('Error processing payment: " + ex.Message + "');</script>");
+            }
+        }
+
+        private void ProcessPayment(List<string> bookingReferences, decimal totalAmount)
+        {
+            try
+            {
+                // Simulate payment processing
+                // In real application, integrate with payment gateway (Razorpay, PayU, etc.)
+                
+                bool paymentSuccess = SimulatePaymentGateway(totalAmount);
+
+                if (paymentSuccess)
+                {
+                    // Update payment status in database
+                    using (SqlConnection con = new SqlConnection(s))
+                    {
+                        con.Open();
+
+                        foreach (string bookingRef in bookingReferences)
+                        {
+                            // Update payment status to "Paid"
+                            string sql = "UPDATE Passengers SET PaymentStatus = 'Paid' WHERE BookingReference = '" + bookingRef + "'";
+                            SqlCommand cmd = new SqlCommand(sql, con);
+                            cmd.ExecuteNonQuery();
+                        }
+                    }
+
+                    fill_bookings_grid(); // Refresh the GridView
+                    Response.Write("<script>alert('Payment successful! Total amount paid: ₹" + totalAmount.ToString("0.00") + "');</script>");
+                }
+                else
+                {
+                    Response.Write("<script>alert('Payment failed. Please try again.');</script>");
+                }
+            }
+            catch (Exception ex)
+            {
+                Response.Write("<script>alert('Error processing payment: " + ex.Message + "');</script>");
+            }
+        }
+
+        private bool SimulatePaymentGateway(decimal amount)
+        {
+            // Simulate payment gateway response
+            // In real application, replace this with actual payment gateway integration
+            
+            // For demo: Always return true (simulate success)
+            // In production, integrate with Razorpay, PayU, Stripe, etc.
+            
+            System.Threading.Thread.Sleep(1000); // Simulate processing delay
+            
+            // Return true for successful payment (change logic as needed)
+            return true;
         }
     }
 }

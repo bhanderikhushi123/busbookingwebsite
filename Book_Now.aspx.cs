@@ -17,6 +17,13 @@ namespace busbookingwebsite
 
         protected void Page_Load(object sender, EventArgs e)
         {
+            // Check if user is logged in
+            if (Session["user"] == null || string.IsNullOrEmpty(Session["user"].ToString()))
+            {
+                Response.Write("<script>alert('Please login first to book tickets.'); window.location='Login.aspx';</script>");
+                return;
+            }
+
             if (!IsPostBack)
             {
                 txtTravelDate.Text = DateTime.Now.AddDays(1).ToString("yyyy-MM-dd");
@@ -84,19 +91,61 @@ namespace busbookingwebsite
                 string dep = esc(txtDepTime.Text);
                 string arr = esc(txtArrTime.Text);
                 string status = esc("Confirmed");
-                string paymentStatus = esc("Paid");
+                string paymentStatus = esc("Pending");
+
+                // Get logged-in user's email from session
+                string loggedInUserEmail = Session["user"] != null ? Session["user"].ToString() : "";
 
                 //enter 3 passenger details
                 string[] names = new string[] { txtPassengerName1.Text, txtPassengerName2?.Text ?? string.Empty, txtPassengerName3?.Text ?? string.Empty };
                 string[] ages = new string[] { txtAge1.Text, txtAge2?.Text ?? string.Empty, txtAge3?.Text ?? string.Empty };
                 string[] genders = new string[] { ddlGender1.SelectedValue, ddlGender2?.SelectedValue ?? string.Empty, ddlGender3?.SelectedValue ?? string.Empty };
                 string[] contacts = new string[] { txtContact1.Text, txtContact2?.Text ?? string.Empty, txtContact3?.Text ?? string.Empty };
-                string[] emails = new string[] { txtEmail1.Text, txtEmail2?.Text ?? string.Empty, txtEmail3?.Text ?? string.Empty };
+                // Always use logged-in user's email for first passenger to associate booking with user
+                // For other passengers, use their email if provided, otherwise use logged-in user's email
+                string[] emails = new string[] { 
+                    loggedInUserEmail, // First passenger always uses logged-in user's email
+                    string.IsNullOrWhiteSpace(txtEmail2?.Text) ? loggedInUserEmail : (txtEmail2?.Text ?? string.Empty), 
+                    string.IsNullOrWhiteSpace(txtEmail3?.Text) ? loggedInUserEmail : (txtEmail3?.Text ?? string.Empty) 
+                };
 
-                // Simple seat assignment
+                // Get selected seats from CheckBoxList or generate seat codes
                 List<string> seatCodes = new List<string>();
-                for (int i = 1; i <= numberOfSeats; i++)
-                    seatCodes.Add("Seat " + i);
+                
+                // Check if seat selection is enabled and seats are selected
+                if (chkUseSeatLayout != null && chkUseSeatLayout.Checked && chkSeats != null)
+                {
+                    // Get selected seats from CheckBoxList
+                    foreach (ListItem item in chkSeats.Items)
+                    {
+                        if (item.Selected)
+                        {
+                            seatCodes.Add(item.Value); // S1, S2, S3, etc.
+                        }
+                    }
+                    
+                    // If no seats selected but seat layout is enabled, generate default seats
+                    if (seatCodes.Count == 0)
+                    {
+                        for (int i = 1; i <= numberOfSeats; i++)
+                            seatCodes.Add("S" + i);
+                    }
+                }
+                else
+                {
+                    // Auto-assign seats: S1, S2, S3, etc.
+                    for (int i = 1; i <= numberOfSeats; i++)
+                        seatCodes.Add("S" + i);
+                }
+
+                // Ensure we have enough seat codes for the number of seats
+                while (seatCodes.Count < numberOfSeats)
+                {
+                    seatCodes.Add("S" + (seatCodes.Count + 1));
+                }
+
+                // Create comma-separated string of all selected seats
+                string allSelectedSeats = string.Join(", ", seatCodes.Take(numberOfSeats));
 
                 getcon();
                 int totalInserted = 0;
@@ -114,7 +163,10 @@ namespace busbookingwebsite
                     string gender = esc(genderRaw);
                     string contact = esc(contactRaw);
                     string email = esc(emailRaw);
-                    string selectedSeat = esc(seatCodes[i]);
+                    
+                    // Store all selected seats for each passenger record (for display in My Bookings)
+                    // This way, all records will show the complete seat list
+                    string selectedSeat = esc(allSelectedSeats);
 
                     string sql = "INSERT INTO Passengers (PassengerName, Age, Gender, Contact, Email, TravelDate, NumberOfSeats, BusName, Route, Fare, TotalPrice, DepartureTime, ArrivalTime, SelectedSeats, BookingReference, Status, PaymentStatus) " +
                                  "VALUES ('" + passengerName + "', " + ageValue + ", '" + gender + "', '" + contact + "', '" + email + "', '" + travelDate + "', " + numberOfSeats + ", '" + busName + "', '" + route + "', " +

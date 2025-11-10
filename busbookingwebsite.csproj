@@ -104,6 +104,7 @@
     <Content Include="login.html" />
     <Content Include="my-bookings.html" />
     <Content Include="My_booking.aspx" />
+    <Content Include="Payment.aspx" />
     <Content Include="payment.html" />
     <Content Include="Register.aspx" />
     <Content Include="register.html" />
@@ -216,6 +217,13 @@
     </Compile>
     <Compile Include="My_booking.aspx.designer.cs">
       <DependentUpon>My_booking.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Payment.aspx.cs">
+      <DependentUpon>Payment.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Payment.aspx.designer.cs">
+      <DependentUpon>Payment.aspx</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Register.aspx.cs">

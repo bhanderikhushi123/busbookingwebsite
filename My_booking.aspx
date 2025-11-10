@@ -409,16 +409,23 @@
                                 <asp:BoundField DataField="NumberOfSeats" HeaderText="Seats" />
                                 <asp:TemplateField HeaderText="Update Seats">
                                     <ItemTemplate>
-                                        <asp:TextBox ID="txtUpdateSeat" runat="server" Text='<%# Eval("NumberOfSeats") %>' Width="50px" />
+                                        <asp:TextBox ID="txtUpdateSeat" runat="server" Text='<%# Eval("NumberOfSeats") %>' Width="50px" 
+                                            onchange="updateAmount(this)" data-fare='<%# Eval("Fare") %>' 
+                                            data-original-seats='<%# Eval("NumberOfSeats") %>' />
                                     </ItemTemplate>
                                 </asp:TemplateField>
                                 <asp:BoundField DataField="BusName" HeaderText="Route" />
                                 <asp:BoundField DataField="Fare" HeaderText="Fare">
                                     <ItemStyle HorizontalAlign="Right" />
                                 </asp:BoundField>
-                                <asp:BoundField DataField="TotalPrice" HeaderText="Amount">
+                                <asp:TemplateField HeaderText="Amount">
+                                    <ItemTemplate>
+                                        <span class="amount-cell" data-fare='<%# Eval("Fare") %>' data-seats='<%# Eval("NumberOfSeats") %>'>
+                                            <%# Eval("TotalPrice", "{0:F2}") %>
+                                        </span>
+                                    </ItemTemplate>
                                     <ItemStyle HorizontalAlign="Right" />
-                                </asp:BoundField>
+                                </asp:TemplateField>
                                 <asp:BoundField DataField="Status" HeaderText="Status" />
                                 <asp:BoundField DataField="PaymentStatus" HeaderText="Payment" />
                                 <asp:TemplateField HeaderText="Action">
@@ -434,9 +441,72 @@
                         Style="font-size: 18px; font-weight: bold; color: #2E8B57; margin-top: 10px;" />
 
                     <br />
-                    <asp:Button ID="Btnupdate" runat="server" Text="UPDATE" />
+                    <asp:Button ID="Btnupdate" runat="server" Text="UPDATE" OnClick="Btnupdate_Click" />
                     <br />
-                    <asp:Button ID="Btnpayment" runat="server" Text="PAYMENT" />
+                    <asp:Button ID="Btnpayment" runat="server" Text="PAYMENT" OnClick="Btnpayment_Click" />
+                    
+                    <script type="text/javascript">
+                        function updateAmount(input) {
+                            var row = input.closest('tr');
+                            var fare = parseFloat(input.getAttribute('data-fare')) || 0;
+                            var seats = parseInt(input.value) || 0;
+                            
+                            // Validate seats input
+                            if (seats <= 0) {
+                                alert('Number of seats must be greater than 0');
+                                input.value = input.getAttribute('data-original-seats') || '1';
+                                return;
+                            }
+                            
+                            // Calculate new amount
+                            var newAmount = fare * seats;
+                            
+                            // Find the amount cell in the same row
+                            var amountCell = row.querySelector('.amount-cell');
+                            if (amountCell) {
+                                // Update the amount cell
+                                amountCell.textContent = newAmount.toFixed(2);
+                                amountCell.setAttribute('data-seats', seats);
+                                
+                                // Update grand total
+                                updateGrandTotal();
+                            }
+                        }
+                        
+                        function updateGrandTotal() {
+                            var total = 0;
+                            var amountCells = document.querySelectorAll('.amount-cell');
+                            
+                            amountCells.forEach(function(cell) {
+                                var amount = parseFloat(cell.textContent) || 0;
+                                total += amount;
+                            });
+                            
+                            // Update the grand total label
+                            var lblTotal = document.getElementById('<%= lblTotalPrice.ClientID %>');
+                            if (lblTotal) {
+                                lblTotal.textContent = 'Grand Total: ₹' + total.toFixed(2);
+                            }
+                        }
+                        
+                        // Initialize on page load
+                        if (window.addEventListener) {
+                            window.addEventListener('load', function() {
+                                updateGrandTotal();
+                                // Store original seat values for validation
+                                var seatInputs = document.querySelectorAll('[id*="txtUpdateSeat"]');
+                                seatInputs.forEach(function(input) {
+                                    if (!input.getAttribute('data-original-seats')) {
+                                        input.setAttribute('data-original-seats', input.value);
+                                    }
+                                });
+                            });
+                        } else if (window.attachEvent) {
+                            window.attachEvent('onload', function() {
+                                updateGrandTotal();
+                            });
+                        }
+                    </script>
                     <!-- No bookings message -->
                     <asp:Panel ID="pnlNoBookings" runat="server" Visible="false">
                         <div class="no-bookings">
