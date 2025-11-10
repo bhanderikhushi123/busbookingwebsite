@@ -15,33 +15,6 @@ namespace busbookingwebsite
     {
 
         /// <summary>
-        /// Content1 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Content Content1;
-
-        /// <summary>
-        /// Content5 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Content Content5;
-
-        /// <summary>
-        /// Content6 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Content Content6;
-
-        /// <summary>
         /// lblTotalAmount control.
         /// </summary>
         /// <remarks>
@@ -166,15 +139,5 @@ namespace busbookingwebsite
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lblGrandTotal;
-
-        /// <summary>
-        /// Content7 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Content Content7;
     }
 }
-
