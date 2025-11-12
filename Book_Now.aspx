@@ -43,6 +43,10 @@
             grid-column: span 12;
         }
 
+        .col-10 {
+            grid-column: span 10;
+        }
+
         .col-6 {
             grid-column: span 6;
         }
@@ -55,8 +59,12 @@
             grid-column: span 3;
         }
 
+        .col-2 {
+            grid-column: span 2;
+        }
+
         @media (max-width: 768px) {
-            .col-6, .col-4, .col-3 {
+            .col-10, .col-6, .col-4, .col-3, .col-2 {
                 grid-column: span 12;
             }
         }
@@ -368,6 +376,106 @@
             padding: 10px 12px;
             border-radius: 6px;
         }
+
+        /* Number of Seats Section Styling */
+        .seats-section {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .seats-control {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 10px;
+            width: 100%;
+        }
+
+        .seats-button {
+            background: #ffcc00;
+            border: none;
+            padding: 10px 12px;
+            border-radius: 6px;
+            cursor: pointer;
+            width: 100%;
+            font-size: 18px;
+            font-weight: bold;
+            color: #000;
+            transition: all 0.2s ease;
+            min-height: 40px;
+        }
+
+            .seats-button:hover {
+                background: #e6b800;
+                transform: scale(1.05);
+            }
+
+            .seats-button:active {
+                transform: scale(0.95);
+            }
+
+        .seats-input {
+            width: 100%;
+            text-align: center;
+            font-size: 24px;
+            font-weight: bold;
+            padding: 12px;
+            border: 2px solid #ffcc00;
+            border-radius: 6px;
+            background: #fff;
+        }
+
+        /* Enable Seat Selection Styling */
+        .seat-selection-container {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 15px 20px;
+            background: #f7f9fc;
+            border-radius: 6px;
+            border: 1px solid #e8e8e8;
+            margin-top: 10px;
+        }
+
+            .seat-selection-container label {
+                margin: 0;
+                font-weight: 600;
+                cursor: pointer;
+                flex-shrink: 0;
+            }
+
+            .seat-selection-container input[type="checkbox"] {
+                width: auto;
+                margin: 0;
+                cursor: pointer;
+            }
+
+            .seat-selection-container .muted {
+                margin-left: auto;
+            }
+
+        /* Responsive adjustments for passenger forms */
+        @media (max-width: 768px) {
+            .passenger-form {
+                padding: 20px;
+            }
+
+            .seats-section {
+                margin-top: 20px;
+            }
+
+            .seat-selection-container {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 8px;
+            }
+
+                .seat-selection-container .muted {
+                    margin-left: 0;
+                }
+        }
     </style>
     <script>
         function param(name) {
@@ -525,6 +633,21 @@
             var seatsEl = document.getElementById('<%= txtNumSeats.ClientID %>');
             if (seatsEl) { seatsEl.addEventListener('input', updateTotal); }
 
+            // Set minimum date to today (prevents selecting past dates)
+            var travelDateEl = document.getElementById('<%= txtTravelDate.ClientID %>');
+            if (travelDateEl) {
+                var today = new Date();
+                var todayString = today.getFullYear() + '-' + 
+                    String(today.getMonth() + 1).padStart(2, '0') + '-' + 
+                    String(today.getDate()).padStart(2, '0');
+                travelDateEl.setAttribute('min', todayString);
+                
+                // If no value is set, set it to today
+                if (!travelDateEl.value) {
+                    travelDateEl.value = todayString;
+                }
+            }
+
             // Add event listener for seat layout checkbox
             var seatLayoutCheckbox = document.getElementById('<%= chkUseSeatLayout.ClientID %>');
             if (seatLayoutCheckbox) {
@@ -614,8 +737,8 @@
                             <div class="note">Please fill in details for each passenger. All fields are required.</div>
                         </div>
 
-                        <!-- Dynamic Passenger Forms -->
-                        <div id="passengerFormsContainer">
+                        <!-- Passenger Details and Number of Seats Row -->
+                        <div class="col-10" id="passengerFormsContainer">
                             <!-- Passenger 1 (Always visible) -->
                             <div class="passenger-form" id="passengerForm1">
                                 <div class="passenger-header">
@@ -776,13 +899,13 @@
                             </div>
                         </div>
 
-                        <!-- Seats and Optional Seat Selection -->
-                        <div class="col-4">
+                        <!-- Number of Seats -->
+                        <div class="col-2">
                             <label>Number of Seats</label>
-                            <div style="display: flex; align-items: center; gap: 10px;">
-                                <button type="button" onclick="updateSeatQuantity(document.getElementById('<%= txtNumSeats.ClientID %>'), -1)" style="background: #ffcc00; border: none; padding: 8px 12px; border-radius: 4px; cursor: pointer;">-</button>
-                                <asp:TextBox ID="txtNumSeats" runat="server" CssClass="form-control" TextMode="Number" Text="1" min="1" max="10" onchange="updateTotal()" Style="width: 80px; text-align: center;"></asp:TextBox>
-                                <button type="button" onclick="updateSeatQuantity(document.getElementById('<%= txtNumSeats.ClientID %>'), 1)" style="background: #ffcc00; border: none; padding: 8px 12px; border-radius: 4px; cursor: pointer;">+</button>
+                            <div style="display: flex; flex-direction: column; align-items: center; gap: 10px;">
+                                <button type="button" onclick="updateSeatQuantity(document.getElementById('<%= txtNumSeats.ClientID %>'), 1)" style="background: #ffcc00; border: none; padding: 8px 12px; border-radius: 4px; cursor: pointer; width: 100%; font-size: 16px; font-weight: bold;">+</button>
+                                <asp:TextBox ID="txtNumSeats" runat="server" CssClass="form-control" TextMode="Number" Text="1" min="1" max="10" onchange="updateTotal()" Style="width: 100%; text-align: center; font-size: 18px; font-weight: bold;"></asp:TextBox>
+                                <button type="button" onclick="updateSeatQuantity(document.getElementById('<%= txtNumSeats.ClientID %>'), -1)" style="background: #ffcc00; border: none; padding: 8px 12px; border-radius: 4px; cursor: pointer; width: 100%; font-size: 16px; font-weight: bold;">-</button>
                             </div>
                             <asp:RequiredFieldValidator ID="rfvNumSeats" runat="server" ControlToValidate="txtNumSeats"
                                 ErrorMessage="Number of seats is required" CssClass="error-message" Display="Dynamic"></asp:RequiredFieldValidator>
@@ -790,12 +913,13 @@
                                 ErrorMessage="Number of seats must be between 1 and 10" CssClass="error-message" Display="Dynamic"
                                 MinimumValue="1" MaximumValue="10" Type="Integer"></asp:RangeValidator>
                         </div>
-                        <div class="col-8" style="align-self: end;">
-                            <div class="row">
-                                <label style="margin: 0;">
-                                    <asp:CheckBox ID="chkUseSeatLayout" runat="server" Text="Enable Seat Selection" />
-                                </label>
-                                <span class="muted">If off, seats will be auto-assigned.</span>
+
+                        <!-- Enable Seat Selection (Next Line) -->
+                        <div class="col-12">
+                            <div style="display: flex; align-items: center; gap: 10px; padding: 15px; background: #f7f9fc; border-radius: 6px; border: 1px solid #e8e8e8;">
+                                <asp:CheckBox ID="chkUseSeatLayout" runat="server" />
+                                <label for="<%= chkUseSeatLayout.ClientID %>" style="margin: 0; font-weight: 600; cursor: pointer;">Enable Seat Selection</label>
+                                <span class="muted" style="margin-left: auto;">If off, seats will be auto-assigned.</span>
                             </div>
                         </div>
 

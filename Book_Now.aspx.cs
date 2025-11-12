@@ -26,9 +26,17 @@ namespace busbookingwebsite
 
             if (!IsPostBack)
             {
-                txtTravelDate.Text = DateTime.Now.AddDays(1).ToString("yyyy-MM-dd");
+                // Set default date to today
+                txtTravelDate.Text = DateTime.Now.ToString("yyyy-MM-dd");
+                // Set minimum date to today (prevents selecting past dates)
+                txtTravelDate.Attributes.Add("min", DateTime.Now.ToString("yyyy-MM-dd"));
                 LoadBusDataFromQuery();
                 //TestDatabaseConnection();
+            }
+            else
+            {
+                // Ensure min date is always set on postback to prevent past date selection
+                txtTravelDate.Attributes.Add("min", DateTime.Now.ToString("yyyy-MM-dd"));
             }
         }
 
