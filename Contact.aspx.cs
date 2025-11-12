@@ -13,5 +13,11 @@ namespace busbookingwebsite
         {
 
         }
+
+        protected void btnSendMessage_Click(object sender, EventArgs e)
+        {
+            // Placeholder for form submission logic (e.g., send email, save to database)
+            // For now, you can handle the collected data here using the server controls' values.
+        }
     }
 }

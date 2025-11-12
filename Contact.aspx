@@ -84,49 +84,63 @@
                 <!-- Contact Form -->
                 <div class="contact-form-container">
                     <h3>Send us a Message</h3>
-                    <form class="contact-form" action="#">
+                    <div class="contact-form">
                         <div class="form-row">
                             <div class="form-group">
-                                <label for="firstName">First Name</label>
-                                <input type="text" id="firstName" name="firstName" placeholder="Enter your first name" required>
+                                <asp:Label ID="lblFirstName" runat="server" AssociatedControlID="txtFirstName" Text="First Name"></asp:Label>
+                                <asp:TextBox ID="txtFirstName" runat="server" CssClass="input-control" placeholder="Enter your first name"></asp:TextBox>
+                                <asp:RequiredFieldValidator ID="rfvFirstName" runat="server" ControlToValidate="txtFirstName"
+                                    ErrorMessage="First name is required." CssClass="validation-error" Display="Dynamic"></asp:RequiredFieldValidator>
                             </div>
                             <div class="form-group">
-                                <label for="lastName">Last Name</label>
-                                <input type="text" id="lastName" name="lastName" placeholder="Enter your last name" required>
+                                <asp:Label ID="lblLastName" runat="server" AssociatedControlID="txtLastName" Text="Last Name"></asp:Label>
+                                <asp:TextBox ID="txtLastName" runat="server" CssClass="input-control" placeholder="Enter your last name"></asp:TextBox>
+                                <asp:RequiredFieldValidator ID="rfvLastName" runat="server" ControlToValidate="txtLastName"
+                                    ErrorMessage="Last name is required." CssClass="validation-error" Display="Dynamic"></asp:RequiredFieldValidator>
                             </div>
                         </div>
-                        
+
                         <div class="form-row">
                             <div class="form-group">
-                                <label for="email">Email Address</label>
-                                <input type="email" id="email" name="email" placeholder="Enter your email" required>
+                                <asp:Label ID="lblEmail" runat="server" AssociatedControlID="txtEmail" Text="Email Address"></asp:Label>
+                                <asp:TextBox ID="txtEmail" runat="server" CssClass="input-control" placeholder="Enter your email"></asp:TextBox>
+                                <asp:RequiredFieldValidator ID="rfvEmail" runat="server" ControlToValidate="txtEmail"
+                                    ErrorMessage="Email is required." CssClass="validation-error" Display="Dynamic"></asp:RequiredFieldValidator>
+                                <asp:RegularExpressionValidator ID="revEmail" runat="server" ControlToValidate="txtEmail"
+                                    ValidationExpression="^[^@\s]+@[^@\s]+\.[^@\s]+$" ErrorMessage="Enter a valid email address."
+                                    CssClass="validation-error" Display="Dynamic"></asp:RegularExpressionValidator>
                             </div>
                             <div class="form-group">
-                                <label for="phone">Phone Number</label>
-                                <input type="tel" id="phone" name="phone" placeholder="Enter your phone number">
+                                <asp:Label ID="lblPhone" runat="server" AssociatedControlID="txtPhone" Text="Phone Number"></asp:Label>
+                                <asp:TextBox ID="txtPhone" runat="server" CssClass="input-control" placeholder="Enter your phone number"></asp:TextBox>
                             </div>
                         </div>
-                        
+
                         <div class="form-group">
-                            <label for="subject">Subject</label>
-                            <select id="subject" name="subject" required>
-                                <option value="">Select a subject</option>
-                                <option value="booking">Booking Inquiry</option>
-                                <option value="cancellation">Cancellation Request</option>
-                                <option value="refund">Refund Request</option>
-                                <option value="complaint">Complaint</option>
-                                <option value="suggestion">Suggestion</option>
-                                <option value="other">Other</option>
-                            </select>
+                            <asp:Label ID="lblSubject" runat="server" AssociatedControlID="ddlSubject" Text="Subject"></asp:Label>
+                            <asp:DropDownList ID="ddlSubject" runat="server" CssClass="input-control">
+                                <asp:ListItem Value="">Select a subject</asp:ListItem>
+                                <asp:ListItem Value="booking">Booking Inquiry</asp:ListItem>
+                                <asp:ListItem Value="cancellation">Cancellation Request</asp:ListItem>
+                                <asp:ListItem Value="refund">Refund Request</asp:ListItem>
+                                <asp:ListItem Value="complaint">Complaint</asp:ListItem>
+                                <asp:ListItem Value="suggestion">Suggestion</asp:ListItem>
+                                <asp:ListItem Value="other">Other</asp:ListItem>
+                            </asp:DropDownList>
+                            <asp:RequiredFieldValidator ID="rfvSubject" runat="server" ControlToValidate="ddlSubject"
+                                InitialValue="" ErrorMessage="Please select a subject." CssClass="validation-error" Display="Dynamic"></asp:RequiredFieldValidator>
                         </div>
-                        
+
                         <div class="form-group">
-                            <label for="message">Message</label>
-                            <textarea id="message" name="message" rows="5" placeholder="Tell us how we can help you..." required></textarea>
+                            <asp:Label ID="lblMessage" runat="server" AssociatedControlID="txtMessage" Text="Message"></asp:Label>
+                            <asp:TextBox ID="txtMessage" runat="server" CssClass="input-control" TextMode="MultiLine" Rows="5"
+                                placeholder="Tell us how we can help you..."></asp:TextBox>
+                            <asp:RequiredFieldValidator ID="rfvMessage" runat="server" ControlToValidate="txtMessage"
+                                ErrorMessage="Message is required." CssClass="validation-error" Display="Dynamic"></asp:RequiredFieldValidator>
                         </div>
-                        
-                        <button type="submit" class="btn-primary">Send Message</button>
-                    </form>
+
+                        <asp:Button ID="btnSendMessage" runat="server" Text="Send Message" CssClass="btn-primary" OnClick="btnSendMessage_Click" />
+                    </div>
                 </div>
             </div>
 

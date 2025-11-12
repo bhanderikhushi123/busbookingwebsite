@@ -99,16 +99,11 @@
                                 <asp:BoundField DataField="TotalPrice" HeaderText="Amount" DataFormatString="₹{0:N2}" ItemStyle-Width="100px" ItemStyle-HorizontalAlign="Right" />
                                 <asp:BoundField DataField="Status" HeaderText="Status" ItemStyle-Width="100px" />
                                 <asp:BoundField DataField="PaymentStatus" HeaderText="Payment" ItemStyle-Width="100px" />
-                                <asp:TemplateField HeaderText="Action" ItemStyle-Width="80px">
-                                    <ItemTemplate>
-                                        <a href="#" class="btn-small">View</a>
-                                    </ItemTemplate>
-                                </asp:TemplateField>
                             </Columns>
                             <EmptyDataTemplate>
                                 <table class="admin-table">
                                     <tr>
-                                        <td colspan="8" style="text-align: center; padding: 20px;">No recent bookings found.</td>
+                                        <td colspan="7" style="text-align: center; padding: 20px;">No recent bookings found.</td>
                                     </tr>
                                 </table>
                             </EmptyDataTemplate>

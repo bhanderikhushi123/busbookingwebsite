@@ -107,12 +107,9 @@
                                 <span class="status-badge confirmed">Verified</span>
                             </ItemTemplate>
                         </asp:TemplateField>
-                        <asp:TemplateField HeaderText="Actions" ItemStyle-Width="200px">
+                        <asp:TemplateField HeaderText="Actions" ItemStyle-Width="150px">
                             <ItemTemplate>
                                 <div class="action-buttons">
-                                    <a href="#" class="btn-small">View Profile</a>
-                                    <asp:LinkButton ID="lnkEdit" runat="server" CssClass="btn-small" 
-                                        CommandArgument='<%# Eval("Id") %>' CommandName="EditUser">Edit</asp:LinkButton>
                                     <asp:LinkButton ID="lnkDelete" runat="server" CssClass="btn-small danger" 
                                         CommandArgument='<%# Eval("Id") %>' CommandName="DeleteUser" 
                                         OnClientClick="return confirm('Are you sure you want to delete this user?');">Delete</asp:LinkButton>

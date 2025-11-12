@@ -96,11 +96,9 @@
                         <asp:BoundField DataField="TotalPrice" HeaderText="Amount" DataFormatString="₹{0:N2}" ItemStyle-Width="100px" ItemStyle-HorizontalAlign="Right" />
                         <asp:BoundField DataField="Status" HeaderText="Status" ItemStyle-Width="100px" />
                         <asp:BoundField DataField="PaymentStatus" HeaderText="Payment" ItemStyle-Width="100px" />
-                        <asp:TemplateField HeaderText="Actions" ItemStyle-Width="150px">
+                        <asp:TemplateField HeaderText="Actions" ItemStyle-Width="120px">
                             <ItemTemplate>
                                 <div class="action-buttons">
-                                    <a href="#" class="btn-small">View</a>
-                                    <a href="#" class="btn-small">Edit</a>
                                     <asp:LinkButton ID="lnkCancel" runat="server" CssClass="btn-small danger" 
                                         CommandArgument='<%# Eval("BookingReference") %>' 
                                         OnClick="lnkCancel_Click" OnClientClick="return confirm('Are you sure you want to cancel this booking?');">Cancel</asp:LinkButton>
