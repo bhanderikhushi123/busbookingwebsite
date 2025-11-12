@@ -84,6 +84,7 @@
                 <!-- Contact Form -->
                 <div class="contact-form-container">
                     <h3>Send us a Message</h3>
+                    <asp:ValidationSummary ID="ValidationSummary1" runat="server" CssClass="validation-summary" DisplayMode="BulletList" ShowMessageBox="false" ShowSummary="true" />
                     <div class="contact-form">
                         <div class="form-row">
                             <div class="form-group">
@@ -139,6 +140,7 @@
                                 ErrorMessage="Message is required." CssClass="validation-error" Display="Dynamic"></asp:RequiredFieldValidator>
                         </div>
 
+                        <asp:Label ID="lblMessageStatus" runat="server" CssClass="message-status" Visible="false"></asp:Label>
                         <asp:Button ID="btnSendMessage" runat="server" Text="Send Message" CssClass="btn-primary" OnClick="btnSendMessage_Click" />
                     </div>
                 </div>
