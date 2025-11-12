@@ -24,8 +24,6 @@
                         <li><a href="Admin_buses.aspx">Buses</a></li>
                         <li><a href="Admin_routes.aspx">Routes</a></li>
                         <li><a href="Admin_users.aspx">Users</a></li>
-                        <li><a href="Admin_report.aspx">Reports</a></li>
-                        <li><a href="Admin_setting.aspx">Settings</a></li>
                         <li><a href="Admin_login.aspx" class="logout">Logout</a></li>
                     </ul>
                 </nav>
@@ -144,18 +142,6 @@
                             <div class="action-icon">👥</div>
                             <h4>Manage Users</h4>
                             <p>View and manage user accounts</p>
-                        </a>
-                        
-                        <a href="Admin_report.aspx" class="action-card">
-                            <div class="action-icon">📊</div>
-                            <h4>Generate Reports</h4>
-                            <p>Create detailed reports and analytics</p>
-                        </a>
-                        
-                        <a href="Admin-setting.aspx" class="action-card">
-                            <div class="action-icon">⚙️</div>
-                            <h4>System Settings</h4>
-                            <p>Configure system preferences</p>
                         </a>
                     </div>
                 </div>

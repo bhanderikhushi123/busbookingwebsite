@@ -159,8 +159,6 @@
                         <li><a href="Admin_buses.aspx" class="active">Buses</a></li>
                         <li><a href="Admin_routes.aspx">Routes</a></li>
                         <li><a href="Admin_users.aspx">Users</a></li>
-                        <li><a href="Admin_report.aspx">Reports</a></li>
-                        <li><a href="Admin_setting.aspx">Settings</a></li>
                         <li><a href="Admin_login.aspx" class="logout">Logout</a></li>
                     </ul>
                 </nav>
